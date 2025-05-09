@@ -1,3 +1,6 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+
+def freelancers_list(request):
+    return render(request, 'freelancers/freelancers_list.html')

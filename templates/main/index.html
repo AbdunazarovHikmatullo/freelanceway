@@ -1,7 +1,348 @@
-{% extends  "base/base.html" %}
+{% extends "base/base.html" %}
 {% load static %}
 
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'main/css/index.css' %}">
+{% endblock %}
 
 {% block content %}
-    {% include 'base/dev.html' %}
+    <!-- Герой-секция -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Найдите лучших фрилансеров для вашего проекта</h1>
+                <p class="hero-description">FreelanceWay соединяет талантливых специалистов и заказчиков для успешной реализации проектов</p>
+                
+                <div class="hero-search">
+                    <input type="text" placeholder="Что вам нужно сделать?">
+                    <button type="button">Найти</button>
+                </div>
+                
+                <div class="btn-group">
+                    <a href="/projects/create" class="btn btn-primary">Разместить проект</a>
+                    <a href="{% url 'freelancers_list' %}" class="btn btn-outline">Найти фрилансера</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Категории -->
+    <section class="categories section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Популярные категории</h2>
+                <p class="text-muted">Найдите специалистов в различных областях</p>
+            </div>
+            
+            <div class="grid grid-4">
+                <div class="category-card">
+                    <span class="material-symbols-outlined category-icon">code</span>
+                    <h3 class="category-title">Разработка</h3>
+                    <p class="category-count">1,245 специалистов</p>
+                </div>
+                <div class="category-card">
+                    <span class="material-symbols-outlined category-icon">brush</span>
+                    <h3 class="category-title">Дизайн</h3>
+                    <p class="category-count">987 специалистов</p>
+                </div>
+                <div class="category-card">
+                    <span class="material-symbols-outlined category-icon">edit</span>
+                    <h3 class="category-title">Копирайтинг</h3>
+                    <p class="category-count">756 специалистов</p>
+                </div>
+                <div class="category-card">
+                    <span class="material-symbols-outlined category-icon">trending_up</span>
+                    <h3 class="category-title">Маркетинг</h3>
+                    <p class="category-count">543 специалистов</p>
+                </div>
+            </div>
+            
+            <div class="view-all">
+                <a href="/categories" class="btn btn-outline">Все категории</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Проекты -->
+    <section class="projects section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Актуальные проекты</h2>
+                <p class="text-muted">Найдите интересные проекты для работы</p>
+            </div>
+            
+            <div class="grid grid-3">
+                <div class="project-card">
+                    <div class="project-header">
+                        <span class="project-badge">Разработка</span>
+                        <h3 class="project-title">Разработка мобильного приложения для доставки еды</h3>
+                        <div class="project-price">₽80,000 - ₽120,000</div>
+                    </div>
+                    <div class="project-body">
+                        <p class="project-description">Требуется разработать мобильное приложение для доставки еды с функциями заказа, отслеживания и оплаты. Необходим опыт работы с React Native.</p>
+                        <div class="project-meta">
+                            <div class="project-meta-item">
+                                <span class="material-symbols-outlined">schedule</span>
+                                <span>2 дня назад</span>
+                            </div>
+                            <div class="project-meta-item">
+                                <span class="material-symbols-outlined">person</span>
+                                <span>12 заявок</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-footer">
+                        <a href="/projects/1" class="btn btn-sm btn-primary">Подробнее</a>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-header">
+                        <span class="project-badge">Дизайн</span>
+                        <h3 class="project-title">Редизайн корпоративного сайта компании</h3>
+                        <div class="project-price">₽50,000 - ₽70,000</div>
+                    </div>
+                    <div class="project-body">
+                        <p class="project-description">Нужен современный дизайн для корпоративного сайта. Требуется опыт в UI/UX дизайне и знание Figma. Проект включает 10-15 страниц.</p>
+                        <div class="project-meta">
+                            <div class="project-meta-item">
+                                <span class="material-symbols-outlined">schedule</span>
+                                <span>5 дней назад</span>
+                            </div>
+                            <div class="project-meta-item">
+                                <span class="material-symbols-outlined">person</span>
+                                <span>8 заявок</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-footer">
+                        <a href="/projects/2" class="btn btn-sm btn-primary">Подробнее</a>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-header">
+                        <span class="project-badge">Копирайтинг</span>
+                        <h3 class="project-title">Написание статей для блога о технологиях</h3>
+                        <div class="project-price">₽30,000 - ₽40,000</div>
+                    </div>
+                    <div class="project-body">
+                        <p class="project-description">Требуется копирайтер для написания 20 статей для технологического блога. Темы: искусственный интеллект, блокчейн, кибербезопасность.</p>
+                        <div class="project-meta">
+                            <div class="project-meta-item">
+                                <span class="material-symbols-outlined">schedule</span>
+                                <span>1 день назад</span>
+                            </div>
+                            <div class="project-meta-item">
+                                <span class="material-symbols-outlined">person</span>
+                                <span>15 заявок</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-footer">
+                        <a href="/projects/3" class="btn btn-sm btn-primary">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="view-all">
+                <a href="/projects" class="btn btn-outline">Все проекты</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Фрилансеры -->
+    <section class="freelancers section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Топ фрилансеры</h2>
+                <p class="text-muted">Лучшие специалисты на нашей платформе</p>
+            </div>
+            
+            <div class="grid grid-4">
+                <div class="freelancer-card">
+                    <img src="{% static 'main/img/placeholder.png' %}" alt="Александр Иванов" class="freelancer-avatar">
+                    <h3 class="freelancer-name">Александр Иванов</h3>
+                    <p class="freelancer-title">Full-stack разработчик</p>
+                    <div class="freelancer-rating">
+                        <span class="material-symbols-outlined">star</span>
+                        <span class="material-symbols-outlined">star</span>
+                        <span class="material-symbols-outlined">star</span>
+                        <span class="material-symbols-outlined">star</span>
+                        <span class="material-symbols-outlined">star_half</span>
+                        <span>4.8</span>
+                    </div>
+                    <div class="freelancer-skills">
+                        <span class="skill-tag">React</span>
+                        <span class="skill-tag">Node.js</span>
+                        <span class="skill-tag">Python</span>
+                    </div>
+                    <a href="/freelancers/1" class="btn btn-sm btn-primary">Профиль</a>
+                </div>
+                
+                <div class="freelancer-card">
+                    <img src="{% static 'main/img/placeholder.png' %}" alt="Екатерина Смирнова" class="freelancer-avatar">
+                    <h3 class="freelancer-name">Екатерина Смирнова</h3>
+                    <p class="freelancer-title">UI/UX Дизайнер</p>
+                    <div class="freelancer-rating">
+                        <span class="material-symbols-outlined">star</span>
+                        <span class="material-symbols-outlined">star</span>
+                        <span class="material-symbols-outlined">star</span>
+                        <span class="material-symbols-outlined">star</span>
+                        <span class="material-symbols-outlined">star</span>
+                        <span>5.0</span>
+                    </div>
+                    <div class="freelancer-skills">
+                        <span class="skill-tag">Figma</span>
+                        <span class="skill-tag">Adobe XD</span>
+                        <span class="skill-tag">Sketch</span>
+                    </div>
+                    <a href="/freelancers/2" class="btn btn-sm btn-primary">Профиль</a>
+                </div>
+                
+                <div class="freelancer-card">
+                    <img src="{% static 'main/img/placeholder.png' %}" alt="Дмитрий Петров" class="freelancer-avatar">
+                    <h3 class="freelancer-name">Дмитрий Петров</h3>
+                    <p class="freelancer-title">SEO Специалист</p>
+                    <div class="freelancer-rating">
+                        <span class="material-symbols-outlined">star</span>
+                        <span class="material-symbols-outlined">star</span>
+                        <span class="material-symbols-outlined">star</span>
+                        <span class="material-symbols-outlined">star</span>
+                        <span class="material-symbols-outlined">star_outline</span>
+                        <span>4.2</span>
+                    </div>
+                    <div class="freelancer-skills">
+                        <span class="skill-tag">SEO</span>
+                        <span class="skill-tag">Google Ads</span>
+                        <span class="skill-tag">Analytics</span>
+                    </div>
+                    <a href="/freelancers/3" class="btn btn-sm btn-primary">Профиль</a>
+                </div>
+                
+                <div class="freelancer-card">
+                    <img src="{% static 'main/img/placeholder.png' %}" alt="Анна Козлова" class="freelancer-avatar">
+                    <h3 class="freelancer-name">Анна Козлова</h3>
+                    <p class="freelancer-title">Копирайтер</p>
+                    <div class="freelancer-rating">
+                        <span class="material-symbols-outlined">star</span>
+                        <span class="material-symbols-outlined">star</span>
+                        <span class="material-symbols-outlined">star</span>
+                        <span class="material-symbols-outlined">star</span>
+                        <span class="material-symbols-outlined">star_half</span>
+                        <span>4.7</span>
+                    </div>
+                    <div class="freelancer-skills">
+                        <span class="skill-tag">Статьи</span>
+                        <span class="skill-tag">SEO-тексты</span>
+                        <span class="skill-tag">Рерайт</span>
+                    </div>
+                    <a href="/freelancers/4" class="btn btn-sm btn-primary">Профиль</a>
+                </div>
+            </div>
+            
+            <div class="view-all">
+                <a href="/freelancers" class="btn btn-outline">Все фрилансеры</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Как это работает -->
+    <section class="how-it-works section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Как это работает</h2>
+                <p class="text-muted">Простой процесс для успешного сотрудничества</p>
+            </div>
+            
+            <div class="grid grid-3">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <span class="material-symbols-outlined step-icon">description</span>
+                    <h3 class="step-title">Разместите проект</h3>
+                    <p class="step-description">Опишите ваш проект, укажите бюджет и сроки выполнения. Чем подробнее описание, тем больше подходящих предложений вы получите.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <span class="material-symbols-outlined step-icon">group</span>
+                    <h3 class="step-title">Выберите фрилансера</h3>
+                    <p class="step-description">Просмотрите предложения от фрилансеров, изучите их портфолио и отзывы. Выберите лучшего специалиста для вашего проекта.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <span class="material-symbols-outlined step-icon">task_alt</span>
+                    <h3 class="step-title">Получите результат</h3>
+                    <p class="step-description">Контролируйте процесс работы, общайтесь с исполнителем и получите готовый проект. Оплата производится только после приемки работы.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Отзывы -->
+    <section class="testimonials section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Отзывы клиентов</h2>
+                <p class="text-muted">Что говорят о нас наши пользователи</p>
+            </div>
+            
+            <div class="grid grid-3">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <span class="testimonial-quote">"</span>
+                        <p class="testimonial-text">Благодаря FreelanceWay я нашел отличного разработчика для своего проекта. Работа была выполнена качественно и в срок. Обязательно буду пользоваться платформой снова!</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="{% static 'main/img/placeholder.png' %}" alt="Игорь Соколов" class="testimonial-avatar">
+                        <div>
+                            <h4 class="testimonial-name">Игорь Соколов</h4>
+                            <p class="testimonial-position">CEO, TechStart</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <span class="testimonial-quote">"</span>
+                        <p class="testimonial-text">Как фрилансер, я очень доволен этой платформой. Здесь я нахожу интересные проекты и надежных клиентов. Система безопасных платежей дает уверенность в получении оплаты.</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="{% static 'main/img/placeholder.png' %}" alt="Мария Волкова" class="testimonial-avatar">
+                        <div>
+                            <h4 class="testimonial-name">Мария Волкова</h4>
+                            <p class="testimonial-position">Графический дизайнер</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <span class="testimonial-quote">"</span>
+                        <p class="testimonial-text">Отличный сервис для поиска специалистов! Удобный интерфейс, большой выбор фрилансеров и прозрачные условия сотрудничества. Рекомендую всем, кто ищет профессионалов.</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="{% static 'main/img/placeholder.png' %}" alt="Алексей Новиков" class="testimonial-avatar">
+                        <div>
+                            <h4 class="testimonial-name">Алексей Новиков</h4>
+                            <p class="testimonial-position">Маркетолог, BrandPro</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA секция -->
+    <section class="cta section">
+        <div class="container">
+            <h2 class="cta-title">Готовы начать работу над проектом?</h2>
+            <p class="cta-description">Присоединяйтесь к тысячам клиентов и фрилансеров, которые уже используют FreelanceWay для реализации своих идей</p>
+            <div class="btn-group" style="justify-content: center;">
+                <a href="/register" class="btn btn-lg btn-primary">Зарегистрироваться</a>
+                <a href="/projects" class="btn btn-lg btn-outline">Посмотреть проекты</a>
+            </div>
+        </div>
+    </section>
 {% endblock %}

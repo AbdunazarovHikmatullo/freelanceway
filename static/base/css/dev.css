@@ -9,7 +9,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    background-color: #fff;
+    background-color: var(--bg-color);
     z-index: 9999;
     display: flex;
     flex-wrap: wrap;
@@ -19,10 +19,13 @@
 .dev_img{
     max-width: 300px;
     max-height: 300px;
+    border-radius: 50%;
+    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.5));
 }
 
 .dev_text{
     padding: 10px;
-    font-size: 1.3em;
+    font-size: 1.2rem;
     text-align: center;
+    color: var(--text-color);
 }
