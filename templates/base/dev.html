@@ -1,0 +1,17 @@
+{% load static %}
+
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'base/css/dev.css' %}">
+{% endblock %}
+
+{% block extra_js %}
+
+{% endblock %}
+
+<div class="dev_contain">
+    <img src="{% static 'base/img/dev.svg' %}" alt="dev" class="dev_img">
+    <h1 class="dev_text">
+        Страница находится в стадий разработки
+    </h1>
+</div>
