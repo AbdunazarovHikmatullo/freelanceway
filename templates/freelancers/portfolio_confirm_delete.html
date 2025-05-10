@@ -1,0 +1,55 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'freelancers/css/freelancers.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Хлебные крошки -->
+<div class="breadcrumbs">
+    <div class="container">
+        <a href="{% url 'freelancer_detail' username=request.user.username %}">Мой профиль</a>
+        <span class="material-symbols-outlined">chevron_right</span>
+        <span>Удаление проекта</span>
+    </div>
+</div>
+
+<!-- Подтверждение удаления -->
+<section class="form-section">
+    <div class="container">
+        <div class="form-container">
+            <div class="form-header">
+                <h1>Удаление проекта</h1>
+                <p class="text-muted">Вы уверены, что хотите удалить этот проект из портфолио?</p>
+            </div>
+            
+            <div class="confirm-delete">
+                <div class="delete-item-info">
+                    <h2>{{ portfolio_item.title }}</h2>
+                    <p>{{ portfolio_item.description|truncatechars:200 }}</p>
+                    
+                    {% if portfolio_item.image %}
+                    <div class="delete-item-image">
+                        <img src="{{ portfolio_item.image.url }}" alt="{{ portfolio_item.title }}">
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <div class="delete-warning">
+                    <span class="material-symbols-outlined">warning</span>
+                    <p>Это действие нельзя будет отменить. Проект будет навсегда удален из вашего портфолио.</p>
+                </div>
+                
+                <form method="post" class="delete-form">
+                    {% csrf_token %}
+                    <div class="form-actions">
+                        <a href="{% url 'freelancer_detail' username=request.user.username %}" class="btn btn-outline">Отмена</a>
+                        <button type="submit" class="btn btn-danger">Удалить проект</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

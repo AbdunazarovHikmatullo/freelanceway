@@ -1,0 +1,136 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'vacancy/css/vacancy.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Хлебные крошки -->
+<div class="breadcrumbs">
+    <div class="container">
+        <a href="{% url 'vacancies_list' %}">Проекты</a>
+        <span class="material-symbols-outlined">chevron_right</span>
+        <span>{% if is_edit %}Редактирование проекта{% else %}Создание проекта{% endif %}</span>
+    </div>
+</div>
+
+<!-- Форма вакансии -->
+<section class="form-section">
+    <div class="container">
+        <div class="form-container">
+            <div class="form-header">
+                <h1>{% if is_edit %}Редактирование проекта{% else %}Создание нового проекта{% endif %}</h1>
+                <p class="text-muted">{% if is_edit %}Измените информацию о вашем проекте{% else %}Заполните форму, чтобы разместить новый проект{% endif %}</p>
+            </div>
+            
+            <form method="post" class="vacancy-form">
+                {% csrf_token %}
+                
+                {% if form.non_field_errors %}
+                <div class="form-errors">
+                    {% for error in form.non_field_errors %}
+                    <p class="error-message">{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                
+                <div class="form-group">
+                    <label for="{{ form.title.id_for_label }}">Название проекта*</label>
+                    {{ form.title }}
+                    {% if form.title.errors %}
+                    <div class="field-errors">
+                        {% for error in form.title.errors %}
+                        <p class="error-message">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <div class="form-group">
+                    <label for="{{ form.category.id_for_label }}">Категория*</label>
+                    {{ form.category }}
+                    {% if form.category.errors %}
+                    <div class="field-errors">
+                        {% for error in form.category.errors %}
+                        <p class="error-message">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="{{ form.budget_min.id_for_label }}">Минимальный бюджет (₽)*</label>
+                        {{ form.budget_min }}
+                        {% if form.budget_min.errors %}
+                        <div class="field-errors">
+                            {% for error in form.budget_min.errors %}
+                            <p class="error-message">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.budget_max.id_for_label }}">Максимальный бюджет (₽)*</label>
+                        {{ form.budget_max }}
+                        {% if form.budget_max.errors %}
+                        <div class="field-errors">
+                            {% for error in form.budget_max.errors %}
+                            <p class="error-message">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="{{ form.deadline.id_for_label }}">Срок выполнения</label>
+                    {{ form.deadline }}
+                    <small class="form-help">Оставьте пустым, если срок не ограничен</small>
+                    {% if form.deadline.errors %}
+                    <div class="field-errors">
+                        {% for error in form.deadline.errors %}
+                        <p class="error-message">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <div class="form-group">
+                    <label for="{{ form.required_skills.id_for_label }}">Требуемые навыки*</label>
+                    {{ form.required_skills }}
+                    <small class="form-help">Укажите навыки через запятую</small>
+                    {% if form.required_skills.errors %}
+                    <div class="field-errors">
+                        {% for error in form.required_skills.errors %}
+                        <p class="error-message">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <div class="form-group">
+                    <label for="{{ form.description.id_for_label }}">Описание проекта*</label>
+                    {{ form.description }}
+                    {% if form.description.errors %}
+                    <div class="field-errors">
+                        {% for error in form.description.errors %}
+                        <p class="error-message">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <div class="form-actions">
+                    <a href="{% if is_edit %}{% url 'vacancy_detail' vacancy_id=vacancy.id %}{% else %}{% url 'vacancies_list' %}{% endif %}" class="btn btn-outline">Отмена</a>
+                    <button type="submit" class="btn btn-primary">
+                        {% if is_edit %}Сохранить изменения{% else %}Опубликовать проект{% endif %}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

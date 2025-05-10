@@ -1,0 +1,106 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'vacancy/css/vacancy.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Хлебные крошки -->
+<div class="breadcrumbs">
+    <div class="container">
+        <a href="{% url 'vacancies_list' %}">Проекты</a>
+        <span class="material-symbols-outlined">chevron_right</span>
+        <a href="{% url 'vacancy_detail' vacancy_id=vacancy.id %}">{{ vacancy.title }}</a>
+        <span class="material-symbols-outlined">chevron_right</span>
+        <span>Отклик на проект</span>
+    </div>
+</div>
+
+<!-- Форма заявки -->
+<section class="form-section">
+    <div class="container">
+        <div class="form-container">
+            <div class="form-header">
+                <h1>Отклик на проект</h1>
+                <p class="text-muted">Заполните форму, чтобы откликнуться на проект "{{ vacancy.title }}"</p>
+            </div>
+            
+            <div class="vacancy-summary">
+                <div class="vacancy-summary-header">
+                    <span class="vacancy-badge">{{ vacancy.category.name }}</span>
+                    <h3>{{ vacancy.title }}</h3>
+                </div>
+                <div class="vacancy-summary-details">
+                    <div class="vacancy-summary-item">
+                        <span class="material-symbols-outlined">payments</span>
+                        <span>₽{{ vacancy.budget_min }} - ₽{{ vacancy.budget_max }}</span>
+                    </div>
+                    {% if vacancy.deadline %}
+                    <div class="vacancy-summary-item">
+                        <span class="material-symbols-outlined">event</span>
+                        <span>До {{ vacancy.deadline|date:"d.m.Y" }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <form method="post" class="application-form">
+                {% csrf_token %}
+                
+                {% if form.non_field_errors %}
+                <div class="form-errors">
+                    {% for error in form.non_field_errors %}
+                    <p class="error-message">{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                
+                <div class="form-group">
+                    <label for="{{ form.cover_letter.id_for_label }}">Сопроводительное письмо*</label>
+                    {{ form.cover_letter }}
+                    <small class="form-help">Расскажите, почему вы подходите для этого проекта</small>
+                    {% if form.cover_letter.errors %}
+                    <div class="field-errors">
+                        {% for error in form.cover_letter.errors %}
+                        <p class="error-message">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="{{ form.proposed_budget.id_for_label }}">Предлагаемый бюджет (₽)*</label>
+                        {{ form.proposed_budget }}
+                        {% if form.proposed_budget.errors %}
+                        <div class="field-errors">
+                            {% for error in form.proposed_budget.errors %}
+                            <p class="error-message">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.estimated_time.id_for_label }}">Оценка времени выполнения*</label>
+                        {{ form.estimated_time }}
+                        {% if form.estimated_time.errors %}
+                        <div class="field-errors">
+                            {% for error in form.estimated_time.errors %}
+                            <p class="error-message">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <a href="{% url 'vacancy_detail' vacancy_id=vacancy.id %}" class="btn btn-outline">Отмена</a>
+                    <button type="submit" class="btn btn-primary">Отправить заявку</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

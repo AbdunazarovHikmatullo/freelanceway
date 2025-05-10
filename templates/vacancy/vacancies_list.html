@@ -1,8 +1,188 @@
 {% extends 'base/base.html' %}
 {% load static %}
 
-
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'vacancy/css/vacancy.css' %}">
+{% endblock %}
 
 {% block content %}
-    {% include 'base/dev.html' %}
+<!-- Заголовок страницы -->
+<section class="page-header">
+    <div class="container">
+        <h1>Найдите проект для работы</h1>
+        <p class="text-muted">Выберите интересные проекты из нашей базы и начните зарабатывать</p>
+        {% if user.is_authenticated %}
+        <div class="header-actions">
+            <a href="{% url 'create_vacancy' %}" class="btn btn-primary">
+                <span class="material-symbols-outlined">add</span>
+                Разместить проект
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Фильтры и поиск -->
+<section class="filters-section">
+    <div class="container">
+        <form method="get" action="{% url 'vacancies_list' %}" class="filters-form">
+            <div class="filters-container">
+                <div class="search-box">
+                    <span class="material-symbols-outlined">search</span>
+                    <input type="text" name="q" placeholder="Поиск по названию, описанию или навыкам..." value="{{ search_query|default:'' }}">
+                </div>
+                
+                <div class="filters">
+                    <div class="filter-group">
+                        <label for="category">Категория</label>
+                        <select id="category" name="category">
+                            <option value="">Все категории</option>
+                            {% for category in categories %}
+                            <option value="{{ category.slug }}" {% if selected_category == category.slug %}selected{% endif %}>{{ category.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="budget_min">Мин. бюджет</label>
+                        <input type="number" id="budget_min" name="budget_min" placeholder="От" value="{{ budget_min|default:'' }}">
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="budget_max">Макс. бюджет</label>
+                        <input type="number" id="budget_max" name="budget_max" placeholder="До" value="{{ budget_max|default:'' }}">
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-sm filter-btn">
+                        <span class="material-symbols-outlined">filter_alt</span>
+                        <span>Фильтровать</span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+<!-- Список вакансий -->
+<section class="vacancies-section">
+    <div class="container">
+        <div class="results-info">
+            <p>Найдено <span class="results-count">{{ page_obj.paginator.count }}</span> проектов</p>
+            <div class="sort-by">
+                <label for="sort">Сортировать по:</label>
+                <select id="sort" name="sort" onchange="updateSort(this.value)">
+                    <option value="created_at" {% if sort_by == 'created_at' %}selected{% endif %}>Новизне</option>
+                    <option value="budget_max" {% if sort_by == 'budget_max' %}selected{% endif %}>Бюджету (макс.)</option>
+                    <option value="budget_min" {% if sort_by == 'budget_min' %}selected{% endif %}>Бюджету (мин.)</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="vacancies-grid">
+            {% for vacancy in page_obj %}
+            <div class="vacancy-card">
+                <div class="vacancy-header">
+                    <span class="vacancy-badge">{{ vacancy.category.name }}</span>
+                    <h3 class="vacancy-title">{{ vacancy.title }}</h3>
+                    <div class="vacancy-price">₽{{ vacancy.budget_min }} - ₽{{ vacancy.budget_max }}</div>
+                </div>
+                <div class="vacancy-body">
+                    <p class="vacancy-description">{{ vacancy.description|truncatechars:150 }}</p>
+                    <div class="vacancy-skills">
+                        {% for skill in vacancy.required_skills.split|slice:":3" %}
+                        <span class="skill-tag">{{ skill }}</span>
+                        {% endfor %}
+                        {% if vacancy.required_skills.split|length > 3 %}
+                        <span class="skill-tag more-skills">+{{ vacancy.required_skills.split|length|add:"-3" }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="vacancy-meta">
+                        <div class="vacancy-meta-item">
+                            <span class="material-symbols-outlined">schedule</span>
+                            <span>{{ vacancy.created_at|timesince }} назад</span>
+                        </div>
+                        <div class="vacancy-meta-item">
+                            <span class="material-symbols-outlined">person</span>
+                            <span>{{ vacancy.applications_count }} заявок</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="vacancy-footer">
+                    <a href="{% url 'vacancy_detail' vacancy_id=vacancy.id %}" class="btn btn-primary btn-sm">Подробнее</a>
+                </div>
+            </div>
+            {% empty %}
+            <div class="no-results">
+                <span class="material-symbols-outlined">search_off</span>
+                <h3>Проекты не найдены</h3>
+                <p>Попробуйте изменить параметры поиска или фильтры</p>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <!-- Пагинация -->
+        {% if page_obj.has_other_pages %}
+        <div class="pagination">
+            {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if budget_min %}&budget_min={{ budget_min }}{% endif %}{% if budget_max %}&budget_max={{ budget_max }}{% endif %}{% if sort_by %}&sort={{ sort_by }}{% endif %}" class="btn btn-outline btn-sm pagination-btn">
+                <span class="material-symbols-outlined">chevron_left</span>
+            </a>
+            {% else %}
+            <button class="btn btn-outline btn-sm pagination-btn" disabled>
+                <span class="material-symbols-outlined">chevron_left</span>
+            </button>
+            {% endif %}
+            
+            <div class="pagination-numbers">
+                {% if page_obj.number > 3 %}
+                <a href="?page=1{% if search_query %}&q={{ search_query }}{% endif %}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if budget_min %}&budget_min={{ budget_min }}{% endif %}{% if budget_max %}&budget_max={{ budget_max }}{% endif %}{% if sort_by %}&sort={{ sort_by }}{% endif %}">1</a>
+                {% if page_obj.number > 4 %}
+                <span>...</span>
+                {% endif %}
+                {% endif %}
+                
+                {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                <a href="#" class="active">{{ num }}</a>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <a href="?page={{ num }}{% if search_query %}&q={{ search_query }}{% endif %}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if budget_min %}&budget_min={{ budget_min }}{% endif %}{% if budget_max %}&budget_max={{ budget_max }}{% endif %}{% if sort_by %}&sort={{ sort_by }}{% endif %}">{{ num }}</a>
+                {% endif %}
+                {% endfor %}
+                
+                {% if page_obj.number < page_obj.paginator.num_pages|add:'-2' %}
+                {% if page_obj.number < page_obj.paginator.num_pages|add:'-3' %}
+                <span>...</span>
+                {% endif %}
+                <a href="?page={{ page_obj.paginator.num_pages }}{% if search_query %}&q={{ search_query }}{% endif %}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if budget_min %}&budget_min={{ budget_min }}{% endif %}{% if budget_max %}&budget_max={{ budget_max }}{% endif %}{% if sort_by %}&sort={{ sort_by }}{% endif %}">{{ page_obj.paginator.num_pages }}</a>
+                {% endif %}
+            </div>
+            
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if budget_min %}&budget_min={{ budget_min }}{% endif %}{% if budget_max %}&budget_max={{ budget_max }}{% endif %}{% if sort_by %}&sort={{ sort_by }}{% endif %}" class="btn btn-outline btn-sm pagination-btn">
+                <span class="material-symbols-outlined">chevron_right</span>
+            </a>
+            {% else %}
+            <button class="btn btn-outline btn-sm pagination-btn" disabled>
+                <span class="material-symbols-outlined">chevron_right</span>
+            </button>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    function updateSort(value) {
+        // Получаем текущий URL
+        const url = new URL(window.location.href);
+        
+        // Обновляем параметр сортировки
+        url.searchParams.set('sort', value);
+        
+        // Перенаправляем на обновленный URL
+        window.location.href = url.toString();
+    }
+</script>
 {% endblock %}

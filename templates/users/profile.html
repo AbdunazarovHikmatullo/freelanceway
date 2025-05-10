@@ -1,11 +1,252 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile </title>
-</head>
-<body>
-    {% include 'base/dev.html' %}
-</body>
-</html>
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'users/css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Заголовок страницы -->
+<section class="profile-header">
+    <div class="container">
+        <div class="profile-header-content">
+            <div class="profile-avatar">
+                <img src="{{ user.get_avatar_url }}" alt="{{ user.username }}">
+            </div>
+            <div class="profile-info">
+                <h1>{{ user.get_full_name }}</h1>
+                <p class="profile-username">@{{ user.username }}</p>
+                {% if user.is_freelancer %}
+                <span class="profile-badge freelancer">Фрилансер</span>
+                {% endif %}
+                {% if user.is_client %}
+                <span class="profile-badge client">Заказчик</span>
+                {% endif %}
+                
+                <div class="profile-meta">
+                    {% if user.location %}
+                    <div class="profile-meta-item">
+                        <span class="material-symbols-outlined">location_on</span>
+                        <span>{{ user.location }}</span>
+                    </div>
+                    {% endif %}
+                    <div class="profile-meta-item">
+                        <span class="material-symbols-outlined">calendar_month</span>
+                        <span>На сайте с {{ user.date_joined|date:"F Y" }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="profile-actions">
+                <a href="{% url 'edit_profile' %}" class="btn btn-outline">
+                    <span class="material-symbols-outlined">edit</span>
+                    Редактировать профиль
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Основное содержимое профиля -->
+<section class="profile-content">
+    <div class="container">
+        <div class="profile-grid">
+            <!-- Левая колонка - информация о пользователе -->
+            <div class="profile-sidebar">
+                <!-- Биография -->
+                <div class="profile-card">
+                    <h2>О себе</h2>
+                    {% if user.bio %}
+                    <p>{{ user.bio|linebreaks }}</p>
+                    {% else %}
+                    <p class="text-muted">Расскажите о себе, добавив информацию в профиле</p>
+                    {% endif %}
+                </div>
+                
+                <!-- Контактная информация -->
+                <div class="profile-card">
+                    <h2>Контактная информация</h2>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <span class="material-symbols-outlined">mail</span>
+                            <span>{{ user.email }}</span>
+                        </div>
+                        {% if freelancer_profile and freelancer_profile.phone_number %}
+                        <div class="contact-item">
+                            <span class="material-symbols-outlined">phone</span>
+                            <span>{{ freelancer_profile.phone_number }}</span>
+                        </div>
+                        {% endif %}
+                        {% if user.website %}
+                        <div class="contact-item">
+                            <span class="material-symbols-outlined">language</span>
+                            <a href="{{ user.website }}" target="_blank">{{ user.website }}</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <!-- Социальные сети -->
+                {% if user.github or user.twitter or user.linkedin %}
+                <div class="profile-card">
+                    <h2>Социальные сети</h2>
+                    <div class="social-links">
+                        {% if user.github %}
+                        <a href="{{ user.github }}" target="_blank" class="social-link">
+                            <span class="material-symbols-outlined">code</span>
+                            <span>GitHub</span>
+                        </a>
+                        {% endif %}
+                        {% if user.twitter %}
+                        <a href="{{ user.twitter }}" target="_blank" class="social-link">
+                            <span class="material-symbols-outlined">alternate_email</span>
+                            <span>Twitter</span>
+                        </a>
+                        {% endif %}
+                        {% if user.linkedin %}
+                        <a href="{{ user.linkedin }}" target="_blank" class="social-link">
+                            <span class="material-symbols-outlined">work</span>
+                            <span>LinkedIn</span>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+                
+                <!-- Навыки (только для фрилансеров) -->
+                {% if freelancer_profile and freelancer_profile.skills %}
+                <div class="profile-card">
+                    <h2>Навыки</h2>
+                    <div class="skills-list">
+                        {% for skill in freelancer_profile.skills.split %}
+                        <span class="skill-tag">{{ skill }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            
+            <!-- Правая колонка - статистика и активность -->
+            <div class="profile-main">
+                <!-- Статистика -->
+                <div class="profile-card">
+                    <h2>Статистика</h2>
+                    <div class="stats-grid">
+                        {% if user.is_client %}
+                        <div class="stat-card">
+                            <div class="stat-value">{{ open_vacancies }}</div>
+                            <div class="stat-label">Открытых проектов</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">{{ in_progress_vacancies }}</div>
+                            <div class="stat-label">Проектов в работе</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">{{ completed_vacancies }}</div>
+                            <div class="stat-label">Завершенных проектов</div>
+                        </div>
+                        {% elif user.is_freelancer %}
+                        <div class="stat-card">
+                            <div class="stat-value">{{ pending_applications }}</div>
+                            <div class="stat-label">Заявок на рассмотрении</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">{{ accepted_applications }}</div>
+                            <div class="stat-label">Принятых заявок</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">{{ rejected_applications }}</div>
+                            <div class="stat-label">Отклоненных заявок</div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <!-- Быстрые действия -->
+                <div class="profile-card">
+                    <h2>Быстрые действия</h2>
+                    <div class="quick-actions">
+                        {% if user.is_client %}
+                        <a href="{% url 'create_vacancy' %}" class="quick-action-btn">
+                            <span class="material-symbols-outlined">add_circle</span>
+                            <span>Создать проект</span>
+                        </a>
+                        <a href="{% url 'my_vacancies' %}" class="quick-action-btn">
+                            <span class="material-symbols-outlined">list</span>
+                            <span>Мои проекты</span>
+                        </a>
+                        {% elif user.is_freelancer %}
+                        <a href="{% url 'vacancies_list' %}" class="quick-action-btn">
+                            <span class="material-symbols-outlined">search</span>
+                            <span>Найти проекты</span>
+                        </a>
+                        <a href="{% url 'my_applications' %}" class="quick-action-btn">
+                            <span class="material-symbols-outlined">description</span>
+                            <span>Мои заявки</span>
+                        </a>
+                        {% endif %}
+                        <a href="{% url 'change_password' %}" class="quick-action-btn">
+                            <span class="material-symbols-outlined">lock</span>
+                            <span>Изменить пароль</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Последняя активность -->
+                {% if user.is_client and vacancies %}
+                <div class="profile-card">
+                    <h2>Последние проекты</h2>
+                    <div class="activity-list">
+                        {% for vacancy in vacancies|slice:":3" %}
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <span class="material-symbols-outlined">work</span>
+                            </div>
+                            <div class="activity-content">
+                                <h3><a href="{% url 'vacancy_detail' vacancy_id=vacancy.id %}">{{ vacancy.title }}</a></h3>
+                                <div class="activity-meta">
+                                    <span class="activity-status status-{{ vacancy.status }}">{{ vacancy.get_status_display }}</span>
+                                    <span class="activity-date">{{ vacancy.created_at|date:"d.m.Y" }}</span>
+                                </div>
+                                <p>{{ vacancy.description|truncatechars:100 }}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% if vacancies.count > 3 %}
+                    <div class="view-all">
+                        <a href="{% url 'my_vacancies' %}" class="btn btn-outline btn-sm">Все проекты</a>
+                    </div>
+                    {% endif %}
+                </div>
+                {% elif user.is_freelancer and applications %}
+                <div class="profile-card">
+                    <h2>Последние заявки</h2>
+                    <div class="activity-list">
+                        {% for application in applications|slice:":3" %}
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <span class="material-symbols-outlined">description</span>
+                            </div>
+                            <div class="activity-content">
+                                <h3><a href="{% url 'vacancy_detail' vacancy_id=application.vacancy.id %}">{{ application.vacancy.title }}</a></h3>
+                                <div class="activity-meta">
+                                    <span class="activity-status status-{{ application.status }}">{{ application.get_status_display }}</span>
+                                    <span class="activity-date">{{ application.created_at|date:"d.m.Y" }}</span>
+                                </div>
+                                <p>{{ application.cover_letter|truncatechars:100 }}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% if applications.count > 3 %}
+                    <div class="view-all">
+                        <a href="{% url 'my_applications' %}" class="btn btn-outline btn-sm">Все заявки</a>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

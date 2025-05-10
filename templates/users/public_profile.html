@@ -1,0 +1,169 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'users/css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Заголовок страницы -->
+<section class="profile-header">
+    <div class="container">
+        <div class="profile-header-content">
+            <div class="profile-avatar">
+                <img src="{{ profile_user.get_avatar_url }}" alt="{{ profile_user.username }}">
+            </div>
+            <div class="profile-info">
+                <h1>{{ profile_user.get_full_name }}</h1>
+                <p class="profile-username">@{{ profile_user.username }}</p>
+                {% if profile_user.is_freelancer %}
+                <span class="profile-badge freelancer">Фрилансер</span>
+                {% endif %}
+                {% if profile_user.is_client %}
+                <span class="profile-badge client">Заказчик</span>
+                {% endif %}
+                
+                <div class="profile-meta">
+                    {% if profile_user.location %}
+                    <div class="profile-meta-item">
+                        <span class="material-symbols-outlined">location_on</span>
+                        <span>{{ profile_user.location }}</span>
+                    </div>
+                    {% endif %}
+                    <div class="profile-meta-item">
+                        <span class="material-symbols-outlined">calendar_month</span>
+                        <span>На сайте с {{ profile_user.date_joined|date:"F Y" }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="profile-actions">
+                {% if profile_user.is_freelancer %}
+                <a href="#" class="btn btn-primary">
+                    <span class="material-symbols-outlined">work</span>
+                    Предложить проект
+                </a>
+                {% endif %}
+                {% if profile_user.is_client %}
+                <a href="#" class="btn btn-primary">
+                    <span class="material-symbols-outlined">mail</span>
+                    Связаться
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Основное содержимое профиля -->
+<section class="profile-content">
+    <div class="container">
+        <div class="profile-grid">
+            <!-- Левая колонка - информация о пользователе -->
+            <div class="profile-sidebar">
+                <!-- Биография -->
+                <div class="profile-card">
+                    <h2>О пользователе</h2>
+                    {% if profile_user.bio %}
+                    <p>{{ profile_user.bio|linebreaks }}</p>
+                    {% else %}
+                    <p class="text-muted">Пользователь не добавил информацию о себе</p>
+                    {% endif %}
+                </div>
+                
+                <!-- Контактная информация -->
+                <div class="profile-card">
+                    <h2>Контактная информация</h2>
+                    <div class="contact-info">
+                        {% if profile_user.website %}
+                        <div class="contact-item">
+                            <span class="material-symbols-outlined">language</span>
+                            <a href="{{ profile_user.website }}" target="_blank">{{ profile_user.website }}</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <!-- Социальные сети -->
+                {% if profile_user.github or profile_user.twitter or profile_user.linkedin %}
+                <div class="profile-card">
+                    <h2>Социальные сети</h2>
+                    <div class="social-links">
+                        {% if profile_user.github %}
+                        <a href="{{ profile_user.github }}" target="_blank" class="social-link">
+                            <span class="material-symbols-outlined">code</span>
+                            <span>GitHub</span>
+                        </a>
+                        {% endif %}
+                        {% if profile_user.twitter %}
+                        <a href="{{ profile_user.twitter }}" target="_blank" class="social-link">
+                            <span class="material-symbols-outlined">alternate_email</span>
+                            <span>Twitter</span>
+                        </a>
+                        {% endif %}
+                        {% if profile_user.linkedin %}
+                        <a href="{{ profile_user.linkedin }}" target="_blank" class="social-link">
+                            <span class="material-symbols-outlined">work</span>
+                            <span>LinkedIn</span>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+                
+                <!-- Навыки (только для фрилансеров) -->
+                {% if freelancer_profile and freelancer_profile.skills %}
+                <div class="profile-card">
+                    <h2>Навыки</h2>
+                    <div class="skills-list">
+                        {% for skill in freelancer_profile.skills.split %}
+                        <span class="skill-tag">{{ skill }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            
+            <!-- Правая колонка - портфолио и отзывы -->
+            <div class="profile-main">
+                {% if profile_user.is_freelancer and freelancer_profile %}
+                <!-- Опыт работы -->
+                <div class="profile-card">
+                    <h2>Опыт работы</h2>
+                    {% if freelancer_profile.experience %}
+                    <p>{{ freelancer_profile.experience }}</p>
+                    {% else %}
+                    <p class="text-muted">Пользователь не указал опыт работы</p>
+                    {% endif %}
+                </div>
+                
+                <!-- Портфолио -->
+                <div class="profile-card">
+                    <h2>Портфолио</h2>
+                    <p class="text-muted">Портфолио пока не добавлено</p>
+                </div>
+                
+                <!-- Отзывы -->
+                <div class="profile-card">
+                    <h2>Отзывы</h2>
+                    <p class="text-muted">У пользователя пока нет отзывов</p>
+                </div>
+                {% endif %}
+                
+                {% if profile_user.is_client %}
+                <!-- Активные проекты -->
+                <div class="profile-card">
+                    <h2>Активные проекты</h2>
+                    <p class="text-muted">У пользователя нет активных проектов</p>
+                </div>
+                
+                <!-- Завершенные проекты -->
+                <div class="profile-card">
+                    <h2>Завершенные проекты</h2>
+                    <p class="text-muted">У пользователя нет завершенных проектов</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

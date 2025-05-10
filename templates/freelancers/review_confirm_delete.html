@@ -1,0 +1,58 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'freelancers/css/freelancers.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Хлебные крошки -->
+<div class="breadcrumbs">
+    <div class="container">
+        <a href="{% url 'freelancer_detail' username=review.freelancer.user.username %}">Профиль фрилансера</a>
+        <span class="material-symbols-outlined">chevron_right</span>
+        <span>Удаление отзыва</span>
+    </div>
+</div>
+
+<!-- Подтверждение удаления -->
+<section class="form-section">
+    <div class="container">
+        <div class="form-container">
+            <div class="form-header">
+                <h1>Удаление отзыва</h1>
+                <p class="text-muted">Вы уверены, что хотите удалить свой отзыв о фрилансере?</p>
+            </div>
+            
+            <div class="confirm-delete">
+                <div class="delete-item-info">
+                    <h2>Отзыв о {{ review.freelancer.user.get_full_name }}</h2>
+                    <div class="review-rating">
+                        {% for i in "12345" %}
+                        {% if forloop.counter <= review.rating %}
+                        <span class="material-symbols-outlined filled">star</span>
+                        {% else %}
+                        <span class="material-symbols-outlined">star</span>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                    <p>{{ review.comment|linebreaks }}</p>
+                </div>
+                
+                <div class="delete-warning">
+                    <span class="material-symbols-outlined">warning</span>
+                    <p>Это действие нельзя будет отменить. Ваш отзыв будет навсегда удален.</p>
+                </div>
+                
+                <form method="post" class="delete-form">
+                    {% csrf_token %}
+                    <div class="form-actions">
+                        <a href="{% url 'freelancer_detail' username=review.freelancer.user.username %}" class="btn btn-outline">Отмена</a>
+                        <button type="submit" class="btn btn-danger">Удалить отзыв</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

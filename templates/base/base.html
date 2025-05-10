@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FreelanceWay - Найдите лучших фрилансеров</title>
     <link rel="stylesheet" href="{% static 'base/css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'base/css/header.css' %}">
     <link rel="icon" href="{% static 'base/img/logo.svg' %}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
@@ -29,13 +30,23 @@
                 </ul>
             </nav>
             
-            <div class="header-actions btn-group">
-                <a href="{% url 'login' %}" class="btn btn-outline btn-sm">
-                    <span class="btn-text">Войти</span>
-                </a>
-                <a href="{% url 'register' %}" class="btn btn-primary btn-sm">
-                    <span class="btn-text">Регистрация</span>
-                </a>
+            <div class="header-actions">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'profile' %}" class="btn btn-outline btn-sm auth-btn">
+                        <span class="btn-text">Профиль</span>
+                    </a>
+                    <a href="{% url 'logout' %}" class="btn btn-primary btn-sm auth-btn">
+                        <span class="btn-text">Выйти</span>
+                    </a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn btn-outline btn-sm auth-btn">
+                        <span class="btn-text">Войти</span>
+                    </a>
+                    <a href="{% url 'register' %}" class="btn btn-primary btn-sm auth-btn">
+                        <span class="btn-text">Регистрация</span>
+                    </a>
+                {% endif %}
+                
                 <button id="toggle-theme" class="btn btn-icon btn-ghost" aria-label="Переключить тему">
                     <span id="theme-icon" class="material-symbols-outlined">light_mode</span>
                 </button>
@@ -49,7 +60,7 @@
     <div id="mobile-menu" class="mobile-menu">
         <ul>
             <li><a href="/" class="{% if request.path == '/' %}active{% endif %}">Главная</a></li>
-            <li><a href="{% url 'vacancies_list' %}" class="{% if '/projects' in request.path %}active{% endif %}">Ваканций</a></li>
+            <li><a href="/projects" class="{% if '/projects' in request.path %}active{% endif %}">Проекты</a></li>
             <li><a href="/freelancers" class="{% if '/freelancers' in request.path %}active{% endif %}">Фрилансеры</a></li>
             <li><a href="/about" class="{% if '/about' in request.path %}active{% endif %}">О нас</a></li>
             <li><a href="/contact" class="{% if '/contact' in request.path %}active{% endif %}">Контакты</a></li>

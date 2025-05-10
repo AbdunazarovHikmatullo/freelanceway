@@ -1,0 +1,175 @@
+.
+├── architecture.txt
+├── db.sqlite3
+├── freelancers
+│   ├── admin.py
+│   ├── apps.py
+│   ├── forms.py
+│   ├── __init__.py
+│   ├── migrations
+│   │   ├── 0001_initial.py
+│   │   ├── 0002_initial.py
+│   │   ├── __init__.py
+│   │   └── __pycache__
+│   │       ├── 0001_initial.cpython-312.pyc
+│   │       ├── 0002_initial.cpython-312.pyc
+│   │       └── __init__.cpython-312.pyc
+│   ├── models.py
+│   ├── __pycache__
+│   │   ├── admin.cpython-312.pyc
+│   │   ├── apps.cpython-312.pyc
+│   │   ├── forms.cpython-312.pyc
+│   │   ├── __init__.cpython-312.pyc
+│   │   ├── models.cpython-312.pyc
+│   │   ├── urls.cpython-312.pyc
+│   │   └── views.cpython-312.pyc
+│   ├── tests.py
+│   ├── urls.py
+│   └── views.py
+├── freelanceway
+│   ├── asgi.py
+│   ├── __init__.py
+│   ├── __pycache__
+│   │   ├── __init__.cpython-312.pyc
+│   │   ├── settings.cpython-312.pyc
+│   │   ├── urls.cpython-312.pyc
+│   │   └── wsgi.cpython-312.pyc
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+├── main
+│   ├── admin.py
+│   ├── apps.py
+│   ├── __init__.py
+│   ├── migrations
+│   │   ├── __init__.py
+│   │   └── __pycache__
+│   │       └── __init__.cpython-312.pyc
+│   ├── models.py
+│   ├── __pycache__
+│   │   ├── admin.cpython-312.pyc
+│   │   ├── apps.cpython-312.pyc
+│   │   ├── __init__.cpython-312.pyc
+│   │   ├── models.cpython-312.pyc
+│   │   ├── urls.cpython-312.pyc
+│   │   └── views.cpython-312.pyc
+│   ├── tests.py
+│   ├── urls.py
+│   └── views.py
+├── manage.py
+├── requirements.txt
+├── static
+│   ├── base
+│   │   ├── css
+│   │   │   ├── base.css
+│   │   │   ├── dev.css
+│   │   │   └── header.css
+│   │   ├── img
+│   │   │   ├── dev.svg
+│   │   │   └── logo.svg
+│   │   └── js
+│   │       ├── mobile-menu.js
+│   │       └── theme.js
+│   ├── freelancers
+│   │   ├── css
+│   │   │   ├── freelancers.css
+│   │   │   └── freelancers_list.css
+│   │   └── js
+│   ├── main
+│   │   ├── css
+│   │   │   └── index.css
+│   │   ├── img
+│   │   │   ├── banner.jpg
+│   │   │   └── placeholder.png
+│   │   └── js
+│   ├── users
+│   │   ├── css
+│   │   │   ├── auth.css
+│   │   │   └── profile.css
+│   │   ├── img
+│   │   └── js
+│   └── vacancy
+│       ├── css
+│       │   └── vacancy.css
+│       ├── img
+│       └── js
+├── templates
+│   ├── base
+│   │   ├── 404.html
+│   │   ├── base.html
+│   │   └── dev.html
+│   ├── freelancers
+│   │   ├── freelancer_detail.html
+│   │   ├── freelancer_form.html
+│   │   ├── freelancers_list.html
+│   │   ├── portfolio_confirm_delete.html
+│   │   ├── portfolio_form.html
+│   │   └── review_confirm_delete.html
+│   ├── main
+│   │   ├── about.html
+│   │   ├── contacts.html
+│   │   └── index.html
+│   ├── users
+│   │   ├── change_password.html
+│   │   ├── edit_profile.html
+│   │   ├── login.html
+│   │   ├── profile.html
+│   │   ├── public_profile.html
+│   │   └── register.html
+│   └── vacancy
+│       ├── application_form.html
+│       ├── my_applications.html
+│       ├── my_vacancies.html
+│       ├── vacancies_list.html
+│       ├── vacancy_applications.html
+│       ├── vacancy_detail.html
+│       └── vacancy_form.html
+├── users
+│   ├── admin.py
+│   ├── apps.py
+│   ├── forms.py
+│   ├── __init__.py
+│   ├── migrations
+│   │   ├── 0001_initial.py
+│   │   ├── __init__.py
+│   │   └── __pycache__
+│   │       ├── 0001_initial.cpython-312.pyc
+│   │       ├── 0002_rename_is_employer_user_is_client_and_more.cpython-312.pyc
+│   │       └── __init__.cpython-312.pyc
+│   ├── models.py
+│   ├── __pycache__
+│   │   ├── admin.cpython-312.pyc
+│   │   ├── apps.cpython-312.pyc
+│   │   ├── forms.cpython-312.pyc
+│   │   ├── __init__.cpython-312.pyc
+│   │   ├── models.cpython-312.pyc
+│   │   ├── urls.cpython-312.pyc
+│   │   └── views.cpython-312.pyc
+│   ├── tests.py
+│   ├── urls.py
+│   └── views.py
+└── vacancy
+    ├── admin.py
+    ├── apps.py
+    ├── forms.py
+    ├── __init__.py
+    ├── migrations
+    │   ├── 0001_initial.py
+    │   ├── __init__.py
+    │   └── __pycache__
+    │       ├── 0001_initial.cpython-312.pyc
+    │       └── __init__.cpython-312.pyc
+    ├── models.py
+    ├── __pycache__
+    │   ├── admin.cpython-312.pyc
+    │   ├── apps.cpython-312.pyc
+    │   ├── forms.cpython-312.pyc
+    │   ├── __init__.cpython-312.pyc
+    │   ├── models.cpython-312.pyc
+    │   ├── urls.cpython-312.pyc
+    │   └── views.cpython-312.pyc
+    ├── tests.py
+    ├── urls.py
+    └── views.py
+
+45 directories, 128 files

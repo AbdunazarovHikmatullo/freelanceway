@@ -1,0 +1,129 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'vacancy/css/vacancy.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Заголовок страницы -->
+<section class="page-header">
+    <div class="container">
+        <h1>Мои проекты</h1>
+        <p class="text-muted">Управляйте своими проектами и просматривайте заявки</p>
+        <div class="header-actions">
+            <a href="{% url 'create_vacancy' %}" class="btn btn-primary">
+                <span class="material-symbols-outlined">add</span>
+                Создать новый проект
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Фильтры -->
+<section class="filters-section">
+    <div class="container">
+        <div class="status-filters">
+            <a href="{% url 'my_vacancies' %}" class="status-filter {% if not selected_status %}active{% endif %}">Все</a>
+            <a href="{% url 'my_vacancies' %}?status=open" class="status-filter {% if selected_status == 'open' %}active{% endif %}">Открытые</a>
+            <a href="{% url 'my_vacancies' %}?status=in_progress" class="status-filter {% if selected_status == 'in_progress' %}active{% endif %}">В работе</a>
+            <a href="{% url 'my_vacancies' %}?status=completed" class="status-filter {% if selected_status == 'completed' %}active{% endif %}">Завершенные</a>
+            <a href="{% url 'my_vacancies' %}?status=cancelled" class="status-filter {% if selected_status == 'cancelled' %}active{% endif %}">Отмененные</a>
+        </div>
+    </div>
+</section>
+
+<!-- Список вакансий -->
+<section class="vacancies-section">
+    <div class="container">
+        <div class="my-vacancies-list">
+            {% for vacancy in page_obj %}
+            <div class="my-vacancy-item">
+                <div class="my-vacancy-info">
+                    <div class="my-vacancy-header">
+                        <span class="vacancy-badge">{{ vacancy.category.name }}</span>
+                        <span class="vacancy-status status-{{ vacancy.status }}">{{ vacancy.get_status_display }}</span>
+                    </div>
+                    <h3 class="my-vacancy-title">{{ vacancy.title }}</h3>
+                    <div class="my-vacancy-meta">
+                        <div class="my-vacancy-meta-item">
+                            <span class="material-symbols-outlined">payments</span>
+                            <span>₽{{ vacancy.budget_min }} - ₽{{ vacancy.budget_max }}</span>
+                        </div>
+                        <div class="my-vacancy-meta-item">
+                            <span class="material-symbols-outlined">schedule</span>
+                            <span>Создан {{ vacancy.created_at|date:"d.m.Y" }}</span>
+                        </div>
+                        <div class="my-vacancy-meta-item">
+                            <span class="material-symbols-outlined">person</span>
+                            <span>{{ vacancy.applications_count }} заявок</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="my-vacancy-actions">
+                    <a href="{% url 'vacancy_detail' vacancy_id=vacancy.id %}" class="btn btn-sm btn-outline">
+                        <span class="material-symbols-outlined">visibility</span>
+                        <span class="btn-text">Просмотр</span>
+                    </a>
+                    {% if vacancy.status == 'open' %}
+                    <a href="{% url 'edit_vacancy' vacancy_id=vacancy.id %}" class="btn btn-sm btn-outline">
+                        <span class="material-symbols-outlined">edit</span>
+                        <span class="btn-text">Редактировать</span>
+                    </a>
+                    {% endif %}
+                    <a href="{% url 'vacancy_applications' vacancy_id=vacancy.id %}" class="btn btn-sm btn-primary">
+                        <span class="material-symbols-outlined">people</span>
+                        <span class="btn-text">Заявки ({{ vacancy.applications_count }})</span>
+                    </a>
+                </div>
+            </div>
+            {% empty %}
+            <div class="no-results">
+                <span class="material-symbols-outlined">folder_off</span>
+                <h3>У вас пока нет проектов</h3>
+                <p>Создайте свой первый проект, чтобы начать работу с фрилансерами</p>
+                <a href="{% url 'create_vacancy' %}" class="btn btn-primary mt-4">
+                    <span class="material-symbols-outlined">add</span>
+                    Создать проект
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <!-- Пагинация -->
+        {% if page_obj.has_other_pages %}
+        <div class="pagination">
+            {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}{% if selected_status %}&status={{ selected_status }}{% endif %}" class="btn btn-outline btn-sm pagination-btn">
+                <span class="material-symbols-outlined">chevron_left</span>
+            </a>
+            {% else %}
+            <button class="btn btn-outline btn-sm pagination-btn" disabled>
+                <span class="material-symbols-outlined">chevron_left</span>
+            </button>
+            {% endif %}
+            
+            <div class="pagination-numbers">
+                {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                <a href="#" class="active">{{ num }}</a>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <a href="?page={{ num }}{% if selected_status %}&status={{ selected_status }}{% endif %}">{{ num }}</a>
+                {% endif %}
+                {% endfor %}
+            </div>
+            
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}{% if selected_status %}&status={{ selected_status }}{% endif %}" class="btn btn-outline btn-sm pagination-btn">
+                <span class="material-symbols-outlined">chevron_right</span>
+            </a>
+            {% else %}
+            <button class="btn btn-outline btn-sm pagination-btn" disabled>
+                <span class="material-symbols-outlined">chevron_right</span>
+            </button>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

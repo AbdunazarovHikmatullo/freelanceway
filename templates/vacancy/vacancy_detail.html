@@ -1,0 +1,156 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'vacancy/css/vacancy.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Хлебные крошки -->
+<div class="breadcrumbs">
+    <div class="container">
+        <a href="{% url 'vacancies_list' %}">Проекты</a>
+        <span class="material-symbols-outlined">chevron_right</span>
+        <span>{{ vacancy.title }}</span>
+    </div>
+</div>
+
+<!-- Детали вакансии -->
+<section class="vacancy-detail-section">
+    <div class="container">
+        <div class="vacancy-detail-grid">
+            <!-- Основная информация -->
+            <div class="vacancy-detail-main">
+                <div class="vacancy-detail-header">
+                    <div class="vacancy-detail-meta">
+                        <span class="vacancy-badge">{{ vacancy.category.name }}</span>
+                        <span class="vacancy-status status-{{ vacancy.status }}">{{ vacancy.get_status_display }}</span>
+                    </div>
+                    <h1 class="vacancy-detail-title">{{ vacancy.title }}</h1>
+                    <div class="vacancy-detail-info">
+                        <div class="vacancy-detail-info-item">
+                            <span class="material-symbols-outlined">schedule</span>
+                            <span>Опубликовано {{ vacancy.created_at|date:"d.m.Y" }}</span>
+                        </div>
+                        <div class="vacancy-detail-info-item">
+                            <span class="material-symbols-outlined">visibility</span>
+                            <span>{{ vacancy.views_count }} просмотров</span>
+                        </div>
+                        <div class="vacancy-detail-info-item">
+                            <span class="material-symbols-outlined">person</span>
+                            <span>{{ vacancy.applications_count }} заявок</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="vacancy-detail-content">
+                    <div class="vacancy-detail-section">
+                        <h2>Описание проекта</h2>
+                        <div class="vacancy-description">
+                            {{ vacancy.description|linebreaks }}
+                        </div>
+                    </div>
+                    
+                    <div class="vacancy-detail-section">
+                        <h2>Требуемые навыки</h2>
+                        <div class="vacancy-skills">
+                            {% for skill in vacancy.required_skills.split %}
+                            <span class="skill-tag">{{ skill }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="vacancy-detail-actions">
+                    {% if vacancy.status == 'open' %}
+                        {% if user.is_authenticated %}
+                            {% if user == vacancy.client %}
+                                <a href="{% url 'edit_vacancy' vacancy_id=vacancy.id %}" class="btn btn-outline">
+                                    <span class="material-symbols-outlined">edit</span>
+                                    Редактировать
+                                </a>
+                                <a href="{% url 'vacancy_applications' vacancy_id=vacancy.id %}" class="btn btn-primary">
+                                    <span class="material-symbols-outlined">people</span>
+                                    Просмотреть заявки ({{ vacancy.applications_count }})
+                                </a>
+                            {% elif user_application %}
+                                <div class="application-status status-{{ user_application.status }}">
+                                    <span class="material-symbols-outlined">
+                                        {% if user_application.status == 'pending' %}hourglass_empty
+                                        {% elif user_application.status == 'accepted' %}check_circle
+                                        {% else %}cancel{% endif %}
+                                    </span>
+                                    <span>Статус заявки: {{ user_application.get_status_display }}</span>
+                                </div>
+                            {% else %}
+                                <a href="{% url 'apply_to_vacancy' vacancy_id=vacancy.id %}" class="btn btn-primary">
+                                    <span class="material-symbols-outlined">send</span>
+                                    Откликнуться на проект
+                                </a>
+                            {% endif %}
+                        {% else %}
+                            <a href="{% url 'login' %}?next={% url 'vacancy_detail' vacancy_id=vacancy.id %}" class="btn btn-primary">
+                                <span class="material-symbols-outlined">login</span>
+                                Войдите, чтобы откликнуться
+                            </a>
+                        {% endif %}
+                    {% else %}
+                        <div class="vacancy-closed-message">
+                            <span class="material-symbols-outlined">info</span>
+                            <span>Этот проект больше не принимает заявки</span>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Боковая панель -->
+            <div class="vacancy-detail-sidebar">
+                <div class="vacancy-detail-card">
+                    <h3>Информация о проекте</h3>
+                    
+                    <div class="vacancy-detail-card-item">
+                        <span class="material-symbols-outlined">payments</span>
+                        <div>
+                            <h4>Бюджет</h4>
+                            <p>₽{{ vacancy.budget_min }} - ₽{{ vacancy.budget_max }}</p>
+                        </div>
+                    </div>
+                    
+                    {% if vacancy.deadline %}
+                    <div class="vacancy-detail-card-item">
+                        <span class="material-symbols-outlined">event</span>
+                        <div>
+                            <h4>Срок выполнения</h4>
+                            <p>До {{ vacancy.deadline|date:"d.m.Y" }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    <div class="vacancy-detail-card-item">
+                        <span class="material-symbols-outlined">person</span>
+                        <div>
+                            <h4>Заказчик</h4>
+                            <p>{{ vacancy.client.username }}</p>
+                        </div>
+                    </div>
+                </div>
+                
+                {% if similar_vacancies %}
+                <div class="vacancy-detail-card">
+                    <h3>Похожие проекты</h3>
+                    
+                    <div class="similar-vacancies">
+                        {% for similar in similar_vacancies %}
+                        <a href="{% url 'vacancy_detail' vacancy_id=similar.id %}" class="similar-vacancy">
+                            <h4>{{ similar.title }}</h4>
+                            <div class="similar-vacancy-budget">₽{{ similar.budget_min }} - ₽{{ similar.budget_max }}</div>
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

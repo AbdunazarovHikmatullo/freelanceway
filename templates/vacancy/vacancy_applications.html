@@ -1,0 +1,141 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'vacancy/css/vacancy.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Хлебные крошки -->
+<div class="breadcrumbs">
+    <div class="container">
+        <a href="{% url 'vacancies_list' %}">Проекты</a>
+        <span class="material-symbols-outlined">chevron_right</span>
+        <a href="{% url 'my_vacancies' %}">Мои проекты</a>
+        <span class="material-symbols-outlined">chevron_right</span>
+        <a href="{% url 'vacancy_detail' vacancy_id=vacancy.id %}">{{ vacancy.title }}</a>
+        <span class="material-symbols-outlined">chevron_right</span>
+        <span>Заявки</span>
+    </div>
+</div>
+
+<!-- Заголовок страницы -->
+<section class="page-header">
+    <div class="container">
+        <h1>Заявки на проект</h1>
+        <p class="text-muted">{{ vacancy.title }}</p>
+        <div class="vacancy-summary-details">
+            <div class="vacancy-summary-item">
+                <span class="material-symbols-outlined">payments</span>
+                <span>₽{{ vacancy.budget_min }} - ₽{{ vacancy.budget_max }}</span>
+            </div>
+            <div class="vacancy-summary-item">
+                <span class="material-symbols-outlined">category</span>
+                <span>{{ vacancy.category.name }}</span>
+            </div>
+            <div class="vacancy-summary-item">
+                <span class="material-symbols-outlined">person</span>
+                <span>{{ applications|length }} заявок</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Список заявок -->
+<section class="applications-section">
+    <div class="container">
+        {% if applications %}
+        <div class="applications-list">
+            {% for application in applications %}
+            <div class="application-card">
+                <div class="application-header">
+                    <img src="{% static 'main/img/placeholder.png' %}" alt="{{ application.freelancer.user.username }}" class="application-avatar">
+                    <div class="application-freelancer">
+                        <h3>{{ application.freelancer.user.username }}</h3>
+                        <div class="freelancer-rating">
+                            {% with ''|center:application.freelancer.raiting|make_list as stars %}
+                            {% for _ in stars %}
+                            <span class="material-symbols-outlined">star</span>
+                            {% endfor %}
+                            {% endwith %}
+                            <span>{{ application.freelancer.raiting }}</span>
+                        </div>
+                    </div>
+                    <div class="application-status status-{{ application.status }}">
+                        {{ application.get_status_display }}
+                    </div>
+                </div>
+                
+                <div class="application-body">
+                    <div class="application-details">
+                        <div class="application-detail-item">
+                            <span class="material-symbols-outlined">payments</span>
+                            <div>
+                                <h4>Предложенный бюджет</h4>
+                                <p>₽{{ application.proposed_budget }}</p>
+                            </div>
+                        </div>
+                        <div class="application-detail-item">
+                            <span class="material-symbols-outlined">schedule</span>
+                            <div>
+                                <h4>Оценка времени</h4>
+                                <p>{{ application.estimated_time }}</p>
+                            </div>
+                        </div>
+                        <div class="application-detail-item">
+                            <span class="material-symbols-outlined">calendar_today</span>
+                            <div>
+                                <h4>Дата заявки</h4>
+                                <p>{{ application.created_at|date:"d.m.Y" }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="application-message">
+                        <h4>Сопроводительное письмо</h4>
+                        <p>{{ application.cover_letter|linebreaks }}</p>
+                    </div>
+                    
+                    <div class="application-skills">
+                        <h4>Навыки</h4>
+                        <div class="freelancer-skills">
+                            {% for skill in application.freelancer.skills.split %}
+                            <span class="skill-tag">{{ skill }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="application-footer">
+                    <a href="#" class="btn btn-outline btn-sm">Профиль фрилансера</a>
+                    
+                    {% if application.status == 'pending' and vacancy.status == 'open' %}
+                    <div class="application-actions">
+                        <a href="{% url 'update_application_status' application_id=application.id status='rejected' %}" class="btn btn-outline btn-sm">
+                            <span class="material-symbols-outlined">close</span>
+                            Отклонить
+                        </a>
+                        <a href="{% url 'update_application_status' application_id=application.id status='accepted' %}" class="btn btn-primary btn-sm">
+                            <span class="material-symbols-outlined">check</span>
+                            Принять
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="no-results">
+            <span class="material-symbols-outlined">inbox</span>
+            <h3>Пока нет заявок</h3>
+            <p>На ваш проект еще не поступило ни одной заявки</p>
+            <a href="{% url 'vacancy_detail' vacancy_id=vacancy.id %}" class="btn btn-primary mt-4">
+                <span class="material-symbols-outlined">arrow_back</span>
+                Вернуться к проекту
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

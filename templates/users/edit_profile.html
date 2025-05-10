@@ -1,0 +1,207 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'users/css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Хлебные крошки -->
+<div class="breadcrumbs">
+    <div class="container">
+        <a href="{% url 'profile' %}">Мой профиль</a>
+        <span class="material-symbols-outlined">chevron_right</span>
+        <span>Редактирование профиля</span>
+    </div>
+</div>
+
+<!-- Форма редактирования профиля -->
+<section class="form-section">
+    <div class="container">
+        <div class="form-container">
+            <div class="form-header">
+                <h1>Редактирование профиля</h1>
+                <p class="text-muted">Обновите информацию о себе</p>
+            </div>
+            
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                <div class="message {% if message.tags %}{{ message.tags }}{% endif %}">
+                    <span class="material-symbols-outlined">
+                        {% if message.tags == 'success' %}check_circle{% elif message.tags == 'error' %}error{% else %}info{% endif %}
+                    </span>
+                    <p>{{ message }}</p>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            
+            <form method="post" enctype="multipart/form-data" class="profile-form">
+                {% csrf_token %}
+                
+                <div class="form-section-title">
+                    <h2>Основная информация</h2>
+                </div>
+                
+                <div class="avatar-upload">
+                    <div class="current-avatar">
+                        <img src="{{ user.get_avatar_url }}" alt="{{ user.username }}" id="avatar-preview">
+                    </div>
+                    <div class="avatar-actions">
+                        <label for="{{ form.avatar.id_for_label }}" class="btn btn-outline btn-sm">
+                            <span class="material-symbols-outlined">upload</span>
+                            Загрузить фото
+                        </label>
+                        {{ form.avatar }}
+                        <small class="form-help">Рекомендуемый размер: 300x300 пикселей</small>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="{{ form.first_name.id_for_label }}">Имя</label>
+                        {{ form.first_name }}
+                        {% if form.first_name.errors %}
+                        <div class="field-errors">
+                            {% for error in form.first_name.errors %}
+                            <p class="error-message">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.last_name.id_for_label }}">Фамилия</label>
+                        {{ form.last_name }}
+                        {% if form.last_name.errors %}
+                        <div class="field-errors">
+                            {% for error in form.last_name.errors %}
+                            <p class="error-message">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="{{ form.email.id_for_label }}">Email</label>
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                    <div class="field-errors">
+                        {% for error in form.email.errors %}
+                        <p class="error-message">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <div class="form-group">
+                    <label for="{{ form.location.id_for_label }}">Местоположение</label>
+                    {{ form.location }}
+                    {% if form.location.errors %}
+                    <div class="field-errors">
+                        {% for error in form.location.errors %}
+                        <p class="error-message">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <div class="form-group">
+                    <label for="{{ form.bio.id_for_label }}">О себе</label>
+                    {{ form.bio }}
+                    {% if form.bio.errors %}
+                    <div class="field-errors">
+                        {% for error in form.bio.errors %}
+                        <p class="error-message">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <div class="form-section-title">
+                    <h2>Социальные сети</h2>
+                </div>
+                
+                <div class="form-group">
+                    <label for="{{ form.website.id_for_label }}">Веб-сайт</label>
+                    {{ form.website }}
+                    {% if form.website.errors %}
+                    <div class="field-errors">
+                        {% for error in form.website.errors %}
+                        <p class="error-message">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="{{ form.github.id_for_label }}">GitHub</label>
+                        {{ form.github }}
+                        {% if form.github.errors %}
+                        <div class="field-errors">
+                            {% for error in form.github.errors %}
+                            <p class="error-message">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.twitter.id_for_label }}">Twitter</label>
+                        {{ form.twitter }}
+                        {% if form.twitter.errors %}
+                        <div class="field-errors">
+                            {% for error in form.twitter.errors %}
+                            <p class="error-message">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="{{ form.linkedin.id_for_label }}">LinkedIn</label>
+                    {{ form.linkedin }}
+                    {% if form.linkedin.errors %}
+                    <div class="field-errors">
+                        {% for error in form.linkedin.errors %}
+                        <p class="error-message">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <div class="form-actions">
+                    <a href="{% url 'profile' %}" class="btn btn-outline">Отмена</a>
+                    <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Предварительный просмотр аватара
+        const avatarInput = document.getElementById('{{ form.avatar.id_for_label }}');
+        const avatarPreview = document.getElementById('avatar-preview');
+        
+        avatarInput.addEventListener('change', function() {
+            if (this.files && this.files[0]) {
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    avatarPreview.src = e.target.result;
+                }
+                
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+    });
+</script>
+{% endblock %}
