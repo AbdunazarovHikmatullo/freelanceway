@@ -9,7 +9,7 @@
 <!-- Хлебные крошки -->
 <div class="breadcrumbs">
     <div class="container">
-        <a href="{% url 'vacancies_list' %}">Проекты</a>
+        <a href="{% url 'vacancy:vacancies_list' %}">Проекты</a>
         <span class="material-symbols-outlined">chevron_right</span>
         <span>{% if is_edit %}Редактирование проекта{% else %}Создание проекта{% endif %}</span>
     </div>
@@ -124,7 +124,7 @@
                 </div>
                 
                 <div class="form-actions">
-                    <a href="{% if is_edit %}{% url 'vacancy_detail' vacancy_id=vacancy.id %}{% else %}{% url 'vacancies_list' %}{% endif %}" class="btn btn-outline">Отмена</a>
+                    <a href="{% if is_edit %}{% url 'vacancy:vacancy_detail' vacancy_id=vacancy.id %}{% else %}{% url 'vacancies_list' %}{% endif %}" class="btn btn-outline">Отмена</a>
                     <button type="submit" class="btn btn-primary">
                         {% if is_edit %}Сохранить изменения{% else %}Опубликовать проект{% endif %}
                     </button>

@@ -1,0 +1,76 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'notifications/css/notifications.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Хлебные крошки -->
+<div class="breadcrumbs">
+    <div class="container">
+        <a href="{% url 'notifications:notification_list' %}">Уведомления</a>
+        <span class="material-symbols-outlined">chevron_right</span>
+        <span>Просмотр уведомления</span>
+    </div>
+</div>
+
+<!-- Детальная страница уведомления -->
+<section class="notification-detail-section">
+    <div class="container">
+        <div class="notification-detail-card">
+            <div class="notification-detail-header {{ notification.level }}">
+                <div class="notification-icon">
+                    <span class="material-symbols-outlined">
+                        {% if notification.level == 'info' %}info{% elif notification.level == 'success' %}check_circle{% elif notification.level == 'warning' %}warning{% elif notification.level == 'error' %}error{% endif %}
+                    </span>
+                </div>
+                <h1>{{ notification.title }}</h1>
+            </div>
+            
+            <div class="notification-detail-content">
+                <div class="notification-meta">
+                    <div class="meta-item">
+                        <span class="meta-label">Тип:</span>
+                        <span class="meta-value">{{ notification.notification_type.name }}</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Дата:</span>
+                        <span class="meta-value">{{ notification.created_at|date:"d.m.Y H:i" }}</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Статус:</span>
+                        <span class="meta-value">{% if notification.is_read %}Прочитано{% else %}Не прочитано{% endif %}</span>
+                    </div>
+                </div>
+                
+                <div class="notification-message">
+                    {{ notification.message|linebreaks }}
+                </div>
+                
+                {% if notification.related_object %}
+                <div class="notification-related">
+                    <h3>Связанный объект</h3>
+                    <p>{{ notification.related_object }}</p>
+                </div>
+                {% endif %}
+                
+                <div class="notification-actions">
+                    <a href="{% url 'notifications:notification_list' %}" class="btn btn-outline">
+                        <span class="material-symbols-outlined">arrow_back</span>
+                        Вернуться к списку
+                    </a>
+                    
+                    <form method="post" action="{% url 'notifications:delete_notification' pk=notification.id %}" class="inline-form">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">
+                            <span class="material-symbols-outlined">delete</span>
+                            Удалить уведомление
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

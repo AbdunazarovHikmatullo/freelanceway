@@ -6,7 +6,8 @@ from django.db.models import Q
 from .models import Vacancy, Category, Application
 from .forms import VacancyForm, ApplicationForm
 from freelancers.models import Freelancer
-
+from notifications.services import NotificationService
+from django.urls import reverse
 
 def vacancies_list(request):
     """Отображение списка всех вакансий с фильтрацией"""
@@ -107,7 +108,7 @@ def create_vacancy(request):
             vacancy.client = request.user
             vacancy.save()
             messages.success(request, 'Вакансия успешно создана!')
-            return redirect('vacancy_detail', vacancy_id=vacancy.id)
+            return redirect('vacancy:vacancy_detail', vacancy_id=vacancy.id)
     else:
         form = VacancyForm()
     
@@ -124,7 +125,7 @@ def edit_vacancy(request, vacancy_id):
         if form.is_valid():
             form.save()
             messages.success(request, 'Вакансия успешно обновлена!')
-            return redirect('vacancy_detail', vacancy_id=vacancy.id)
+            return redirect('vacancy:vacancy_detail', vacancy_id=vacancy.id)
     else:
         form = VacancyForm(instance=vacancy)
     
@@ -139,7 +140,7 @@ def delete_vacancy(request, vacancy_id):
     if request.method == 'POST':
         vacancy.delete()
         messages.success(request, 'Вакансия успешно удалена!')
-        return redirect('my_vacancies')
+        return redirect('vacancy:my_vacancies')
     
     return render(request, 'vacancy/vacancy_confirm_delete.html', {'vacancy': vacancy})
 
@@ -154,12 +155,12 @@ def apply_to_vacancy(request, vacancy_id):
         freelancer = Freelancer.objects.get(user=request.user)
     except Freelancer.DoesNotExist:
         messages.error(request, 'Только фрилансеры могут подавать заявки на проекты!')
-        return redirect('vacancy_detail', vacancy_id=vacancy.id)
+        return redirect('vacancy:vacancy_detail', vacancy_id=vacancy.id)
     
     # Проверяем, не подавал ли уже заявку
     if Application.objects.filter(vacancy=vacancy, freelancer=freelancer).exists():
         messages.error(request, 'Вы уже подали заявку на этот проект!')
-        return redirect('vacancy_detail', vacancy_id=vacancy.id)
+        return redirect('vacancy:vacancy_detail', vacancy_id=vacancy.id)
     
     if request.method == 'POST':
         form = ApplicationForm(request.POST)
@@ -173,12 +174,29 @@ def apply_to_vacancy(request, vacancy_id):
             vacancy.applications_count += 1
             vacancy.save(update_fields=['applications_count'])
             
+            # Создаем уведомление
+            NotificationService.create_notification(
+                recipient=vacancy.client,
+                notification_type_code='new_application',
+                title='Новая заявка на вашу вакансию',
+                message=f'Пользователь {request.user.get_full_name()} откликнулся на вашу вакансию "{vacancy.title}".',
+                related_object=application,
+                action_url=reverse('vacancy:application_detail', kwargs={'pk': application.pk}),
+                level='info'
+            )
+            
             messages.success(request, 'Ваша заявка успешно отправлена!')
-            return redirect('vacancy_detail', vacancy_id=vacancy.id)
+            return redirect('vacancy:vacancy_detail', vacancy_id=vacancy.id)
+            
     else:
         form = ApplicationForm()
-    
     return render(request, 'vacancy/application_form.html', {'form': form, 'vacancy': vacancy})
+
+@login_required
+def application_detail(request, pk):
+    """Детальная информация о заявке"""
+    application = get_object_or_404(Application, pk=pk, vacancy__client=request.user)
+    return render(request, 'vacancy/application_detail.html', {'application': application})
 
 
 @login_required
@@ -232,7 +250,7 @@ def update_application_status(request, application_id, status):
             
         messages.success(request, f'Статус заявки обновлен на "{dict(Application.STATUS_CHOICES)[status]}"')
     
-    return redirect('vacancy_applications', vacancy_id=application.vacancy.id)
+    return redirect('vacancy:vacancy_applications', vacancy_id=application.vacancy.id)
 
 
 @login_required
@@ -242,7 +260,7 @@ def my_applications(request):
         freelancer = Freelancer.objects.get(user=request.user)
     except Freelancer.DoesNotExist:
         messages.error(request, 'У вас нет профиля фрилансера!')
-        return redirect('vacancies_list')
+        return redirect('vacancy:vacancies_list')
     
     applications = Application.objects.filter(freelancer=freelancer).order_by('-created_at')
     

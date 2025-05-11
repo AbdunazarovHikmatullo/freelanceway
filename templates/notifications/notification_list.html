@@ -1,0 +1,163 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'notifications/css/notifications.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Заголовок страницы -->
+<section class="page-header">
+    <div class="container">
+        <h1>Уведомления</h1>
+        <p>Здесь вы можете просмотреть все ваши уведомления</p>
+    </div>
+</section>
+
+<!-- Секция с уведомлениями -->
+<section class="notifications-section">
+    <div class="container">
+        <div class="notifications-header">
+            <div class="notifications-count">
+                {% if unread_count %}
+                <span class="badge">{{ unread_count }}</span> непрочитанных уведомлений
+                {% else %}
+                У вас нет непрочитанных уведомлений
+                {% endif %}
+            </div>
+            <div class="notifications-actions">
+                {% if notifications %}
+                <form method="post" action="{% url 'notifications:mark_all_as_read' %}" class="inline-form">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-outline btn-sm">
+                        <span class="material-symbols-outlined">mark_email_read</span>
+                        Отметить все как прочитанные
+                    </button>
+                </form>
+                <form method="post" action="{% url 'notifications:delete_all_notifications' %}" class="inline-form">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-outline btn-sm btn-danger">
+                        <span class="material-symbols-outlined">delete</span>
+                        Удалить все
+                    </button>
+                </form>
+                {% endif %}
+                <a href="{% url 'notifications:notification_preferences' %}" class="btn btn-outline btn-sm">
+                    <span class="material-symbols-outlined">settings</span>
+                    Настройки уведомлений
+                </a>
+            </div>
+        </div>
+        
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+            <div class="message {% if message.tags %}{{ message.tags }}{% endif %}">
+                <span class="material-symbols-outlined">
+                    {% if message.tags == 'success' %}check_circle{% elif message.tags == 'error' %}error{% else %}info{% endif %}
+                </span>
+                <p>{{ message }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        
+        {% if notifications %}
+        <div class="notifications-list">
+            {% for notification in notifications %}
+            <div class="notification-item {% if not notification.is_read %}unread{% endif %} {{ notification.level }}">
+                <div class="notification-icon">
+                    <span class="material-symbols-outlined">
+                        {% if notification.level == 'info' %}info{% elif notification.level == 'success' %}check_circle{% elif notification.level == 'warning' %}warning{% elif notification.level == 'error' %}error{% endif %}
+                    </span>
+                </div>
+                <div class="notification-content">
+                    <h3 class="notification-title">{{ notification.title }}</h3>
+                    <div class="notification-message">{{ notification.message|linebreaks }}</div>
+                    <div class="notification-meta">
+                        <span class="notification-time">{{ notification.created_at|date:"d.m.Y H:i" }}</span>
+                        <span class="notification-type">{{ notification.notification_type.name }}</span>
+                    </div>
+                </div>
+                <div class="notification-actions">
+                    <a href="{{ notification.get_absolute_url }}" class="btn btn-sm btn-outline">
+                        <span class="material-symbols-outlined">visibility</span>
+                    </a>
+                    {% if not notification.is_read %}
+                    <form method="post" action="{% url 'notifications:mark_as_read' pk=notification.id %}" class="inline-form">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-sm btn-outline">
+                            <span class="material-symbols-outlined">mark_email_read</span>
+                        </button>
+                    </form>
+                    {% endif %}
+                    <form method="post" action="{% url 'notifications:delete_notification' pk=notification.id %}" class="inline-form">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-sm btn-outline btn-danger">
+                            <span class="material-symbols-outlined">delete</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <!-- Пагинация -->
+        {% if notifications.paginator.num_pages > 1 %}
+        <div class="pagination">
+            {% if notifications.has_previous %}
+            <a href="?page={{ notifications.previous_page_number }}" class="btn btn-outline pagination-btn">
+                <span class="material-symbols-outlined">chevron_left</span>
+            </a>
+            {% else %}
+            <button class="btn btn-outline pagination-btn" disabled>
+                <span class="material-symbols-outlined">chevron_left</span>
+            </button>
+            {% endif %}
+            
+            <div class="pagination-numbers">
+                {% if notifications.number > 3 %}
+                <a href="?page=1">1</a>
+                {% if notifications.number > 4 %}
+                <span>...</span>
+                {% endif %}
+                {% endif %}
+                
+                {% for num in notifications.paginator.page_range %}
+                {% if notifications.number == num %}
+                <a href="?page={{ num }}" class="active">{{ num }}</a>
+                {% elif num > notifications.number|add:"-3" and num < notifications.number|add:"3" %}
+                <a href="?page={{ num }}">{{ num }}</a>
+                {% endif %}
+                {% endfor %}
+                
+                {% if notifications.number < notifications.paginator.num_pages|add:"-2" %}
+                {% if notifications.number < notifications.paginator.num_pages|add:"-3" %}
+                <span>...</span>
+                {% endif %}
+                <a href="?page={{ notifications.paginator.num_pages }}">{{ notifications.paginator.num_pages }}</a>
+                {% endif %}
+            </div>
+            
+            {% if notifications.has_next %}
+            <a href="?page={{ notifications.next_page_number }}" class="btn btn-outline pagination-btn">
+                <span class="material-symbols-outlined">chevron_right</span>
+            </a>
+            {% else %}
+            <button class="btn btn-outline pagination-btn" disabled>
+                <span class="material-symbols-outlined">chevron_right</span>
+            </button>
+            {% endif %}
+        </div>
+        {% endif %}
+        
+        {% else %}
+        <div class="no-notifications">
+            <span class="material-symbols-outlined">notifications_off</span>
+            <h3>У вас нет уведомлений</h3>
+            <p>Когда появятся новые уведомления, они будут отображаться здесь</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

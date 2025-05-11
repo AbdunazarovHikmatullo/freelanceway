@@ -9,11 +9,11 @@
 <!-- Хлебные крошки -->
 <div class="breadcrumbs">
     <div class="container">
-        <a href="{% url 'vacancies_list' %}">Проекты</a>
+        <a href="{% url 'vacancy:vacancies_list' %}">Проекты</a>
         <span class="material-symbols-outlined">chevron_right</span>
-        <a href="{% url 'my_vacancies' %}">Мои проекты</a>
+        <a href="{% url 'vacancy:my_vacancies' %}">Мои проекты</a>
         <span class="material-symbols-outlined">chevron_right</span>
-        <a href="{% url 'vacancy_detail' vacancy_id=vacancy.id %}">{{ vacancy.title }}</a>
+        <a href="{% url 'vacancy:vacancy_detail' vacancy_id=vacancy.id %}">{{ vacancy.title }}</a>
         <span class="material-symbols-outlined">chevron_right</span>
         <span>Заявки</span>
     </div>
@@ -53,12 +53,10 @@
                     <div class="application-freelancer">
                         <h3>{{ application.freelancer.user.username }}</h3>
                         <div class="freelancer-rating">
-                            {% with ''|center:application.freelancer.raiting|make_list as stars %}
-                            {% for _ in stars %}
+                            {% for _ in ""|center:application.freelancer.rating %}
                             <span class="material-symbols-outlined">star</span>
                             {% endfor %}
-                            {% endwith %}
-                            <span>{{ application.freelancer.raiting }}</span>
+                            <span>{{ application.freelancer.rating }}</span>
                         </div>
                     </div>
                     <div class="application-status status-{{ application.status }}">
@@ -111,11 +109,11 @@
                     
                     {% if application.status == 'pending' and vacancy.status == 'open' %}
                     <div class="application-actions">
-                        <a href="{% url 'update_application_status' application_id=application.id status='rejected' %}" class="btn btn-outline btn-sm">
+                        <a href="{% url 'vacancy:update_application_status' application_id=application.id status='rejected' %}" class="btn btn-outline btn-sm">
                             <span class="material-symbols-outlined">close</span>
                             Отклонить
                         </a>
-                        <a href="{% url 'update_application_status' application_id=application.id status='accepted' %}" class="btn btn-primary btn-sm">
+                        <a href="{% url 'vacancy:update_application_status' application_id=application.id status='accepted' %}" class="btn btn-primary btn-sm">
                             <span class="material-symbols-outlined">check</span>
                             Принять
                         </a>
@@ -130,7 +128,7 @@
             <span class="material-symbols-outlined">inbox</span>
             <h3>Пока нет заявок</h3>
             <p>На ваш проект еще не поступило ни одной заявки</p>
-            <a href="{% url 'vacancy_detail' vacancy_id=vacancy.id %}" class="btn btn-primary mt-4">
+            <a href="{% url 'vacancy:vacancy_detail' vacancy_id=vacancy.id %}" class="btn btn-primary mt-4">
                 <span class="material-symbols-outlined">arrow_back</span>
                 Вернуться к проекту
             </a>

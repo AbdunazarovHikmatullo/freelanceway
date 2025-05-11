@@ -1,0 +1,104 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'notifications/css/notifications.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Хлебные крошки -->
+<div class="breadcrumbs">
+    <div class="container">
+        <a href="{% url 'notifications:notification_list' %}">Уведомления</a>
+        <span class="material-symbols-outlined">chevron_right</span>
+        <span>Настройки уведомлений</span>
+    </div>
+</div>
+
+<!-- Настройки уведомлений -->
+<section class="notification-preferences-section">
+    <div class="container">
+        <div class="notification-preferences-card">
+            <div class="notification-preferences-header">
+                <h1>Настройки уведомлений</h1>
+                <p>Выберите, какие уведомления вы хотите получать и каким способом</p>
+            </div>
+            
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                <div class="message {% if message.tags %}{{ message.tags }}{% endif %}">
+                    <span class="material-symbols-outlined">
+                        {% if message.tags == 'success' %}check_circle{% elif message.tags == 'error' %}error{% else %}info{% endif %}
+                    </span>
+                    <p>{{ message }}</p>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            
+            <form method="post" class="notification-preferences-form">
+                {% csrf_token %}
+                
+                <div class="preferences-table">
+                    <div class="preferences-header">
+                        <div class="preference-type">Тип уведомления</div>
+                        <div class="preference-options">
+                            <div class="preference-option">
+                                <span class="material-symbols-outlined" title="На сайте">notifications</span>
+                            </div>
+                            <div class="preference-option">
+                                <span class="material-symbols-outlined" title="По email">email</span>
+                            </div>
+                            <div class="preference-option">
+                                <span class="material-symbols-outlined" title="Push-уведомления">phone_android</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    {% for notification_type in notification_types %}
+                    <div class="preference-item">
+                        <div class="preference-type">
+                            <h3>{{ notification_type.name }}</h3>
+                            <p>{{ notification_type.description }}</p>
+                        </div>
+                        <div class="preference-options">
+                            <div class="preference-option">
+                                <input type="checkbox" id="web_{{ notification_type.id }}" name="web_{{ notification_type.id }}" 
+                                    {% if notification_type.id in preferences_dict %}
+                                        {% if preferences_dict|get:notification_type.id|attr:"web_enabled" %}checked{% endif %}
+                                    {% elif notification_type.default_web %}checked{% endif %}>
+                                <label for="web_{{ notification_type.id }}"></label>
+                            </div>
+                            <div class="preference-option">
+                                <input type="checkbox" id="email_{{ notification_type.id }}" name="email_{{ notification_type.id }}" 
+                                    {% if notification_type.id in preferences_dict %}
+                                        {% if preferences_dict|get:notification_type.id|attr:"email_enabled" %}checked{% endif %}
+                                    {% elif notification_type.default_email %}checked{% endif %}>
+                                <label for="email_{{ notification_type.id }}"></label>
+                            </div>
+                            <div class="preference-option">
+                                <input type="checkbox" id="push_{{ notification_type.id }}" name="push_{{ notification_type.id }}" 
+                                    {% if notification_type.id in preferences_dict %}
+                                        {% if preferences_dict|get:notification_type.id|attr:"push_enabled" %}checked{% endif %}
+                                    {% elif notification_type.default_push %}checked{% endif %}>
+                                <label for="push_{{ notification_type.id }}"></label>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="no-preferences">
+                        <p>Нет доступных типов уведомлений</p>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <div class="form-actions">
+                    <a href="{% url 'notifications:notification_list' %}" class="btn btn-outline">Отмена</a>
+                    <button type="submit" class="btn btn-primary">Сохранить настройки</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

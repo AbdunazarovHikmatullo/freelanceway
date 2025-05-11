@@ -23,26 +23,26 @@
             <nav>
                 <ul>
                     <li><a href="/" class="{% if request.path == '/' %}active{% endif %}">Главная</a></li>
-                    <li><a href="{% url 'vacancies_list' %}" class="{% if '/projects' in request.path %}active{% endif %}">Проекты</a></li>
+                    <li><a href="{% url 'vacancy:vacancies_list' %}" class="{% if '/vacancy' in request.path %}active{% endif %}">Проекты</a></li>
                     <li><a href="{% url 'freelancers_list' %}" class="{% if '/freelancers' in request.path %}active{% endif %}">Фрилансеры</a></li>
                     <li><a href="/about" class="{% if '/about' in request.path %}active{% endif %}">О нас</a></li>
-                    <li><a href="/contact" class="{% if '/contact' in request.path %}active{% endif %}">Контакты</a></li>
+                    <li><a href="/contacts" class="{% if '/contact' in request.path %}active{% endif %}">Контакты</a></li>
                 </ul>
             </nav>
             
             <div class="header-actions">
                 {% if user.is_authenticated %}
-                    <a href="{% url 'profile' %}" class="btn btn-outline btn-sm auth-btn">
+                    <a href="{% url 'users:profile' %}" class="btn btn-outline btn-sm auth-btn">
                         <span class="btn-text">Профиль</span>
                     </a>
-                    <a href="{% url 'logout' %}" class="btn btn-primary btn-sm auth-btn">
+                    <a href="{% url 'users:logout' %}" class="btn btn-primary btn-sm auth-btn">
                         <span class="btn-text">Выйти</span>
                     </a>
                 {% else %}
-                    <a href="{% url 'login' %}" class="btn btn-outline btn-sm auth-btn">
+                    <a href="{% url 'users:login' %}" class="btn btn-outline btn-sm auth-btn">
                         <span class="btn-text">Войти</span>
                     </a>
-                    <a href="{% url 'register' %}" class="btn btn-primary btn-sm auth-btn">
+                    <a href="{% url 'users:register' %}" class="btn btn-primary btn-sm auth-btn">
                         <span class="btn-text">Регистрация</span>
                     </a>
                 {% endif %}
@@ -64,8 +64,13 @@
             <li><a href="/freelancers" class="{% if '/freelancers' in request.path %}active{% endif %}">Фрилансеры</a></li>
             <li><a href="/about" class="{% if '/about' in request.path %}active{% endif %}">О нас</a></li>
             <li><a href="/contact" class="{% if '/contact' in request.path %}active{% endif %}">Контакты</a></li>
-            <li><a href="/login">Войти</a></li>
-            <li><a href="/register">Регистрация</a></li>
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'users:profile' %}">Профиль</a></li>
+                <li><a href="{% url 'users:logout' %}">Выйти</a></li>
+            {% else %}
+                <li><a href="{% url 'users:login' %}">Войти</a></li>
+                <li><a href="{% url 'users:register' %}">Регистрация</a></li>
+            {% endif %}
         </ul>
     </div>
 
@@ -128,7 +133,7 @@
             </div>
         </div>
     </footer>
-
+    
     <script src="{% static 'base/js/mobile-menu.js' %}"></script>
     <script src="{% static 'base/js/theme.js' %}"></script>
     {% block extra_js %}{% endblock %}

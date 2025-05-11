@@ -1,0 +1,14 @@
+{{ notification.title }}
+
+{{ notification.message }}
+
+{% if notification.action_url %}
+Подробнее: {{ site_url }}{{ notification.action_url }}
+{% endif %}
+
+---
+Вы получили это письмо, потому что зарегистрированы на сайте {{ site_name }}.
+Чтобы изменить настройки уведомлений, перейдите по ссылке:
+{{ site_url }}{% url 'notifications:notification_preferences' %}
+
+© {{ site_name }} {% now "Y" %}

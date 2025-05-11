@@ -13,7 +13,8 @@ def register_view(request):
     """Регистрация нового пользователя"""
     if request.user.is_authenticated:
         return redirect('index')
-    
+
+
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
@@ -144,7 +145,7 @@ def edit_profile_view(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Профиль успешно обновлен!')
-            return redirect('profile')
+            return redirect('users:profile')
     else:
         form = UserProfileForm(instance=user)
     
@@ -161,7 +162,7 @@ def change_password_view(request):
             # Обновляем сессию, чтобы пользователь не вышел из системы
             update_session_auth_hash(request, user)
             messages.success(request, 'Ваш пароль был успешно изменен!')
-            return redirect('profile')
+            return redirect('users:profile')
         else:
             messages.error(request, 'Пожалуйста, исправьте ошибки ниже.')
     else:

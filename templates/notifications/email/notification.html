@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ notification.title }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .logo {
+            max-width: 150px;
+            height: auto;
+        }
+        .content {
+            padding: 20px 0;
+        }
+        .notification-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2563eb;
+        }
+        .notification-message {
+            margin-bottom: 20px;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #2563eb;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            font-size: 12px;
+            color: #777;
+            text-align: center;
+        }
+        .info {
+            color: #2563eb;
+        }
+        .success {
+            color: #10B981;
+        }
+        .warning {
+            color: #F59E0B;
+        }
+        .error {
+            color: #EF4444;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="{{ site_url }}/static/base/img/logo.svg" alt="{{ site_name }}" class="logo">
+        </div>
+        
+        <div class="content">
+            <div class="notification-title {{ notification.level }}">
+                {{ notification.title }}
+            </div>
+            
+            <div class="notification-message">
+                {{ notification.message|linebreaks }}
+            </div>
+            
+            {% if notification.action_url %}
+            <div class="action">
+                <a href="{{ site_url }}{{ notification.action_url }}" class="button">Подробнее</a>
+            </div>
+            {% endif %}
+        </div>
+        
+        <div class="footer">
+            <p>Вы получили это письмо, потому что зарегистрированы на сайте {{ site_name }}.</p>
+            <p>Чтобы изменить настройки уведомлений, перейдите в <a href="{{ site_url }}{% url 'notifications:notification_preferences' %}">настройки уведомлений</a>.</p>
+            <p>&copy; {{ site_name }} {% now "Y" %}</p>
+        </div>
+    </div>
+</body>
+</html>

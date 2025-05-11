@@ -5,6 +5,9 @@ from django.db.models import Q, Avg
 from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.urls import reverse
+from .models import Freelancer, Review
+from .forms import ReviewForm
+from notifications.services import NotificationService
 
 from .models import Freelancer, Portfolio, Review, Category
 from .forms import FreelancerProfileForm, PortfolioForm, ReviewForm, FreelancerFilterForm
@@ -190,6 +193,49 @@ def edit_freelancer_profile(request):
         'freelancer': freelancer,
         'is_edit': True,
     })
+
+
+@login_required
+def add_review(request, freelancer_id):
+    """Добавление отзыва о фрилансере"""
+    freelancer = get_object_or_404(Freelancer, id=freelancer_id)
+    
+    # Проверяем, оставлял ли пользователь уже отзыв
+    if Review.objects.filter(freelancer=freelancer, author=request.user).exists():
+        messages.error(request, 'Вы уже оставили отзыв для этого фрилансера.')
+        return redirect('freelancer_detail', username=freelancer.user.username)
+    
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.freelancer = freelancer
+            review.author = request.user
+            review.save()
+            
+            # Обновляем рейтинг фрилансера
+            avg_rating = Review.objects.filter(freelancer=freelancer).aggregate(Avg('rating'))['rating__avg']
+            freelancer.rating = avg_rating
+            freelancer.reviews_count = Review.objects.filter(freelancer=freelancer).count()
+            freelancer.save()
+            
+            # Отправляем уведомление фрилансеру
+            NotificationService.create_notification(
+                recipient=freelancer.user,
+                notification_type_code='new_review',
+                title='Новый отзыв о вас',
+                message=f'Пользователь {request.user.get_full_name()} оставил отзыв о вашей работе с оценкой {review.rating}/5.',
+                related_object=review,
+                action_url=reverse('freelancer_detail', kwargs={'username': freelancer.user.username}),
+                level='info'
+            )
+            
+            messages.success(request, 'Ваш отзыв успешно добавлен!')
+            return redirect('freelancer_detail', username=freelancer.user.username)
+    else:
+        form = ReviewForm()
+    
+    return render(request, 'freelancers/review_form.html', {'form': form, 'freelancer': freelancer})
 
 
 @login_required

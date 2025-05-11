@@ -9,9 +9,9 @@
 <!-- Хлебные крошки -->
 <div class="breadcrumbs">
     <div class="container">
-        <a href="{% url 'vacancies_list' %}">Проекты</a>
+        <a href="{% url 'vacancy:vacancies_list' %}">Проекты</a>
         <span class="material-symbols-outlined">chevron_right</span>
-        <a href="{% url 'vacancy_detail' vacancy_id=vacancy.id %}">{{ vacancy.title }}</a>
+        <a href="{% url 'vacancy:vacancy_detail' vacancy_id=vacancy.id %}">{{ vacancy.title }}</a>
         <span class="material-symbols-outlined">chevron_right</span>
         <span>Отклик на проект</span>
     </div>
@@ -96,7 +96,7 @@
                 </div>
                 
                 <div class="form-actions">
-                    <a href="{% url 'vacancy_detail' vacancy_id=vacancy.id %}" class="btn btn-outline">Отмена</a>
+                    <a href="{% url 'vacancy:vacancy_detail' vacancy_id=vacancy.id %}" class="btn btn-outline">Отмена</a>
                     <button type="submit" class="btn btn-primary">Отправить заявку</button>
                 </div>
             </form>

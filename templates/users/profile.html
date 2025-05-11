@@ -37,7 +37,7 @@
                 </div>
             </div>
             <div class="profile-actions">
-                <a href="{% url 'edit_profile' %}" class="btn btn-outline">
+                <a href="{% url 'users:edit_profile' %}" class="btn btn-outline">
                     <span class="material-symbols-outlined">edit</span>
                     Редактировать профиль
                 </a>
@@ -166,16 +166,16 @@
                     <h2>Быстрые действия</h2>
                     <div class="quick-actions">
                         {% if user.is_client %}
-                        <a href="{% url 'create_vacancy' %}" class="quick-action-btn">
+                        <a href="{% url 'vacancy:create_vacancy' %}" class="quick-action-btn">
                             <span class="material-symbols-outlined">add_circle</span>
                             <span>Создать проект</span>
                         </a>
-                        <a href="{% url 'my_vacancies' %}" class="quick-action-btn">
+                        <a href="{% url 'vacancy:my_vacancies' %}" class="quick-action-btn">
                             <span class="material-symbols-outlined">list</span>
                             <span>Мои проекты</span>
                         </a>
                         {% elif user.is_freelancer %}
-                        <a href="{% url 'vacancies_list' %}" class="quick-action-btn">
+                        <a href="{% url 'vacancy:vacancies_list' %}" class="quick-action-btn">
                             <span class="material-symbols-outlined">search</span>
                             <span>Найти проекты</span>
                         </a>
@@ -184,7 +184,7 @@
                             <span>Мои заявки</span>
                         </a>
                         {% endif %}
-                        <a href="{% url 'change_password' %}" class="quick-action-btn">
+                        <a href="{% url 'users:change_password' %}" class="quick-action-btn">
                             <span class="material-symbols-outlined">lock</span>
                             <span>Изменить пароль</span>
                         </a>
@@ -202,7 +202,7 @@
                                 <span class="material-symbols-outlined">work</span>
                             </div>
                             <div class="activity-content">
-                                <h3><a href="{% url 'vacancy_detail' vacancy_id=vacancy.id %}">{{ vacancy.title }}</a></h3>
+                                <h3><a href="{% url 'vacancy:vacancy_detail' vacancy_id=vacancy.id %}">{{ vacancy.title }}</a></h3>
                                 <div class="activity-meta">
                                     <span class="activity-status status-{{ vacancy.status }}">{{ vacancy.get_status_display }}</span>
                                     <span class="activity-date">{{ vacancy.created_at|date:"d.m.Y" }}</span>

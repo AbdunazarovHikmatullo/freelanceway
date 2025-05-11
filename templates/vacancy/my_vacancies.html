@@ -12,7 +12,7 @@
         <h1>Мои проекты</h1>
         <p class="text-muted">Управляйте своими проектами и просматривайте заявки</p>
         <div class="header-actions">
-            <a href="{% url 'create_vacancy' %}" class="btn btn-primary">
+            <a href="{% url 'vacancy:create_vacancy' %}" class="btn btn-primary">
                 <span class="material-symbols-outlined">add</span>
                 Создать новый проект
             </a>
@@ -24,11 +24,11 @@
 <section class="filters-section">
     <div class="container">
         <div class="status-filters">
-            <a href="{% url 'my_vacancies' %}" class="status-filter {% if not selected_status %}active{% endif %}">Все</a>
-            <a href="{% url 'my_vacancies' %}?status=open" class="status-filter {% if selected_status == 'open' %}active{% endif %}">Открытые</a>
-            <a href="{% url 'my_vacancies' %}?status=in_progress" class="status-filter {% if selected_status == 'in_progress' %}active{% endif %}">В работе</a>
-            <a href="{% url 'my_vacancies' %}?status=completed" class="status-filter {% if selected_status == 'completed' %}active{% endif %}">Завершенные</a>
-            <a href="{% url 'my_vacancies' %}?status=cancelled" class="status-filter {% if selected_status == 'cancelled' %}active{% endif %}">Отмененные</a>
+            <a href="{% url 'vacancy:my_vacancies' %}" class="status-filter {% if not selected_status %}active{% endif %}">Все</a>
+            <a href="{% url 'vacancy:my_vacancies' %}?status=open" class="status-filter {% if selected_status == 'open' %}active{% endif %}">Открытые</a>
+            <a href="{% url 'vacancy:my_vacancies' %}?status=in_progress" class="status-filter {% if selected_status == 'in_progress' %}active{% endif %}">В работе</a>
+            <a href="{% url 'vacancy:my_vacancies' %}?status=completed" class="status-filter {% if selected_status == 'completed' %}active{% endif %}">Завершенные</a>
+            <a href="{% url 'vacancy:my_vacancies' %}?status=cancelled" class="status-filter {% if selected_status == 'cancelled' %}active{% endif %}">Отмененные</a>
         </div>
     </div>
 </section>
@@ -61,17 +61,17 @@
                     </div>
                 </div>
                 <div class="my-vacancy-actions">
-                    <a href="{% url 'vacancy_detail' vacancy_id=vacancy.id %}" class="btn btn-sm btn-outline">
+                    <a href="{% url 'vacancy:vacancy_detail' vacancy_id=vacancy.id %}" class="btn btn-sm btn-outline">
                         <span class="material-symbols-outlined">visibility</span>
                         <span class="btn-text">Просмотр</span>
                     </a>
                     {% if vacancy.status == 'open' %}
-                    <a href="{% url 'edit_vacancy' vacancy_id=vacancy.id %}" class="btn btn-sm btn-outline">
+                    <a href="{% url 'vacancy:edit_vacancy' vacancy_id=vacancy.id %}" class="btn btn-sm btn-outline">
                         <span class="material-symbols-outlined">edit</span>
                         <span class="btn-text">Редактировать</span>
                     </a>
                     {% endif %}
-                    <a href="{% url 'vacancy_applications' vacancy_id=vacancy.id %}" class="btn btn-sm btn-primary">
+                    <a href="{% url 'vacancy:vacancy_applications' vacancy_id=vacancy.id %}" class="btn btn-sm btn-primary">
                         <span class="material-symbols-outlined">people</span>
                         <span class="btn-text">Заявки ({{ vacancy.applications_count }})</span>
                     </a>
@@ -82,7 +82,7 @@
                 <span class="material-symbols-outlined">folder_off</span>
                 <h3>У вас пока нет проектов</h3>
                 <p>Создайте свой первый проект, чтобы начать работу с фрилансерами</p>
-                <a href="{% url 'create_vacancy' %}" class="btn btn-primary mt-4">
+                <a href="{% url 'vacancy:create_vacancy' %}" class="btn btn-primary mt-4">
                     <span class="material-symbols-outlined">add</span>
                     Создать проект
                 </a>
