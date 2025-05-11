@@ -1,0 +1,242 @@
+/* Стили для страниц аутентификации */
+
+.auth-section {
+    padding: var(--space-16) 0;
+    min-height: calc(100vh - 4rem - 1px);
+    display: flex;
+    align-items: center;
+}
+
+.auth-container {
+    max-width: 480px;
+    margin: 0 auto;
+}
+
+.auth-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+}
+
+.auth-header {
+    padding: var(--space-6);
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.auth-header h1 {
+    font-size: 1.5rem;
+    margin-bottom: var(--space-2);
+}
+
+.auth-form {
+    padding: var(--space-6);
+}
+
+.form-group {
+    margin-bottom: var(--space-4);
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: var(--space-2);
+    font-weight: 500;
+    font-size: 0.9375rem;
+}
+
+.form-input {
+    width: 100%;
+    padding: var(--space-3);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-size: 0.9375rem;
+    transition: border-color var(--transition-fast);
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-4);
+    font-size: 0.875rem;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.forgot-password {
+    color: var(--primary);
+}
+
+.btn-block {
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+    font-size: 1rem;
+}
+
+.auth-footer {
+    padding: var(--space-4) var(--space-6);
+    text-align: center;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.9375rem;
+}
+
+.auth-footer a {
+    color: var(--primary);
+    font-weight: 500;
+}
+
+/* Сообщения */
+.messages {
+    margin-bottom: var(--space-4);
+}
+
+.message {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-2);
+    padding: var(--space-3);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-2);
+}
+
+.message.success {
+    background-color: rgba(16, 185, 129, 0.1);
+    color: #10B981;
+}
+
+.message.error {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: #EF4444;
+}
+
+.message.info {
+    background-color: rgba(59, 130, 246, 0.1);
+    color: #3B82F6;
+}
+
+.message .material-symbols-outlined {
+    font-size: 1.25rem;
+}
+
+.message p {
+    margin: 0;
+}
+
+/* Ошибки формы */
+.form-errors,
+.field-errors {
+    background-color: rgba(239, 68, 68, 0.1);
+    border-radius: var(--radius-md);
+    padding: var(--space-3);
+    margin-bottom: var(--space-4);
+}
+
+.error-message {
+    color: #EF4444;
+    font-size: 0.875rem;
+    margin: 0;
+}
+
+.field-errors {
+    margin-top: var(--space-2);
+    margin-bottom: 0;
+}
+
+/* Выбор типа пользователя */
+.user-type-group {
+    margin-bottom: var(--space-6);
+}
+
+.user-type-options {
+    display: flex;
+    gap: var(--space-4);
+    margin-top: var(--space-2);
+}
+
+.user-type-option {
+    flex: 1;
+    position: relative;
+}
+
+.user-type-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.user-type-option label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--space-4);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.user-type-option input[type="radio"]:checked + label {
+    border-color: var(--primary);
+    background-color: rgba(37, 99, 235, 0.05);
+}
+
+.user-type-icon {
+    margin-bottom: var(--space-2);
+}
+
+.user-type-icon .material-symbols-outlined {
+    font-size: 2rem;
+    color: var(--primary);
+}
+
+.user-type-label {
+    font-weight: 600;
+    margin-bottom: var(--space-1);
+}
+
+.user-type-desc {
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+/* Соглашение с условиями */
+.terms-agreement {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+    font-size: 0.875rem;
+}
+
+.terms-agreement input {
+    margin-top: 0.25rem;
+}
+
+.terms-agreement a {
+    color: var(--primary);
+}
+
+/* Адаптивность */
+@media (max-width: 640px) {
+    .auth-section {
+        padding: var(--space-8) 0;
+    }
+    
+    .user-type-options {
+        flex-direction: column;
+    }
+}

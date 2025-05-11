@@ -1,0 +1,394 @@
+/* Стили для страницы списка фрилансеров */
+
+/* Заголовок страницы */
+.page-header {
+    background-color: var(--card-bg);
+    padding: var(--space-12) 0;
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.page-header h1 {
+    margin-bottom: var(--space-2);
+}
+
+.page-header p {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Секция фильтров */
+.filters-section {
+    background-color: var(--bg-color);
+    padding: var(--space-6) 0;
+    top: 4rem;
+    z-index: 10;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.filters-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+}
+
+/* Поисковая строка */
+.search-box {
+    display: flex;
+    align-items: center;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 0 var(--space-3);
+    transition: border-color var(--transition-fast);
+}
+
+.search-box:focus-within {
+    border-color: var(--primary);
+}
+
+.search-box span {
+    color: var(--text-muted);
+}
+
+.search-box input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: var(--space-3);
+    color: var(--text-color);
+    font-size: 0.9375rem;
+    outline: none;
+}
+
+.search-box input::placeholder {
+    color: var(--text-muted);
+}
+
+/* Фильтры */
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    align-items: flex-end;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    min-width: 150px;
+    flex: 1;
+}
+
+.filter-group label {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.filter-group select {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: var(--space-2) var(--space-3);
+    color: var(--text-color);
+    font-size: 0.9375rem;
+    outline: none;
+    transition: border-color var(--transition-fast);
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right var(--space-2) center;
+    background-size: 1rem;
+    padding-right: var(--space-8);
+}
+
+.filter-group select:focus {
+    border-color: var(--primary);
+}
+
+.filter-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    height: 38px;
+    margin-top: auto;
+}
+
+/* Секция с фрилансерами */
+.freelancers-section {
+    padding: var(--space-8) 0;
+}
+
+.results-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-6);
+}
+
+.results-count {
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.sort-by {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.sort-by label {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+}
+
+.sort-by select {
+    background-color: transparent;
+    border: none;
+    color: var(--text-color);
+    font-size: 0.9375rem;
+    outline: none;
+    cursor: pointer;
+    padding-right: var(--space-6);
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: 1rem;
+}
+
+/* Сетка фрилансеров */
+.freelancers-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+    margin-bottom: var(--space-8);
+}
+
+/* Карточка фрилансера */
+.freelancer-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal);
+    display: flex;
+    flex-direction: column;
+}
+
+.freelancer-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary-light);
+}
+
+.freelancer-header {
+    position: relative;
+    padding: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.freelancer-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: var(--radius-full);
+    object-fit: cover;
+    border: 2px solid var(--primary);
+    margin-bottom: var(--space-2);
+}
+
+.freelancer-rating {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    color: #FFB400;
+    font-weight: 500;
+}
+
+.freelancer-rating span:last-child {
+    color: var(--text-color);
+    margin-left: var(--space-1);
+}
+
+.freelancer-info {
+    padding: var(--space-4);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.freelancer-name {
+    margin-bottom: var(--space-1);
+    font-size: 1.125rem;
+}
+
+.freelancer-title {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    margin-bottom: var(--space-3);
+}
+
+.freelancer-bio {
+    margin-bottom: var(--space-3);
+    font-size: 0.9375rem;
+    color: var(--text-color);
+    flex: 1;
+}
+
+.freelancer-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-top: auto;
+}
+
+.skill-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-full);
+    font-size: 0.75rem;
+    font-weight: 500;
+    background-color: rgba(37, 99, 235, 0.1);
+    color: var(--primary);
+}
+
+.more-skills {
+    background-color: var(--card-bg);
+    border: 1px dashed var(--primary);
+    color: var(--primary);
+}
+
+.freelancer-footer {
+    padding: var(--space-4);
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: center;
+}
+
+.freelancer-footer .btn {
+    width: 100%;
+}
+
+/* Пагинация */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-8);
+}
+
+.pagination-numbers {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+}
+
+.pagination-numbers a, .pagination-numbers span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: var(--radius-md);
+    font-size: 0.875rem;
+    color: var(--text-color);
+    transition: all var(--transition-fast);
+}
+
+.pagination-numbers a:hover {
+    background-color: rgba(37, 99, 235, 0.1);
+    color: var(--primary);
+}
+
+.pagination-numbers a.active {
+    background-color: var(--primary);
+    color: white;
+}
+
+.pagination-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    width: 2rem;
+    height: 2rem;
+}
+
+.pagination-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Сообщение об отсутствии результатов */
+.no-results {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: var(--space-12) var(--space-4);
+    color: var(--text-muted);
+}
+
+.no-results span {
+    font-size: 3rem;
+    margin-bottom: var(--space-4);
+    display: block;
+}
+
+.no-results h3 {
+    margin-bottom: var(--space-2);
+    color: var(--text-color);
+}
+
+/* Адаптивность */
+@media (max-width: 1024px) {
+    .freelancers-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .filter-group {
+        width: 100%;
+    }
+    
+    .results-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-3);
+    }
+    
+    .sort-by {
+        width: 100%;
+        justify-content: space-between;
+    }
+}
+
+@media (max-width: 640px) {
+    .freelancers-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .page-header {
+        padding: var(--space-8) 0;
+    }
+    
+    .pagination-numbers a:not(.active):not(:first-child):not(:last-child) {
+        display: none;
+    }
+    
+    .pagination-numbers span {
+        display: inline;
+    }
+}

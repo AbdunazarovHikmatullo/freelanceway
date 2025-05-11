@@ -1,0 +1,158 @@
+/* Стили для шапки сайта */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background-color: var(--bg-color);
+  border-bottom: 1px solid var(--border-color);
+  transition: background-color var(--transition-normal), border-color var(--transition-normal);
+  padding: var(--space-4) 0;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 var(--space-4);
+}
+
+/* Логотип */
+.logo {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.logo:hover {
+  color: var(--primary);
+}
+
+.logo-icon {
+  color: var(--primary);
+}
+
+/* Навигация */
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: var(--space-6);
+}
+
+nav ul li a {
+  color: var(--text-color);
+  font-weight: 500;
+  font-size: 0.9375rem;
+  transition: color var(--transition-fast);
+  position: relative;
+}
+
+nav ul li a:hover, 
+nav ul li a.active {
+  color: var(--primary);
+}
+
+nav ul li a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -0.5rem;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--primary);
+  border-radius: var(--radius-full);
+}
+
+/* Кнопки в шапке */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* Мобильное меню */
+.burger {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text-color);
+  cursor: pointer;
+  padding: var(--space-2);
+}
+
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 4rem;
+  left: 0;
+  right: 0;
+  background-color: var(--card-bg);
+  border-bottom: 1px solid var(--border-color);
+  z-index: 40;
+  box-shadow: var(--shadow-md);
+  animation: slideDown 0.3s ease;
+}
+
+.mobile-menu ul {
+  list-style: none;
+  padding: var(--space-4);
+}
+
+.mobile-menu ul li {
+  margin-bottom: var(--space-2);
+}
+
+.mobile-menu ul li a {
+  display: block;
+  padding: var(--space-3) var(--space-4);
+  color: var(--text-color);
+  font-weight: 500;
+  border-radius: var(--radius-md);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.mobile-menu ul li a:hover,
+.mobile-menu ul li a.active {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: var(--primary);
+}
+
+[data-theme="dark"] .mobile-menu ul li a:hover,
+[data-theme="dark"] .mobile-menu ul li a.active {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Адаптивность шапки */
+@media (max-width: 768px) {
+  .logo {
+    font-size: 1.5rem;
+  }
+  
+  nav {
+    display: none;
+  }
+  
+  .burger {
+    display: block;
+  }
+  
+  .header-actions {
+    gap: var(--space-2);
+  }
+  
+  /* Скрываем кнопки входа и регистрации на маленьких экранах */
+  .auth-btn {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .header-container {
+    padding: 0 var(--space-2);
+  }
+}
