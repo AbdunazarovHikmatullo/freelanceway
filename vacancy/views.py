@@ -98,7 +98,7 @@ def vacancy_detail(request, vacancy_id):
     return render(request, 'vacancy/vacancy_detail.html', context)
 
 
-@login_required
+@login_required(login_url='users:login')
 def create_vacancy(request):
     """Создание новой вакансии"""
     if request.method == 'POST':
@@ -115,7 +115,7 @@ def create_vacancy(request):
     return render(request, 'vacancy/vacancy_form.html', {'form': form, 'is_edit': False})
 
 
-@login_required
+@login_required(login_url='users:login')
 def edit_vacancy(request, vacancy_id):
     """Редактирование вакансии"""
     vacancy = get_object_or_404(Vacancy, id=vacancy_id, client=request.user)
@@ -132,7 +132,7 @@ def edit_vacancy(request, vacancy_id):
     return render(request, 'vacancy/vacancy_form.html', {'form': form, 'vacancy': vacancy, 'is_edit': True})
 
 
-@login_required
+@login_required(login_url='users:login')
 def delete_vacancy(request, vacancy_id):
     """Удаление вакансии"""
     vacancy = get_object_or_404(Vacancy, id=vacancy_id, client=request.user)
@@ -145,7 +145,7 @@ def delete_vacancy(request, vacancy_id):
     return render(request, 'vacancy/vacancy_confirm_delete.html', {'vacancy': vacancy})
 
 
-@login_required
+@login_required(login_url='users:login')
 def apply_to_vacancy(request, vacancy_id):
     """Подача заявки на вакансию"""
     vacancy = get_object_or_404(Vacancy, id=vacancy_id, status='open')
@@ -192,7 +192,7 @@ def apply_to_vacancy(request, vacancy_id):
         form = ApplicationForm()
     return render(request, 'vacancy/application_form.html', {'form': form, 'vacancy': vacancy})
 
-@login_required
+@login_required(login_url='users:login')
 def application_detail(request, pk):
     """Детальная информация о заявке"""
     application = get_object_or_404(Application, pk=pk, vacancy__client=request.user)
@@ -222,7 +222,7 @@ def my_vacancies(request):
     return render(request, 'vacancy/my_vacancies.html', context)
 
 
-@login_required
+@login_required(login_url='users:login')
 def vacancy_applications(request, vacancy_id):
     """Просмотр заявок на вакансию"""
     vacancy = get_object_or_404(Vacancy, id=vacancy_id, client=request.user)

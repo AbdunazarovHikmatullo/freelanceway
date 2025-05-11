@@ -19,7 +19,7 @@
                 </div>
                 
                 <div class="btn-group">
-                    <a href="/projects/create" class="btn btn-primary">Разместить проект</a>
+                    <a href="{% url 'vacancy:create_vacancy' %}" class="btn btn-primary">Разместить проект</a>
                     <a href="{% url 'freelancers_list' %}" class="btn btn-outline">Найти фрилансера</a>
                 </div>
             </div>
@@ -58,7 +58,7 @@
             </div>
             
             <div class="view-all">
-                <a href="/categories" class="btn btn-outline">Все категории</a>
+                <a href="{% url 'freelancers_list' %}" class="btn btn-outline">Все категории</a>
             </div>
         </div>
     </section>
@@ -237,12 +237,11 @@
                         <span class="skill-tag">SEO-тексты</span>
                         <span class="skill-tag">Рерайт</span>
                     </div>
-                    <a href="/freelancers/4" class="btn btn-sm btn-primary">Профиль</a>
                 </div>
             </div>
             
             <div class="view-all">
-                <a href="/freelancers" class="btn btn-outline">Все фрилансеры</a>
+                <a href="{% url 'freelancers_list' %}" class="btn btn-outline">Все фрилансеры</a>
             </div>
         </div>
     </section>
@@ -340,8 +339,8 @@
             <h2 class="cta-title">Готовы начать работу над проектом?</h2>
             <p class="cta-description">Присоединяйтесь к тысячам клиентов и фрилансеров, которые уже используют FreelanceWay для реализации своих идей</p>
             <div class="btn-group" style="justify-content: center;">
-                <a href="/register" class="btn btn-lg btn-primary">Зарегистрироваться</a>
-                <a href="/projects" class="btn btn-lg btn-outline">Посмотреть проекты</a>
+                <a href="{% url 'users:register' %}" class="btn btn-lg btn-primary">Зарегистрироваться</a>
+                <a href="{% url 'vacancy:vacancies_list' %}" class="btn btn-lg btn-outline">Посмотреть проекты</a>
             </div>
         </div>
     </section>
