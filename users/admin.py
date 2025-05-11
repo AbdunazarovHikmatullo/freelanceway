@@ -6,7 +6,7 @@ from .models import User
 @admin.register(User)
 class CustomUserAdmin(UserAdmin):
     list_display = ('username', 'email', 'first_name', 'last_name', 'is_freelancer', 'is_client', 'is_staff')
-    list_filter = ('is_freelancer', 'is_client', 'is_staff', 'is_active', 'date_joined')
+    list_filter = ('is_freelancer', 'is_client', 'is_staff', 'is_active', )
     search_fields = ('username', 'email', 'first_name', 'last_name')
     fieldsets = (
         (None, {'fields': ('username', 'password')}),
@@ -15,7 +15,7 @@ class CustomUserAdmin(UserAdmin):
         ('Тип пользователя', {'fields': ('is_freelancer', 'is_client')}),
         ('Настройки', {'fields': ('email_notifications',)}),
         ('Права доступа', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
-        ('Важные даты', {'fields': ('last_login', 'date_joined')}),
+        ('Важные даты', {'fields': ('last_login', )}),
     )
     add_fieldsets = (
         (None, {

@@ -80,6 +80,12 @@
                             <a href="{{ profile_user.website }}" target="_blank">{{ profile_user.website }}</a>
                         </div>
                         {% endif %}
+                        {% if profile_user.email %}
+                        <div class="contact-item">
+                            <span class="material-symbols-outlined">email</span>
+                            <a href="mailto:{{ profile_user.email }}" target="_blank">{{ profile_user.email }}</a>
+                        </div>
+                        {% endif %}
                     </div>
                 </div>
                 
