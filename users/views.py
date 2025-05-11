@@ -34,7 +34,7 @@ def register_view(request):
             messages.success(request, 'Регистрация успешно завершена!')
             
             # Перенаправляем на страницу профиля для заполнения дополнительной информации
-            return redirect('profile')
+            return redirect('users:profile')
     else:
         form = CustomUserCreationForm()
     

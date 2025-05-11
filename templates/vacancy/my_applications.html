@@ -20,10 +20,10 @@
 <section class="filters-section">
     <div class="container">
         <div class="status-filters">
-            <a href="{% url 'my_applications' %}" class="status-filter {% if not selected_status %}active{% endif %}">Все</a>
-            <a href="{% url 'my_applications' %}?status=pending" class="status-filter {% if selected_status == 'pending' %}active{% endif %}">На рассмотрении</a>
-            <a href="{% url 'my_applications' %}?status=accepted" class="status-filter {% if selected_status == 'accepted' %}active{% endif %}">Принятые</a>
-            <a href="{% url 'my_applications' %}?status=rejected" class="status-filter {% if selected_status == 'rejected' %}active{% endif %}">Отклоненные</a>
+            <a href="{% url 'vacancy:my_applications' %}" class="status-filter {% if not selected_status %}active{% endif %}">Все</a>
+            <a href="{% url 'vacancy:my_applications' %}?status=pending" class="status-filter {% if selected_status == 'pending' %}active{% endif %}">На рассмотрении</a>
+            <a href="{% url 'vacancy:my_applications' %}?status=accepted" class="status-filter {% if selected_status == 'accepted' %}active{% endif %}">Принятые</a>
+            <a href="{% url 'vacancy:my_applications' %}?status=rejected" class="status-filter {% if selected_status == 'rejected' %}active{% endif %}">Отклоненные</a>
         </div>
     </div>
 </section>

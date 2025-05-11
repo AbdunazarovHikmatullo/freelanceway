@@ -15,18 +15,18 @@
 <body>
     <header>
         <div class="header-container">
-            <a href="/" class="logo">
+            <a href="{% url 'index' %}" class="logo">
                 <span class="material-symbols-outlined logo-icon">code</span>
                 <span>FreelanceWay</span>
             </a>
             
             <nav>
                 <ul>
-                    <li><a href="/" class="{% if request.path == '/' %}active{% endif %}">Главная</a></li>
+                    <li><a href="{% url 'index' %}" class="{% if request.path == '/' %}active{% endif %}">Главная</a></li>
                     <li><a href="{% url 'vacancy:vacancies_list' %}" class="{% if '/vacancy' in request.path %}active{% endif %}">Проекты</a></li>
                     <li><a href="{% url 'freelancers_list' %}" class="{% if '/freelancers' in request.path %}active{% endif %}">Фрилансеры</a></li>
-                    <li><a href="/about" class="{% if '/about' in request.path %}active{% endif %}">О нас</a></li>
-                    <li><a href="/contacts" class="{% if '/contact' in request.path %}active{% endif %}">Контакты</a></li>
+                    <li><a href="{% url 'about' %}" class="{% if '/about' in request.path %}active{% endif %}">О нас</a></li>
+                    <li><a href="{% url 'contacts' %}" class="{% if '/contacts' in request.path %}active{% endif %}">Контакты</a></li>
                 </ul>
             </nav>
             
@@ -59,11 +59,11 @@
     
     <div id="mobile-menu" class="mobile-menu">
         <ul>
-            <li><a href="/" class="{% if request.path == '/' %}active{% endif %}">Главная</a></li>
-            <li><a href="/projects" class="{% if '/projects' in request.path %}active{% endif %}">Проекты</a></li>
-            <li><a href="/freelancers" class="{% if '/freelancers' in request.path %}active{% endif %}">Фрилансеры</a></li>
-            <li><a href="/about" class="{% if '/about' in request.path %}active{% endif %}">О нас</a></li>
-            <li><a href="/contact" class="{% if '/contact' in request.path %}active{% endif %}">Контакты</a></li>
+            <li><a href="{% url 'index' %}" class="{% if request.path == '/' %}active{% endif %}">Главная</a></li>
+            <li><a href="{% url 'vacancy:vacancies_list' %}" class="{% if '/vacancy' in request.path %}active{% endif %}">Проекты</a></li>
+            <li><a href="{% url 'freelancers_list' %}" class="{% if '/freelancers' in request.path %}active{% endif %}">Фрилансеры</a></li>
+            <li><a href="{% url 'about' %}" class="{% if '/about' in request.path %}active{% endif %}">О нас</a></li>
+            <li><a href="{% url 'contacts' %}" class="{% if '/contacts' in request.path %}active{% endif %}">Контакты</a></li>
             {% if user.is_authenticated %}
                 <li><a href="{% url 'users:profile' %}">Профиль</a></li>
                 <li><a href="{% url 'users:logout' %}">Выйти</a></li>
@@ -133,7 +133,7 @@
             </div>
         </div>
     </footer>
-    
+
     <script src="{% static 'base/js/mobile-menu.js' %}"></script>
     <script src="{% static 'base/js/theme.js' %}"></script>
     {% block extra_js %}{% endblock %}
