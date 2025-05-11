@@ -199,7 +199,7 @@ def application_detail(request, pk):
     return render(request, 'vacancy/application_detail.html', {'application': application})
 
 
-@login_required
+@login_required(login_url='users:login')
 def my_vacancies(request):
     """Список вакансий текущего пользователя"""
     vacancies = Vacancy.objects.filter(client=request.user).order_by('-created_at')
@@ -234,7 +234,7 @@ def vacancy_applications(request, vacancy_id):
     })
 
 
-@login_required
+@login_required(login_url='users:login')
 def update_application_status(request, application_id, status):
     """Обновление статуса заявки"""
     application = get_object_or_404(Application, id=application_id, vacancy__client=request.user)
@@ -253,7 +253,7 @@ def update_application_status(request, application_id, status):
     return redirect('vacancy:vacancy_applications', vacancy_id=application.vacancy.id)
 
 
-@login_required
+@login_required(login_url='users:login')
 def my_applications(request):
     """Список заявок текущего фрилансера"""
     try:

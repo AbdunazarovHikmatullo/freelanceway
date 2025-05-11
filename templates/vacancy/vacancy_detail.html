@@ -83,13 +83,13 @@
                                     <span>Статус заявки: {{ user_application.get_status_display }}</span>
                                 </div>
                             {% else %}
-                                <a href="{% url 'apply_to_vacancy' vacancy_id=vacancy.id %}" class="btn btn-primary">
+                                <a href="{% url 'vacancy:apply_to_vacancy' vacancy_id=vacancy.id %}" class="btn btn-primary">
                                     <span class="material-symbols-outlined">send</span>
                                     Откликнуться на проект
                                 </a>
                             {% endif %}
                         {% else %}
-                            <a href="{% url 'login' %}?next={% url 'vacancy_detail' vacancy_id=vacancy.id %}" class="btn btn-primary">
+                            <a href="{% url 'users:login' %}?next={% url 'vacancy_detail' vacancy_id=vacancy.id %}" class="btn btn-primary">
                                 <span class="material-symbols-outlined">login</span>
                                 Войдите, чтобы откликнуться
                             </a>
