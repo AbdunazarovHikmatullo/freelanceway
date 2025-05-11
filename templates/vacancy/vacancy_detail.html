@@ -89,7 +89,7 @@
                                 </a>
                             {% endif %}
                         {% else %}
-                            <a href="{% url 'users:login' %}?next={% url 'vacancy_detail' vacancy_id=vacancy.id %}" class="btn btn-primary">
+                            <a href="{% url 'users:login' %}?next={% url 'vacancy:vacancy_detail' vacancy_id=vacancy.id %}" class="btn btn-primary">
                                 <span class="material-symbols-outlined">login</span>
                                 Войдите, чтобы откликнуться
                             </a>
