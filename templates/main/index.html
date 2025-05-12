@@ -72,84 +72,32 @@
             </div>
             
             <div class="grid grid-3">
+                {% for vacanci in vacancies %}
                 <div class="project-card">
                     <div class="project-header">
-                        <span class="project-badge">Разработка</span>
-                        <h3 class="project-title">Разработка мобильного приложения для доставки еды</h3>
+                        <span class="project-badge"> {{ vacanci.category }} </span>
+                        <h3 class="project-title"> {{ vacanci.title }} </h3>
                         <div class="project-price">₽80,000 - ₽120,000</div>
                     </div>
                     <div class="project-body">
-                        <p class="project-description">Требуется разработать мобильное приложение для доставки еды с функциями заказа, отслеживания и оплаты. Необходим опыт работы с React Native.</p>
+                        <p class="project-description"> {{ vacanci.description }} </p>
                         <div class="project-meta">
                             <div class="project-meta-item">
                                 <span class="material-symbols-outlined">schedule</span>
-                                <span>2 дня назад</span>
+                                <span>{{ vacanci.created_at }}</span>
                             </div>
                             <div class="project-meta-item">
                                 <span class="material-symbols-outlined">person</span>
-                                <span>12 заявок</span>
                             </div>
                         </div>
                     </div>
                     <div class="project-footer">
-                        <a href="/projects/1" class="btn btn-sm btn-primary">Подробнее</a>
+                        <a href="{% url 'vacancy:vacancy_detail' vacanci.id %}" class="btn btn-sm btn-primary">Подробнее</a>
                     </div>
                 </div>
-                
-                <div class="project-card">
-                    <div class="project-header">
-                        <span class="project-badge">Дизайн</span>
-                        <h3 class="project-title">Редизайн корпоративного сайта компании</h3>
-                        <div class="project-price">₽50,000 - ₽70,000</div>
-                    </div>
-                    <div class="project-body">
-                        <p class="project-description">Нужен современный дизайн для корпоративного сайта. Требуется опыт в UI/UX дизайне и знание Figma. Проект включает 10-15 страниц.</p>
-                        <div class="project-meta">
-                            <div class="project-meta-item">
-                                <span class="material-symbols-outlined">schedule</span>
-                                <span>5 дней назад</span>
-                            </div>
-                            <div class="project-meta-item">
-                                <span class="material-symbols-outlined">person</span>
-                                <span>8 заявок</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-footer">
-                        <a href="/projects/2" class="btn btn-sm btn-primary">Подробнее</a>
-                    </div>
-                </div>
-                
-                <div class="project-card">
-                    <div class="project-header">
-                        <span class="project-badge">Копирайтинг</span>
-                        <h3 class="project-title">Написание статей для блога о технологиях</h3>
-                        <div class="project-price">₽30,000 - ₽40,000</div>
-                    </div>
-                    <div class="project-body">
-                        <p class="project-description">Требуется копирайтер для написания 20 статей для технологического блога. Темы: искусственный интеллект, блокчейн, кибербезопасность.</p>
-                        <div class="project-meta">
-                            <div class="project-meta-item">
-                                <span class="material-symbols-outlined">schedule</span>
-                                <span>1 день назад</span>
-                            </div>
-                            <div class="project-meta-item">
-                                <span class="material-symbols-outlined">person</span>
-                                <span>15 заявок</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-footer">
-                        <a href="/projects/3" class="btn btn-sm btn-primary">Подробнее</a>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
-            
-            <div class="view-all">
-                <a href="/projects" class="btn btn-outline">Все проекты</a>
-            </div>
-        </div>
-    </section>
+
 
     <!-- Фрилансеры -->
     <section class="freelancers section">
@@ -160,85 +108,24 @@
             </div>
             
             <div class="grid grid-4">
+                {% for freelancer in freelancers %}
                 <div class="freelancer-card">
+                    {% if freelancer.user.avatar %}
+                    <img src="{{ freelancer.user.avatar }}" alt="Александр Иванов" class="freelancer-avatar">
+                    {% else %}
                     <img src="{% static 'main/img/placeholder.png' %}" alt="Александр Иванов" class="freelancer-avatar">
-                    <h3 class="freelancer-name">Александр Иванов</h3>
-                    <p class="freelancer-title">Full-stack разработчик</p>
+                    {% endif %}
+                    <h3 class="freelancer-name">{{ freelancer.user.username }}</h3>
                     <div class="freelancer-rating">
-                        <span class="material-symbols-outlined">star</span>
-                        <span class="material-symbols-outlined">star</span>
-                        <span class="material-symbols-outlined">star</span>
-                        <span class="material-symbols-outlined">star</span>
-                        <span class="material-symbols-outlined">star_half</span>
-                        <span>4.8</span>
                     </div>
                     <div class="freelancer-skills">
-                        <span class="skill-tag">React</span>
-                        <span class="skill-tag">Node.js</span>
-                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">
+                            {{ freelancer.skills }}
+                        </span>
                     </div>
                     <a href="/freelancers/1" class="btn btn-sm btn-primary">Профиль</a>
                 </div>
-                
-                <div class="freelancer-card">
-                    <img src="{% static 'main/img/placeholder.png' %}" alt="Екатерина Смирнова" class="freelancer-avatar">
-                    <h3 class="freelancer-name">Екатерина Смирнова</h3>
-                    <p class="freelancer-title">UI/UX Дизайнер</p>
-                    <div class="freelancer-rating">
-                        <span class="material-symbols-outlined">star</span>
-                        <span class="material-symbols-outlined">star</span>
-                        <span class="material-symbols-outlined">star</span>
-                        <span class="material-symbols-outlined">star</span>
-                        <span class="material-symbols-outlined">star</span>
-                        <span>5.0</span>
-                    </div>
-                    <div class="freelancer-skills">
-                        <span class="skill-tag">Figma</span>
-                        <span class="skill-tag">Adobe XD</span>
-                        <span class="skill-tag">Sketch</span>
-                    </div>
-                    <a href="/freelancers/2" class="btn btn-sm btn-primary">Профиль</a>
-                </div>
-                
-                <div class="freelancer-card">
-                    <img src="{% static 'main/img/placeholder.png' %}" alt="Дмитрий Петров" class="freelancer-avatar">
-                    <h3 class="freelancer-name">Дмитрий Петров</h3>
-                    <p class="freelancer-title">SEO Специалист</p>
-                    <div class="freelancer-rating">
-                        <span class="material-symbols-outlined">star</span>
-                        <span class="material-symbols-outlined">star</span>
-                        <span class="material-symbols-outlined">star</span>
-                        <span class="material-symbols-outlined">star</span>
-                        <span class="material-symbols-outlined">star_outline</span>
-                        <span>4.2</span>
-                    </div>
-                    <div class="freelancer-skills">
-                        <span class="skill-tag">SEO</span>
-                        <span class="skill-tag">Google Ads</span>
-                        <span class="skill-tag">Analytics</span>
-                    </div>
-                    <a href="/freelancers/3" class="btn btn-sm btn-primary">Профиль</a>
-                </div>
-                
-                <div class="freelancer-card">
-                    <img src="{% static 'main/img/placeholder.png' %}" alt="Анна Козлова" class="freelancer-avatar">
-                    <h3 class="freelancer-name">Анна Козлова</h3>
-                    <p class="freelancer-title">Копирайтер</p>
-                    <div class="freelancer-rating">
-                        <span class="material-symbols-outlined">star</span>
-                        <span class="material-symbols-outlined">star</span>
-                        <span class="material-symbols-outlined">star</span>
-                        <span class="material-symbols-outlined">star</span>
-                        <span class="material-symbols-outlined">star_half</span>
-                        <span>4.7</span>
-                    </div>
-                    <div class="freelancer-skills">
-                        <span class="skill-tag">Статьи</span>
-                        <span class="skill-tag">SEO-тексты</span>
-                        <span class="skill-tag">Рерайт</span>
-                    </div>
-                </div>
-            </div>
+                {% endfor %}
             
             <div class="view-all">
                 <a href="{% url 'freelancers_list' %}" class="btn btn-outline">Все фрилансеры</a>

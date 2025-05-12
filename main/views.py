@@ -1,7 +1,16 @@
 from django.shortcuts import render
+from freelancers.models import Freelancer
+from vacancy.models import Vacancy
 
 def index(request):
-    return render(request, 'main/index.html')
+    freelancers = Freelancer.objects.all()
+    vacancies = Vacancy.objects.filter(status='open')
+
+    context = {
+        'freelancers': freelancers,
+        'vacancies': vacancies
+    }
+    return render(request, 'main/index.html', context)
 
 
 

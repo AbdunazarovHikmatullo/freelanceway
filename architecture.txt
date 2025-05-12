@@ -1,4 +1,4 @@
-.
+./
 ├── architecture.txt
 ├── db.sqlite3
 ├── freelancers
@@ -6,6 +6,11 @@
 │   ├── apps.py
 │   ├── forms.py
 │   ├── __init__.py
+│   ├── management
+│   │   └── commands
+│   │       ├── create_categories.py
+│   │       └── __pycache__
+│   │           └── create_categories.cpython-312.pyc
 │   ├── migrations
 │   │   ├── 0001_initial.py
 │   │   ├── 0002_initial.py
@@ -28,7 +33,6 @@
 │   └── views.py
 ├── freelanceway
 │   ├── asgi.py
-│   ├── create_categories.py
 │   ├── __init__.py
 │   ├── __pycache__
 │   │   ├── __init__.cpython-312.pyc
@@ -376,6 +380,11 @@
     ├── apps.py
     ├── forms.py
     ├── __init__.py
+    ├── management
+    │   └── commands
+    │       ├── create_vacancy_categories.py
+    │       └── __pycache__
+    │           └── create_vacancy_categories.cpython-312.pyc
     ├── migrations
     │   ├── 0001_initial.py
     │   ├── __init__.py
@@ -395,4 +404,4 @@
     ├── urls.py
     └── views.py
 
-87 directories, 309 files
+93 directories, 312 files
