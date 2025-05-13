@@ -7,15 +7,12 @@
 
 {% block content %}
 
-
 <section class="page-header">
     <div class="container">
         <h1>Мои заявки</h1>
         <p class="text-muted">Отслеживайте статус ваших заявок на проекты</p>
     </div>
 </section>
-
-
 
 <section class="filters-section">
     <div class="container">
@@ -29,4 +26,40 @@
 </section>
 
 <!-- Список заявок -->
-<section class="
+<section class="applications-section">
+    <div class="container">
+        {% if applications %}
+        <div class="applications-list">
+            {% for application in applications %}
+            <div class="application-card">
+                <div class="application-header">
+                    <h3>{{ application.vacancy.title }}</h3>
+                    <div class="application-status status-{{ application.status }}">
+                        {{ application.get_status_display }}
+                    </div>
+                </div>
+                <div class="application-body">
+                    <p>{{ application.vacancy.description|truncatewords:20 }}</p>
+                    <p><strong>Бюджет:</strong> ₽{{ application.vacancy.budget_min }} - ₽{{ application.vacancy.budget_max }}</p>
+                </div>
+                <div class="application-footer">
+                    <a href="{% url 'vacancy:vacancy_detail' vacancy_id=application.vacancy.id %}" class="btn btn-outline btn-sm">Подробнее</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="no-results">
+            <span class="material-symbols-outlined">inbox</span>
+            <h3>У вас пока нет заявок</h3>
+            <p>Вы еще не подали ни одной заявки на проекты.</p>
+            <a href="{% url 'vacancy:vacancies_list' %}" class="btn btn-primary mt-4">
+                <span class="material-symbols-outlined">arrow_back</span>
+                Найти проекты
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+{% endblock %}

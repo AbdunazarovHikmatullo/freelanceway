@@ -14,7 +14,7 @@ class FreelancerProfileForm(forms.ModelForm):
         model = Freelancer
         fields = [
             'headline', 'bio', 'skills', 'experience', 'hourly_rate', 
-            'availability', 'phone_number', 'telegram', 'whatsapp',
+            'availability', 'telegram', 'whatsapp',
             'portfolio_url', 'education', 'certifications', 'categories'
         ]
         widgets = {
@@ -24,7 +24,6 @@ class FreelancerProfileForm(forms.ModelForm):
             'experience': forms.Select(attrs={'class': 'form-select'}),
             'hourly_rate': forms.NumberInput(attrs={'class': 'form-input', 'min': 0, 'step': 100}),
             'availability': forms.Select(attrs={'class': 'form-select'}),
-            'phone_number': forms.TextInput(attrs={'class': 'form-input', 'placeholder': '+7 (XXX) XXX-XX-XX'}),
             'telegram': forms.TextInput(attrs={'class': 'form-input', 'placeholder': '@username'}),
             'whatsapp': forms.TextInput(attrs={'class': 'form-input', 'placeholder': '+7XXXXXXXXXX'}),
             'portfolio_url': forms.URLInput(attrs={'class': 'form-input', 'placeholder': 'https://'}),

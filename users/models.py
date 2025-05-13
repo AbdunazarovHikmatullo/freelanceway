@@ -12,8 +12,7 @@ class User(AbstractUser):
     date_joined = models.DateTimeField(auto_now_add=True)
     is_freelancer = models.BooleanField(default=False)
     is_client = models.BooleanField(default=False)
-    
-    # Социальные сети
+    phone_number = models.CharField(max_length=15, blank=True)
     website = models.URLField(blank=True)
     github = models.URLField(blank=True)
     twitter = models.URLField(blank=True)

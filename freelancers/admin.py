@@ -24,9 +24,6 @@ class FreelancerAdmin(admin.ModelAdmin):
         ('Опыт и ставка', {
             'fields': ('experience', 'hourly_rate', 'availability')
         }),
-        ('Контактная информация', {
-            'fields': ('phone_number', 'telegram', 'whatsapp')
-        }),
         ('Портфолио и образование', {
             'fields': ('portfolio_url', 'education', 'certifications')
         }),

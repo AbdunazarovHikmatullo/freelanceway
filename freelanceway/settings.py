@@ -14,7 +14,7 @@ SECRET_KEY = 'django-insecure-ru_8a(b^ppzcnx%(6vssj7uu&6tr$j8is3r)@s)=03wg=pf$#6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','freelanceway.onrender.com','freelanceway.com','www.freelanceway.com']
+ALLOWED_HOSTS = ['127.0.0.1','freelanceway.onrender.com','freelanceway.com','www.freelanceway.com','localhost']
 
 
 # Application definition
@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'freelancers',
     'vacancy',
     'notifications',
+    'django.contrib.sitemaps',
 ]
 
 MIDDLEWARE = [
@@ -71,14 +72,15 @@ WSGI_APPLICATION = 'freelanceway.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'freelanceway',
+        'USER': 'freelanceuser',
+        'PASSWORD': 'Hikmatullo2008_8002',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
-
-# Password validation
-# https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {

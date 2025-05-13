@@ -7,7 +7,7 @@ from vacancy.models import Category
 
 CATEGORIES = [
     ("Веб-разработка", "code"),
-    ("Frontend (HTML/CSS/JS)", "web"),
+    ("Frontend", "web"),
     ("Backend (Python/Java/Go)", "memory"),
     ("Fullstack разработка", "layers"),
     ("Мобильная разработка iOS", "phone_iphone"),

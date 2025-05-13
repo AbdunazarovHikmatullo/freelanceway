@@ -4,6 +4,11 @@ from vacancy.models import Vacancy
 
 def index(request):
     freelancers = Freelancer.objects.all()
+
+    # Преобразуем строку skills в список для каждого фрилансера
+    for freelancer in freelancers:
+        freelancer.skills_list = freelancer.skills.split(',') if freelancer.skills else []
+
     vacancies = Vacancy.objects.filter(status='open')
 
     context = {
@@ -11,9 +16,6 @@ def index(request):
         'vacancies': vacancies
     }
     return render(request, 'main/index.html', context)
-
-
-
 
 
 def about(request):

@@ -42,8 +42,6 @@ class Freelancer(models.Model):
     hourly_rate = models.DecimalField(max_digits=8, decimal_places=2, default=0, help_text="Ваша часовая ставка в рублях")
     availability = models.CharField(max_length=20, choices=AVAILABILITY_CHOICES, default='full_time')
     
-    # Контактная информация
-    phone_number = models.CharField(max_length=20, blank=True)
     telegram = models.CharField(max_length=50, blank=True)
     whatsapp = models.CharField(max_length=20, blank=True)
     

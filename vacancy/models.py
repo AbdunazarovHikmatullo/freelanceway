@@ -41,6 +41,11 @@ class Vacancy(models.Model):
     def __str__(self):
         return self.title
     
+    
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse('vacancy:vacancy_detail', args=[self.pk])
+    
     class Meta:
         verbose_name_plural = "Vacancies"
         ordering = ['-created_at']

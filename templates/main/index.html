@@ -2,233 +2,260 @@
 {% load static %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'main/css/index.css' %}">
+<link rel="stylesheet" href="{% static 'main/css/index.css' %}">
 {% endblock %}
 
 {% block content %}
-    <!-- Герой-секция -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1 class="hero-title">Найдите лучших фрилансеров для вашего проекта</h1>
-                <p class="hero-description">FreelanceWay соединяет талантливых специалистов и заказчиков для успешной реализации проектов</p>
-                
-                <div class="hero-search">
-                    <input type="text" placeholder="Что вам нужно сделать?">
-                    <button type="button">Найти</button>
-                </div>
-                
-                <div class="btn-group">
-                    <a href="{% url 'vacancy:create_vacancy' %}" class="btn btn-primary">Разместить проект</a>
-                    <a href="{% url 'freelancers_list' %}" class="btn btn-outline">Найти фрилансера</a>
-                </div>
+<!-- Герой-секция -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <h1 class="hero-title">Найдите лучших фрилансеров для вашего проекта</h1>
+            <p class="hero-description">FreelanceWay соединяет талантливых специалистов и заказчиков для успешной
+                реализации проектов</p>
+
+            <div class="hero-search">
+                <input type="text" placeholder="Что вам нужно сделать?">
+                <button type="button">Найти</button>
+            </div>
+
+            <div class="btn-group">
+                <a href="{% url 'vacancy:create_vacancy' %}" class="btn btn-primary">Разместить проект</a>
+                <a href="{% url 'freelancers_list' %}" class="btn btn-outline">Найти фрилансера</a>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Категории -->
-    <section class="categories section">
-        <div class="container">
-            <div class="section-title">
-                <h2>Популярные категории</h2>
-                <p class="text-muted">Найдите специалистов в различных областях</p>
+<!-- Категории -->
+<section class="categories section">
+    <div class="container">
+        <div class="section-title">
+            <h2>Популярные категории</h2>
+            <p class="text-muted">Найдите специалистов в различных областях</p>
+        </div>
+
+        <div class="grid grid-4">
+            <div class="category-card">
+                <span class="material-symbols-outlined category-icon">code</span>
+                <h3 class="category-title">Разработка</h3>
+                <p class="category-count">1,245 специалистов</p>
             </div>
-            
-            <div class="grid grid-4">
-                <div class="category-card">
-                    <span class="material-symbols-outlined category-icon">code</span>
-                    <h3 class="category-title">Разработка</h3>
-                    <p class="category-count">1,245 специалистов</p>
-                </div>
-                <div class="category-card">
-                    <span class="material-symbols-outlined category-icon">brush</span>
-                    <h3 class="category-title">Дизайн</h3>
-                    <p class="category-count">987 специалистов</p>
-                </div>
-                <div class="category-card">
-                    <span class="material-symbols-outlined category-icon">edit</span>
-                    <h3 class="category-title">Копирайтинг</h3>
-                    <p class="category-count">756 специалистов</p>
-                </div>
-                <div class="category-card">
-                    <span class="material-symbols-outlined category-icon">trending_up</span>
-                    <h3 class="category-title">Маркетинг</h3>
-                    <p class="category-count">543 специалистов</p>
-                </div>
+            <div class="category-card">
+                <span class="material-symbols-outlined category-icon">brush</span>
+                <h3 class="category-title">Дизайн</h3>
+                <p class="category-count">987 специалистов</p>
             </div>
-            
-            <div class="view-all">
-                <a href="{% url 'freelancers_list' %}" class="btn btn-outline">Все категории</a>
+            <div class="category-card">
+                <span class="material-symbols-outlined category-icon">edit</span>
+                <h3 class="category-title">Копирайтинг</h3>
+                <p class="category-count">756 специалистов</p>
+            </div>
+            <div class="category-card">
+                <span class="material-symbols-outlined category-icon">trending_up</span>
+                <h3 class="category-title">Маркетинг</h3>
+                <p class="category-count">543 специалистов</p>
             </div>
         </div>
-    </section>
 
-    <!-- Проекты -->
-    <section class="projects section">
-        <div class="container">
-            <div class="section-title">
-                <h2>Актуальные проекты</h2>
-                <p class="text-muted">Найдите интересные проекты для работы</p>
-            </div>
-            
-            <div class="grid grid-3">
-                {% for vacanci in vacancies %}
-                <div class="project-card">
-                    <div class="project-header">
-                        <span class="project-badge"> {{ vacanci.category }} </span>
-                        <h3 class="project-title"> {{ vacanci.title }} </h3>
-                        <div class="project-price">₽80,000 - ₽120,000</div>
+        <div class="view-all">
+            <a href="{% url 'freelancers_list' %}" class="btn btn-outline">Все категории</a>
+        </div>
+    </div>
+</section>
+
+<!-- Проекты -->
+<section class="projects section">
+    <div class="container">
+        <div class="section-title">
+            <h2>Актуальные проекты</h2>
+            <p class="text-muted">Найдите интересные проекты для работы</p>
+        </div>
+
+        <div class="grid grid-3">
+            {% for vacanci in vacancies %}
+            <div class="project-card">
+                <div class="project-header">
+                    <span class="project-badge"> {{ vacanci.category }} </span>
+                    <h3 class="project-title"> {{ vacanci.title }} </h3>
+                    <div class="project-price">₽80,000 - ₽120,000</div>
+                </div>
+                <div class="project-body">
+                    <p class="project-description"> {{ vacanci.description }} </p>
+                    <div class="project-meta">
+                        <div class="project-meta-item">
+                            <span class="material-symbols-outlined">schedule</span>
+                            <span>{{ vacanci.created_at }}</span>
+                        </div>
+                        <div class="project-meta-item">
+                            <span class="material-symbols-outlined">person</span>
+                        </div>
                     </div>
-                    <div class="project-body">
-                        <p class="project-description"> {{ vacanci.description }} </p>
-                        <div class="project-meta">
-                            <div class="project-meta-item">
-                                <span class="material-symbols-outlined">schedule</span>
-                                <span>{{ vacanci.created_at }}</span>
+                </div>
+                <div class="project-footer">
+                    <a href="{% url 'vacancy:vacancy_detail' vacanci.id %}" class="btn btn-sm btn-primary">Подробнее</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+
+        <!-- Фрилансеры -->
+        <section class="freelancers section">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Топ фрилансеры</h2>
+                    <p class="text-muted">Лучшие специалисты на нашей платформе</p>
+                </div>
+
+                <div class="grid grid-4">
+                    {% for freelancer in freelancers %}
+                    <div class="freelancer-card">
+                        {% if freelancer.user.avatar %}
+                        <img src="{{ freelancer.user.avatar.url }}" alt="{{ freelancer.user.username }}"
+                            class="freelancer-avatar">
+                        {% else %}
+                        <img src="{% static 'main/img/placeholder.png' %}" alt="{{ freelancer.user.username }}"
+                            class="freelancer-avatar">
+                        {% endif %}
+                        <h3 class="freelancer-name">{{ freelancer.user.username }}</h3>
+
+                        <!-- Рейтинг -->
+                        <div class="freelancer-rating">
+                            {% for _ in "12345"|slice:":freelancer.rating"|default:"0" %}
+                            <span class="material-symbols-outlined">star</span>
+                            {% endfor %}
+                            <span>{{ freelancer.rating|default:"-" }}</span>
+                        </div>
+
+                        <div class="freelancer-skills">
+                            {% for skill in freelancer.skills_list %}
+                            <span class="skill-tag">{{ skill }}</span>
+                            {% endfor %}
+                        </div>
+
+                        <!-- Ссылка на профиль -->
+                        <a href="{% url 'users:public_profile' freelancer.user.username %}"
+                            class="btn btn-sm btn-primary">Профиль</a>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="view-all">
+                    <a href="{% url 'freelancers_list' %}" class="btn btn-outline">Все фрилансеры</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Как это работает -->
+        <section class="how-it-works section">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Как это работает</h2>
+                    <p class="text-muted">Простой процесс для успешного сотрудничества</p>
+                </div>
+
+                <div class="grid grid-3">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <span class="material-symbols-outlined step-icon">description</span>
+                        <h3 class="step-title">Разместите проект</h3>
+                        <p class="step-description">Опишите ваш проект, укажите бюджет и сроки выполнения. Чем подробнее
+                            описание, тем больше подходящих предложений вы получите.</p>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <span class="material-symbols-outlined step-icon">group</span>
+                        <h3 class="step-title">Выберите фрилансера</h3>
+                        <p class="step-description">Просмотрите предложения от фрилансеров, изучите их портфолио и
+                            отзывы. Выберите лучшего специалиста для вашего проекта.</p>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <span class="material-symbols-outlined step-icon">task_alt</span>
+                        <h3 class="step-title">Получите результат</h3>
+                        <p class="step-description">Контролируйте процесс работы, общайтесь с исполнителем и получите
+                            готовый проект. Оплата производится только после приемки работы.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Отзывы -->
+        <section class="testimonials section">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Отзывы клиентов</h2>
+                    <p class="text-muted">Что говорят о нас наши пользователи</p>
+                </div>
+
+                <div class="grid grid-3">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <span class="testimonial-quote">"</span>
+                            <p class="testimonial-text">Благодаря FreelanceWay я нашел отличного разработчика для своего
+                                проекта. Работа была выполнена качественно и в срок. Обязательно буду пользоваться
+                                платформой снова!</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="{% static 'main/img/placeholder.png' %}" alt="Игорь Соколов"
+                                class="testimonial-avatar">
+                            <div>
+                                <h4 class="testimonial-name">Игорь Соколов</h4>
+                                <p class="testimonial-position">CEO, TechStart</p>
                             </div>
-                            <div class="project-meta-item">
-                                <span class="material-symbols-outlined">person</span>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <span class="testimonial-quote">"</span>
+                            <p class="testimonial-text">Как фрилансер, я очень доволен этой платформой. Здесь я нахожу
+                                интересные проекты и надежных клиентов. Система безопасных платежей дает уверенность в
+                                получении оплаты.</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="{% static 'main/img/placeholder.png' %}" alt="Мария Волкова"
+                                class="testimonial-avatar">
+                            <div>
+                                <h4 class="testimonial-name">Мария Волкова</h4>
+                                <p class="testimonial-position">Графический дизайнер</p>
                             </div>
                         </div>
                     </div>
-                    <div class="project-footer">
-                        <a href="{% url 'vacancy:vacancy_detail' vacanci.id %}" class="btn btn-sm btn-primary">Подробнее</a>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
 
-
-    <!-- Фрилансеры -->
-    <section class="freelancers section">
-        <div class="container">
-            <div class="section-title">
-                <h2>Топ фрилансеры</h2>
-                <p class="text-muted">Лучшие специалисты на нашей платформе</p>
-            </div>
-            
-            <div class="grid grid-4">
-                {% for freelancer in freelancers %}
-                <div class="freelancer-card">
-                    {% if freelancer.user.avatar %}
-                    <img src="{{ freelancer.user.avatar }}" alt="Александр Иванов" class="freelancer-avatar">
-                    {% else %}
-                    <img src="{% static 'main/img/placeholder.png' %}" alt="Александр Иванов" class="freelancer-avatar">
-                    {% endif %}
-                    <h3 class="freelancer-name">{{ freelancer.user.username }}</h3>
-                    <div class="freelancer-rating">
-                    </div>
-                    <div class="freelancer-skills">
-                        <span class="skill-tag">
-                            {{ freelancer.skills }}
-                        </span>
-                    </div>
-                    <a href="/freelancers/1" class="btn btn-sm btn-primary">Профиль</a>
-                </div>
-                {% endfor %}
-            
-            <div class="view-all">
-                <a href="{% url 'freelancers_list' %}" class="btn btn-outline">Все фрилансеры</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Как это работает -->
-    <section class="how-it-works section">
-        <div class="container">
-            <div class="section-title">
-                <h2>Как это работает</h2>
-                <p class="text-muted">Простой процесс для успешного сотрудничества</p>
-            </div>
-            
-            <div class="grid grid-3">
-                <div class="step-card">
-                    <div class="step-number">1</div>
-                    <span class="material-symbols-outlined step-icon">description</span>
-                    <h3 class="step-title">Разместите проект</h3>
-                    <p class="step-description">Опишите ваш проект, укажите бюджет и сроки выполнения. Чем подробнее описание, тем больше подходящих предложений вы получите.</p>
-                </div>
-                
-                <div class="step-card">
-                    <div class="step-number">2</div>
-                    <span class="material-symbols-outlined step-icon">group</span>
-                    <h3 class="step-title">Выберите фрилансера</h3>
-                    <p class="step-description">Просмотрите предложения от фрилансеров, изучите их портфолио и отзывы. Выберите лучшего специалиста для вашего проекта.</p>
-                </div>
-                
-                <div class="step-card">
-                    <div class="step-number">3</div>
-                    <span class="material-symbols-outlined step-icon">task_alt</span>
-                    <h3 class="step-title">Получите результат</h3>
-                    <p class="step-description">Контролируйте процесс работы, общайтесь с исполнителем и получите готовый проект. Оплата производится только после приемки работы.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Отзывы -->
-    <section class="testimonials section">
-        <div class="container">
-            <div class="section-title">
-                <h2>Отзывы клиентов</h2>
-                <p class="text-muted">Что говорят о нас наши пользователи</p>
-            </div>
-            
-            <div class="grid grid-3">
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <span class="testimonial-quote">"</span>
-                        <p class="testimonial-text">Благодаря FreelanceWay я нашел отличного разработчика для своего проекта. Работа была выполнена качественно и в срок. Обязательно буду пользоваться платформой снова!</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <img src="{% static 'main/img/placeholder.png' %}" alt="Игорь Соколов" class="testimonial-avatar">
-                        <div>
-                            <h4 class="testimonial-name">Игорь Соколов</h4>
-                            <p class="testimonial-position">CEO, TechStart</p>
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <span class="testimonial-quote">"</span>
+                            <p class="testimonial-text">Отличный сервис для поиска специалистов! Удобный интерфейс,
+                                большой выбор фрилансеров и прозрачные условия сотрудничества. Рекомендую всем, кто ищет
+                                профессионалов.</p>
                         </div>
-                    </div>
-                </div>
-                
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <span class="testimonial-quote">"</span>
-                        <p class="testimonial-text">Как фрилансер, я очень доволен этой платформой. Здесь я нахожу интересные проекты и надежных клиентов. Система безопасных платежей дает уверенность в получении оплаты.</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <img src="{% static 'main/img/placeholder.png' %}" alt="Мария Волкова" class="testimonial-avatar">
-                        <div>
-                            <h4 class="testimonial-name">Мария Волкова</h4>
-                            <p class="testimonial-position">Графический дизайнер</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <span class="testimonial-quote">"</span>
-                        <p class="testimonial-text">Отличный сервис для поиска специалистов! Удобный интерфейс, большой выбор фрилансеров и прозрачные условия сотрудничества. Рекомендую всем, кто ищет профессионалов.</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <img src="{% static 'main/img/placeholder.png' %}" alt="Алексей Новиков" class="testimonial-avatar">
-                        <div>
-                            <h4 class="testimonial-name">Алексей Новиков</h4>
-                            <p class="testimonial-position">Маркетолог, BrandPro</p>
+                        <div class="testimonial-author">
+                            <img src="{% static 'main/img/placeholder.png' %}" alt="Алексей Новиков"
+                                class="testimonial-avatar">
+                            <div>
+                                <h4 class="testimonial-name">Алексей Новиков</h4>
+                                <p class="testimonial-position">Маркетолог, BrandPro</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- CTA секция -->
-    <section class="cta section">
-        <div class="container">
-            <h2 class="cta-title">Готовы начать работу над проектом?</h2>
-            <p class="cta-description">Присоединяйтесь к тысячам клиентов и фрилансеров, которые уже используют FreelanceWay для реализации своих идей</p>
-            <div class="btn-group" style="justify-content: center;">
-                <a href="{% url 'users:register' %}" class="btn btn-lg btn-primary">Зарегистрироваться</a>
-                <a href="{% url 'vacancy:vacancies_list' %}" class="btn btn-lg btn-outline">Посмотреть проекты</a>
+        <!-- CTA секция -->
+        <section class="cta section">
+            <div class="container">
+                <h2 class="cta-title">Готовы начать работу над проектом?</h2>
+                <p class="cta-description">Присоединяйтесь к тысячам клиентов и фрилансеров, которые уже используют
+                    FreelanceWay для реализации своих идей</p>
+                <div class="btn-group" style="justify-content: center;">
+                    <a href="{% url 'users:register' %}" class="btn btn-lg btn-primary">Зарегистрироваться</a>
+                    <a href="{% url 'vacancy:vacancies_list' %}" class="btn btn-lg btn-outline">Посмотреть проекты</a>
+                </div>
             </div>
-        </div>
-    </section>
-{% endblock %}
+        </section>
+        {% endblock %}
