@@ -24,7 +24,6 @@ def register_view(request):
             if user.is_freelancer:
                 Freelancer.objects.create(
                     user=user,
-                    phone_number='',  # Пустое значение, пользователь заполнит позже
                     skills='',  # Пустое значение, пользователь заполнит позже
                     experience='',  # Пустое значение, пользователь заполнит позже
                 )

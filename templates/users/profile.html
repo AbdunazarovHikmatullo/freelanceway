@@ -18,11 +18,15 @@
                 <p class="profile-username">@{{ user.username }}</p>
                 {% if user.is_freelancer %}
                 <span class="profile-badge freelancer">Фрилансер</span>
+
+                <a href="{% url 'create_freelancer_profile' %}" class="btn">
+                    Создать профиль фрилансера
+                </a>
                 {% endif %}
                 {% if user.is_client %}
                 <span class="profile-badge client">Заказчик</span>
                 {% endif %}
-                
+
                 <div class="profile-meta">
                     {% if user.location %}
                     <div class="profile-meta-item">
@@ -61,7 +65,7 @@
                     <p class="text-muted">Расскажите о себе, добавив информацию в профиле</p>
                     {% endif %}
                 </div>
-                
+
                 <!-- Контактная информация -->
                 <div class="profile-card">
                     <h2>Контактная информация</h2>
@@ -84,7 +88,7 @@
                         {% endif %}
                     </div>
                 </div>
-                
+
                 <!-- Социальные сети -->
                 {% if user.github or user.twitter or user.linkedin %}
                 <div class="profile-card">
@@ -111,7 +115,7 @@
                     </div>
                 </div>
                 {% endif %}
-                
+
                 <!-- Навыки (только для фрилансеров) -->
                 {% if freelancer_profile and freelancer_profile.skills %}
                 <div class="profile-card">
@@ -124,7 +128,7 @@
                 </div>
                 {% endif %}
             </div>
-            
+
             <!-- Правая колонка - статистика и активность -->
             <div class="profile-main">
                 <!-- Статистика -->
@@ -160,7 +164,7 @@
                         {% endif %}
                     </div>
                 </div>
-                
+
                 <!-- Быстрые действия -->
                 <div class="profile-card">
                     <h2>Быстрые действия</h2>
@@ -190,7 +194,7 @@
                         </a>
                     </div>
                 </div>
-                
+
                 <!-- Последняя активность -->
                 {% if user.is_client and vacancies %}
                 <div class="profile-card">
@@ -202,9 +206,11 @@
                                 <span class="material-symbols-outlined">work</span>
                             </div>
                             <div class="activity-content">
-                                <h3><a href="{% url 'vacancy:vacancy_detail' vacancy_id=vacancy.id %}">{{ vacancy.title }}</a></h3>
+                                <h3><a href="{% url 'vacancy:vacancy_detail' vacancy_id=vacancy.id %}">{{ vacancy.title
+                                        }}</a></h3>
                                 <div class="activity-meta">
-                                    <span class="activity-status status-{{ vacancy.status }}">{{ vacancy.get_status_display }}</span>
+                                    <span class="activity-status status-{{ vacancy.status }}">{{
+                                        vacancy.get_status_display }}</span>
                                     <span class="activity-date">{{ vacancy.created_at|date:"d.m.Y" }}</span>
                                 </div>
                                 <p>{{ vacancy.description|truncatechars:100 }}</p>
@@ -228,9 +234,11 @@
                                 <span class="material-symbols-outlined">description</span>
                             </div>
                             <div class="activity-content">
-                                <h3><a href="{% url 'vacancy_detail' vacancy_id=application.vacancy.id %}">{{ application.vacancy.title }}</a></h3>
+                                <h3><a href="{% url 'vacancy_detail' vacancy_id=application.vacancy.id %}">{{
+                                        application.vacancy.title }}</a></h3>
                                 <div class="activity-meta">
-                                    <span class="activity-status status-{{ application.status }}">{{ application.get_status_display }}</span>
+                                    <span class="activity-status status-{{ application.status }}">{{
+                                        application.get_status_display }}</span>
                                     <span class="activity-date">{{ application.created_at|date:"d.m.Y" }}</span>
                                 </div>
                                 <p>{{ application.cover_letter|truncatechars:100 }}</p>

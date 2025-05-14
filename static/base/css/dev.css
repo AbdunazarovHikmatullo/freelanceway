@@ -24,8 +24,8 @@
 }
 
 .dev_text{
-    padding: 10px;
     font-size: 1.2rem;
     text-align: center;
     color: var(--text-color);
+    padding: 20px;
 }

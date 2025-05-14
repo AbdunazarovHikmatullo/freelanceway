@@ -1,0 +1,415 @@
+.
+├── architecture.txt
+├── freelancers
+│   ├── admin.py
+│   ├── apps.py
+│   ├── forms.py
+│   ├── __init__.py
+│   ├── management
+│   │   └── commands
+│   │       ├── create_categories.py
+│   │       └── __pycache__
+│   │           └── create_categories.cpython-312.pyc
+│   ├── migrations
+│   │   ├── 0001_initial.py
+│   │   ├── 0002_initial.py
+│   │   ├── __init__.py
+│   │   └── __pycache__
+│   │       ├── 0001_initial.cpython-312.pyc
+│   │       ├── 0002_initial.cpython-312.pyc
+│   │       └── __init__.cpython-312.pyc
+│   ├── models.py
+│   ├── __pycache__
+│   │   ├── admin.cpython-312.pyc
+│   │   ├── apps.cpython-312.pyc
+│   │   ├── forms.cpython-312.pyc
+│   │   ├── __init__.cpython-312.pyc
+│   │   ├── models.cpython-312.pyc
+│   │   ├── urls.cpython-312.pyc
+│   │   └── views.cpython-312.pyc
+│   ├── tests.py
+│   ├── urls.py
+│   └── views.py
+├── freelanceway
+│   ├── asgi.py
+│   ├── __init__.py
+│   ├── __pycache__
+│   │   ├── __init__.cpython-312.pyc
+│   │   ├── settings.cpython-312.pyc
+│   │   ├── urls.cpython-312.pyc
+│   │   └── wsgi.cpython-312.pyc
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+├── main
+│   ├── admin.py
+│   ├── apps.py
+│   ├── __init__.py
+│   ├── migrations
+│   │   ├── __init__.py
+│   │   └── __pycache__
+│   │       └── __init__.cpython-312.pyc
+│   ├── models.py
+│   ├── __pycache__
+│   │   ├── admin.cpython-312.pyc
+│   │   ├── apps.cpython-312.pyc
+│   │   ├── __init__.cpython-312.pyc
+│   │   ├── models.cpython-312.pyc
+│   │   ├── urls.cpython-312.pyc
+│   │   └── views.cpython-312.pyc
+│   ├── tests.py
+│   ├── urls.py
+│   └── views.py
+├── manage.py
+├── media
+│   └── avatars
+│       └── placeholder.png
+├── notifications
+│   ├── admin.py
+│   ├── apps.py
+│   ├── context_processors.py
+│   ├── __init__.py
+│   ├── managment
+│   │   └── commands
+│   │       ├── send_email.py
+│   │       └── send_push.py
+│   ├── migrations
+│   │   ├── 0001_initial.py
+│   │   ├── 0002_initial.py
+│   │   ├── __init__.py
+│   │   └── __pycache__
+│   │       ├── 0001_initial.cpython-312.pyc
+│   │       ├── 0002_initial.cpython-312.pyc
+│   │       └── __init__.cpython-312.pyc
+│   ├── models.py
+│   ├── __pycache__
+│   │   ├── admin.cpython-312.pyc
+│   │   ├── apps.cpython-312.pyc
+│   │   ├── context_processors.cpython-312.pyc
+│   │   ├── __init__.cpython-312.pyc
+│   │   ├── models.cpython-312.pyc
+│   │   ├── services.cpython-312.pyc
+│   │   ├── urls.cpython-312.pyc
+│   │   └── views.cpython-312.pyc
+│   ├── services.py
+│   ├── tests.py
+│   ├── urls.py
+│   └── views.py
+├── __pycache__
+│   └── sitemaps.cpython-312.pyc
+├── requirements.txt
+├── sitemaps.py
+├── static
+│   ├── base
+│   │   ├── css
+│   │   │   ├── base.css
+│   │   │   ├── dev.css
+│   │   │   └── header.css
+│   │   ├── img
+│   │   │   ├── dev.svg
+│   │   │   └── logo.svg
+│   │   └── js
+│   │       ├── mobile-menu.js
+│   │       └── theme.js
+│   ├── freelancers
+│   │   ├── css
+│   │   │   ├── freelancers.css
+│   │   │   └── freelancers_list.css
+│   │   └── js
+│   ├── main
+│   │   ├── css
+│   │   │   └── index.css
+│   │   ├── img
+│   │   │   ├── banner.jpg
+│   │   │   └── placeholder.png
+│   │   └── js
+│   ├── notifications
+│   │   ├── css
+│   │   │   └── notifications.css
+│   │   └── js
+│   │       ├── notifications.js
+│   │       └── service-worker.js
+│   ├── users
+│   │   ├── css
+│   │   │   ├── auth.css
+│   │   │   └── profile.css
+│   │   ├── img
+│   │   │   └── default-avatar.png
+│   │   └── js
+│   └── vacancy
+│       ├── css
+│       │   └── vacancy.css
+│       ├── img
+│       └── js
+├── staticfiles
+│   ├── admin
+│   │   ├── css
+│   │   │   ├── autocomplete.css
+│   │   │   ├── base.css
+│   │   │   ├── changelists.css
+│   │   │   ├── dark_mode.css
+│   │   │   ├── dashboard.css
+│   │   │   ├── forms.css
+│   │   │   ├── login.css
+│   │   │   ├── nav_sidebar.css
+│   │   │   ├── responsive.css
+│   │   │   ├── responsive_rtl.css
+│   │   │   ├── rtl.css
+│   │   │   ├── unusable_password_field.css
+│   │   │   ├── vendor
+│   │   │   │   └── select2
+│   │   │   │       ├── LICENSE-SELECT2.md
+│   │   │   │       ├── select2.css
+│   │   │   │       └── select2.min.css
+│   │   │   └── widgets.css
+│   │   ├── img
+│   │   │   ├── calendar-icons.svg
+│   │   │   ├── gis
+│   │   │   │   ├── move_vertex_off.svg
+│   │   │   │   └── move_vertex_on.svg
+│   │   │   ├── icon-addlink.svg
+│   │   │   ├── icon-alert.svg
+│   │   │   ├── icon-calendar.svg
+│   │   │   ├── icon-changelink.svg
+│   │   │   ├── icon-clock.svg
+│   │   │   ├── icon-deletelink.svg
+│   │   │   ├── icon-hidelink.svg
+│   │   │   ├── icon-no.svg
+│   │   │   ├── icon-unknown-alt.svg
+│   │   │   ├── icon-unknown.svg
+│   │   │   ├── icon-viewlink.svg
+│   │   │   ├── icon-yes.svg
+│   │   │   ├── inline-delete.svg
+│   │   │   ├── LICENSE
+│   │   │   ├── README.txt
+│   │   │   ├── search.svg
+│   │   │   ├── selector-icons.svg
+│   │   │   ├── sorting-icons.svg
+│   │   │   ├── tooltag-add.svg
+│   │   │   └── tooltag-arrowright.svg
+│   │   └── js
+│   │       ├── actions.js
+│   │       ├── admin
+│   │       │   ├── DateTimeShortcuts.js
+│   │       │   └── RelatedObjectLookups.js
+│   │       ├── autocomplete.js
+│   │       ├── calendar.js
+│   │       ├── cancel.js
+│   │       ├── change_form.js
+│   │       ├── core.js
+│   │       ├── filters.js
+│   │       ├── inlines.js
+│   │       ├── jquery.init.js
+│   │       ├── nav_sidebar.js
+│   │       ├── popup_response.js
+│   │       ├── prepopulate_init.js
+│   │       ├── prepopulate.js
+│   │       ├── SelectBox.js
+│   │       ├── SelectFilter2.js
+│   │       ├── theme.js
+│   │       ├── unusable_password_field.js
+│   │       ├── urlify.js
+│   │       └── vendor
+│   │           ├── jquery
+│   │           │   ├── jquery.js
+│   │           │   ├── jquery.min.js
+│   │           │   └── LICENSE.txt
+│   │           ├── select2
+│   │           │   ├── i18n
+│   │           │   │   ├── af.js
+│   │           │   │   ├── ar.js
+│   │           │   │   ├── az.js
+│   │           │   │   ├── bg.js
+│   │           │   │   ├── bn.js
+│   │           │   │   ├── bs.js
+│   │           │   │   ├── ca.js
+│   │           │   │   ├── cs.js
+│   │           │   │   ├── da.js
+│   │           │   │   ├── de.js
+│   │           │   │   ├── dsb.js
+│   │           │   │   ├── el.js
+│   │           │   │   ├── en.js
+│   │           │   │   ├── es.js
+│   │           │   │   ├── et.js
+│   │           │   │   ├── eu.js
+│   │           │   │   ├── fa.js
+│   │           │   │   ├── fi.js
+│   │           │   │   ├── fr.js
+│   │           │   │   ├── gl.js
+│   │           │   │   ├── he.js
+│   │           │   │   ├── hi.js
+│   │           │   │   ├── hr.js
+│   │           │   │   ├── hsb.js
+│   │           │   │   ├── hu.js
+│   │           │   │   ├── hy.js
+│   │           │   │   ├── id.js
+│   │           │   │   ├── is.js
+│   │           │   │   ├── it.js
+│   │           │   │   ├── ja.js
+│   │           │   │   ├── ka.js
+│   │           │   │   ├── km.js
+│   │           │   │   ├── ko.js
+│   │           │   │   ├── lt.js
+│   │           │   │   ├── lv.js
+│   │           │   │   ├── mk.js
+│   │           │   │   ├── ms.js
+│   │           │   │   ├── nb.js
+│   │           │   │   ├── ne.js
+│   │           │   │   ├── nl.js
+│   │           │   │   ├── pl.js
+│   │           │   │   ├── ps.js
+│   │           │   │   ├── pt-BR.js
+│   │           │   │   ├── pt.js
+│   │           │   │   ├── ro.js
+│   │           │   │   ├── ru.js
+│   │           │   │   ├── sk.js
+│   │           │   │   ├── sl.js
+│   │           │   │   ├── sq.js
+│   │           │   │   ├── sr-Cyrl.js
+│   │           │   │   ├── sr.js
+│   │           │   │   ├── sv.js
+│   │           │   │   ├── th.js
+│   │           │   │   ├── tk.js
+│   │           │   │   ├── tr.js
+│   │           │   │   ├── uk.js
+│   │           │   │   ├── vi.js
+│   │           │   │   ├── zh-CN.js
+│   │           │   │   └── zh-TW.js
+│   │           │   ├── LICENSE.md
+│   │           │   ├── select2.full.js
+│   │           │   └── select2.full.min.js
+│   │           └── xregexp
+│   │               ├── LICENSE.txt
+│   │               ├── xregexp.js
+│   │               └── xregexp.min.js
+│   ├── base
+│   │   ├── css
+│   │   │   ├── base.css
+│   │   │   ├── dev.css
+│   │   │   └── header.css
+│   │   ├── img
+│   │   │   ├── dev.svg
+│   │   │   └── logo.svg
+│   │   └── js
+│   │       ├── mobile-menu.js
+│   │       └── theme.js
+│   ├── freelancers
+│   │   └── css
+│   │       ├── freelancers.css
+│   │       └── freelancers_list.css
+│   ├── main
+│   │   ├── css
+│   │   │   └── index.css
+│   │   └── img
+│   │       ├── banner.jpg
+│   │       └── placeholder.png
+│   ├── notifications
+│   │   ├── css
+│   │   │   └── notifications.css
+│   │   └── js
+│   │       ├── notifications.js
+│   │       └── service-worker.js
+│   ├── users
+│   │   ├── css
+│   │   │   ├── auth.css
+│   │   │   └── profile.css
+│   │   └── img
+│   │       └── default-avatar.png
+│   └── vacancy
+│       └── css
+│           └── vacancy.css
+├── templates
+│   ├── base
+│   │   ├── 404.html
+│   │   ├── base.html
+│   │   └── dev.html
+│   ├── freelancers
+│   │   ├── freelancer_detail.html
+│   │   ├── freelancer_form.html
+│   │   ├── freelancers_list.html
+│   │   ├── my_responses.html
+│   │   ├── portfolio_confirm_delete.html
+│   │   ├── portfolio_form.html
+│   │   └── review_confirm_delete.html
+│   ├── main
+│   │   ├── 404.html
+│   │   ├── about.html
+│   │   ├── contacts.html
+│   │   └── index.html
+│   ├── notifications
+│   │   ├── email
+│   │   │   ├── notification.html
+│   │   │   └── notification.txt
+│   │   ├── notification_detail.html
+│   │   ├── notification_list.html
+│   │   └── notification_preferences.html
+│   ├── users
+│   │   ├── change_password.html
+│   │   ├── edit_profile.html
+│   │   ├── login.html
+│   │   ├── profile.html
+│   │   ├── public_profile.html
+│   │   └── register.html
+│   └── vacancy
+│       ├── application_form.html
+│       ├── my_applications.html
+│       ├── my_vacancies.html
+│       ├── vacancies_list.html
+│       ├── vacancy_applications.html
+│       ├── vacancy_detail.html
+│       └── vacancy_form.html
+├── users
+│   ├── admin.py
+│   ├── apps.py
+│   ├── forms.py
+│   ├── __init__.py
+│   ├── migrations
+│   │   ├── 0001_initial.py
+│   │   ├── __init__.py
+│   │   └── __pycache__
+│   │       ├── 0001_initial.cpython-312.pyc
+│   │       └── __init__.cpython-312.pyc
+│   ├── models.py
+│   ├── __pycache__
+│   │   ├── admin.cpython-312.pyc
+│   │   ├── apps.cpython-312.pyc
+│   │   ├── forms.cpython-312.pyc
+│   │   ├── __init__.cpython-312.pyc
+│   │   ├── models.cpython-312.pyc
+│   │   ├── urls.cpython-312.pyc
+│   │   └── views.cpython-312.pyc
+│   ├── tests.py
+│   ├── urls.py
+│   └── views.py
+└── vacancy
+    ├── admin.py
+    ├── apps.py
+    ├── forms.py
+    ├── __init__.py
+    ├── management
+    │   └── commands
+    │       ├── create_vacancy_categories.py
+    │       ├── create_vacancy.py
+    │       └── __pycache__
+    │           ├── create_vacancy_categories.cpython-312.pyc
+    │           └── create_vacancy.cpython-312.pyc
+    ├── migrations
+    │   ├── 0001_initial.py
+    │   ├── __init__.py
+    │   └── __pycache__
+    │       ├── 0001_initial.cpython-312.pyc
+    │       └── __init__.cpython-312.pyc
+    ├── models.py
+    ├── __pycache__
+    │   ├── admin.cpython-312.pyc
+    │   ├── apps.cpython-312.pyc
+    │   ├── forms.cpython-312.pyc
+    │   ├── __init__.cpython-312.pyc
+    │   ├── models.cpython-312.pyc
+    │   ├── urls.cpython-312.pyc
+    │   └── views.cpython-312.pyc
+    ├── tests.py
+    ├── urls.py
+    └── views.py
+
+96 directories, 317 files

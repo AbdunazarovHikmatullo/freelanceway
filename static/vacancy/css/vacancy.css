@@ -49,13 +49,6 @@
     margin: 0 auto var(--space-4);
 }
 
-.header-actions {
-    margin-top: var(--space-6);
-    display: flex;
-    justify-content: center;
-    gap: var(--space-3);
-}
-
 /* Секция фильтров */
 .filters-section {
     background-color: var(--bg-color);

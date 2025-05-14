@@ -1,6 +1,3 @@
-/* Стили для страницы списка фрилансеров */
-
-/* Заголовок страницы */
 .page-header {
     background-color: var(--card-bg);
     padding: var(--space-12) 0;
@@ -17,7 +14,6 @@
     margin: 0 auto;
 }
 
-/* Секция фильтров */
 .filters-section {
     background-color: var(--bg-color);
     padding: var(--space-6) 0;

@@ -9,7 +9,7 @@
 <!-- Хлебные крошки -->
 <div class="breadcrumbs">
     <div class="container">
-        <a href="{% url 'profile' %}">Мой профиль</a>
+        <a href="{% url 'users:profile' %}">Мой профиль</a>
         <span class="material-symbols-outlined">chevron_right</span>
         <span>{% if is_edit %}Редактирование профиля фрилансера{% else %}Создание профиля фрилансера{% endif %}</span>
     </div>
