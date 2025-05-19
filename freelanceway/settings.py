@@ -6,7 +6,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-ru_8a(b^ppzcnx%(6vssj7uu&6tr$j8is3r)@s)=03wg=pf$#6'
 
-DEBUG = True  # на сервере
+DEBUG = False  # на сервере
 ALLOWED_HOSTS = ['127.0.0.1', 'freelanceway.onrender.com', 'freelanceway.com', 'www.freelanceway.com', 'localhost']
 
 # Application definition
