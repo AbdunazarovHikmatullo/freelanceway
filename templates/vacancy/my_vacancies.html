@@ -10,7 +10,7 @@
 <section class="page-header">
     <div class="container">
         <h1>Мои проекты</h1>
-        <p class="text-muted">Управляйте своими проектами и просматривайте заявки</p>
+        <p>Управляйте своими проектами и просматривайте заявки</p>
         <div class="header-actions">
             <a href="{% url 'vacancy:create_vacancy' %}" class="btn btn-primary">
                 <span class="material-symbols-outlined">add</span>
@@ -61,19 +61,19 @@
                     </div>
                 </div>
                 <div class="my-vacancy-actions">
-                    <a href="{% url 'vacancy:vacancy_detail' vacancy_id=vacancy.id %}" class="btn btn-sm btn-outline">
+                    <a href="{% url 'vacancy:vacancy_detail' vacancy_id=vacancy.id %}" class="btn btn-outline">
                         <span class="material-symbols-outlined">visibility</span>
-                        <span class="btn-text">Просмотр</span>
+                        <span>Просмотр</span>
                     </a>
                     {% if vacancy.status == 'open' %}
-                    <a href="{% url 'vacancy:edit_vacancy' vacancy_id=vacancy.id %}" class="btn btn-sm btn-outline">
+                    <a href="{% url 'vacancy:edit_vacancy' vacancy_id=vacancy.id %}" class="btn btn-outline">
                         <span class="material-symbols-outlined">edit</span>
-                        <span class="btn-text">Редактировать</span>
+                        <span>Редактировать</span>
                     </a>
                     {% endif %}
-                    <a href="{% url 'vacancy:vacancy_applications' vacancy_id=vacancy.id %}" class="btn btn-sm btn-primary">
+                    <a href="{% url 'vacancy:vacancy_applications' vacancy_id=vacancy.id %}" class="btn btn-primary">
                         <span class="material-symbols-outlined">people</span>
-                        <span class="btn-text">Заявки ({{ vacancy.applications_count }})</span>
+                        <span>Заявки ({{ vacancy.applications_count }})</span>
                     </a>
                 </div>
             </div>
@@ -94,11 +94,11 @@
         {% if page_obj.has_other_pages %}
         <div class="pagination">
             {% if page_obj.has_previous %}
-            <a href="?page={{ page_obj.previous_page_number }}{% if selected_status %}&status={{ selected_status }}{% endif %}" class="btn btn-outline btn-sm pagination-btn">
+            <a href="?page={{ page_obj.previous_page_number }}{% if selected_status %}&status={{ selected_status }}{% endif %}" class="pagination-btn">
                 <span class="material-symbols-outlined">chevron_left</span>
             </a>
             {% else %}
-            <button class="btn btn-outline btn-sm pagination-btn" disabled>
+            <button class="pagination-btn" disabled>
                 <span class="material-symbols-outlined">chevron_left</span>
             </button>
             {% endif %}
@@ -114,11 +114,11 @@
             </div>
             
             {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}{% if selected_status %}&status={{ selected_status }}{% endif %}" class="btn btn-outline btn-sm pagination-btn">
+            <a href="?page={{ page_obj.next_page_number }}{% if selected_status %}&status={{ selected_status }}{% endif %}" class="pagination-btn">
                 <span class="material-symbols-outlined">chevron_right</span>
             </a>
             {% else %}
-            <button class="btn btn-outline btn-sm pagination-btn" disabled>
+            <button class="pagination-btn" disabled>
                 <span class="material-symbols-outlined">chevron_right</span>
             </button>
             {% endif %}

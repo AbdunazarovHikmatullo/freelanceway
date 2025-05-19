@@ -10,169 +10,168 @@
 <section class="hero">
     <div class="container">
         <div class="hero-content">
-            <h1 class="hero-title">Найдите лучших фрилансеров для вашего проекта</h1>
-            <p class="hero-description">FreelanceWay соединяет талантливых специалистов и заказчиков для успешной
-                реализации проектов</p>
-
-            <div class="hero-search">
-                <input type="text" placeholder="Что вам нужно сделать?">
-                <button type="button">Найти</button>
-            </div>
-
-            <div class="btn-group">
-                <a href="{% url 'vacancy:create_vacancy' %}" class="btn btn-primary">Разместить проект</a>
-                <a href="{% url 'freelancers_list' %}" class="btn btn-outline">Найти фрилансера</a>
+            <h1>Найдите лучших фрилансеров для вашего проекта</h1>
+            <p>FreelanceWay соединяет талантливых специалистов и заказчиков для успешной реализации проектов</p>
+            
+            <form action="{% url 'vacancy:vacancies_list' %}" method="get" class="search-form">
+                <input type="text" name="q" placeholder="Что вам нужно сделать?" class="search-input">
+                <button type="submit" class="search-button">Найти</button>
+            </form>
+            
+            <div class="hero-actions">
+                <a href="{% url 'vacancy:create_vacancy' %}" class="btn-primary">Разместить проект</a>
+                <a href="{% url 'freelancers_list' %}" class="btn-secondary">Найти фрилансера</a>
             </div>
         </div>
     </div>
 </section>
 
 <!-- Категории -->
-<section class="categories section">
+<section class="categories">
     <div class="container">
-        <div class="section-title">
-            <h2>Популярные категории</h2>
-            <p class="text-muted">Найдите специалистов в различных областях</p>
+        <h2 class="section-title">Популярные категории</h2>
+        
+        <div class="categories-grid">
+            <a href="{% url 'freelancers_list' %}?category=development" class="category-card">
+                <span class="material-symbols-outlined">code</span>
+                <h3>Разработка</h3>
+                <p>1,245 специалистов</p>
+            </a>
+            
+            <a href="{% url 'freelancers_list' %}?category=design" class="category-card">
+                <span class="material-symbols-outlined">brush</span>
+                <h3>Дизайн</h3>
+                <p>987 специалистов</p>
+            </a>
+            
+            <a href="{% url 'freelancers_list' %}?category=copywriting" class="category-card">
+                <span class="material-symbols-outlined">edit</span>
+                <h3>Копирайтинг</h3>
+                <p>756 специалистов</p>
+            </a>
+            
+            <a href="{% url 'freelancers_list' %}?category=marketing" class="category-card">
+                <span class="material-symbols-outlined">trending_up</span>
+                <h3>Маркетинг</h3>
+                <p>543 специалистов</p>
+            </a>
         </div>
-
-        <div class="grid grid-4">
-            <div class="category-card">
-                <span class="material-symbols-outlined category-icon">code</span>
-                <h3 class="category-title">Разработка</h3>
-                <p class="category-count">1,245 специалистов</p>
-            </div>
-            <div class="category-card">
-                <span class="material-symbols-outlined category-icon">brush</span>
-                <h3 class="category-title">Дизайн</h3>
-                <p class="category-count">987 специалистов</p>
-            </div>
-            <div class="category-card">
-                <span class="material-symbols-outlined category-icon">edit</span>
-                <h3 class="category-title">Копирайтинг</h3>
-                <p class="category-count">756 специалистов</p>
-            </div>
-            <div class="category-card">
-                <span class="material-symbols-outlined category-icon">trending_up</span>
-                <h3 class="category-title">Маркетинг</h3>
-                <p class="category-count">543 специалистов</p>
-            </div>
-        </div>
-
+        
         <div class="view-all">
-            <a href="{% url 'freelancers_list' %}" class="btn btn-outline">Все категории</a>
+            <a href="{% url 'freelancers_list' %}" class="link-with-arrow">Все категории</a>
         </div>
     </div>
 </section>
 
-        <!-- Как это работает -->
-        <section class="how-it-works section">
-            <div class="container">
-                <div class="section-title">
-                    <h2>Как это работает</h2>
-                    <p class="text-muted">Простой процесс для успешного сотрудничества</p>
-                </div>
-
-                <div class="grid grid-3">
-                    <div class="step-card">
-                        <div class="step-number">1</div>
-                        <span class="material-symbols-outlined step-icon">description</span>
-                        <h3 class="step-title">Разместите проект</h3>
-                        <p class="step-description">Опишите ваш проект, укажите бюджет и сроки выполнения. Чем подробнее
-                            описание, тем больше подходящих предложений вы получите.</p>
-                    </div>
-
-                    <div class="step-card">
-                        <div class="step-number">2</div>
-                        <span class="material-symbols-outlined step-icon">group</span>
-                        <h3 class="step-title">Выберите фрилансера</h3>
-                        <p class="step-description">Просмотрите предложения от фрилансеров, изучите их портфолио и
-                            отзывы. Выберите лучшего специалиста для вашего проекта.</p>
-                    </div>
-
-                    <div class="step-card">
-                        <div class="step-number">3</div>
-                        <span class="material-symbols-outlined step-icon">task_alt</span>
-                        <h3 class="step-title">Получите результат</h3>
-                        <p class="step-description">Контролируйте процесс работы, общайтесь с исполнителем и получите
-                            готовый проект. Оплата производится только после приемки работы.</p>
-                    </div>
-                </div>
+<!-- Как это работает -->
+<section class="how-it-works">
+    <div class="container">
+        <h2 class="section-title">Как это работает</h2>
+        
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Разместите проект</h3>
+                <p>Опишите задачу, укажите бюджет и сроки выполнения</p>
             </div>
-        </section>
-
-        <!-- Отзывы -->
-        <section class="testimonials section">
-            <div class="container">
-                <div class="section-title">
-                    <h2>Отзывы клиентов</h2>
-                    <p class="text-muted">Что говорят о нас наши пользователи</p>
-                </div>
-
-                <div class="grid grid-3">
-                    <div class="testimonial-card">
-                        <div class="testimonial-content">
-                            <span class="testimonial-quote">"</span>
-                            <p class="testimonial-text">Благодаря FreelanceWay я нашел отличного разработчика для своего
-                                проекта. Работа была выполнена качественно и в срок. Обязательно буду пользоваться
-                                платформой снова!</p>
-                        </div>
-                        <div class="testimonial-author">
-                            <img src="{% static 'main/img/placeholder.png' %}" alt="Игорь Соколов"
-                                class="testimonial-avatar">
-                            <div>
-                                <h4 class="testimonial-name">Игорь Соколов</h4>
-                                <p class="testimonial-position">CEO, TechStart</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="testimonial-card">
-                        <div class="testimonial-content">
-                            <span class="testimonial-quote">"</span>
-                            <p class="testimonial-text">Как фрилансер, я очень доволен этой платформой. Здесь я нахожу
-                                интересные проекты и надежных клиентов. Система безопасных платежей дает уверенность в
-                                получении оплаты.</p>
-                        </div>
-                        <div class="testimonial-author">
-                            <img src="{% static 'main/img/placeholder.png' %}" alt="Мария Волкова"
-                                class="testimonial-avatar">
-                            <div>
-                                <h4 class="testimonial-name">Мария Волкова</h4>
-                                <p class="testimonial-position">Графический дизайнер</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="testimonial-card">
-                        <div class="testimonial-content">
-                            <span class="testimonial-quote">"</span>
-                            <p class="testimonial-text">Отличный сервис для поиска специалистов! Удобный интерфейс,
-                                большой выбор фрилансеров и прозрачные условия сотрудничества. Рекомендую всем, кто ищет
-                                профессионалов.</p>
-                        </div>
-                        <div class="testimonial-author">
-                            <img src="{% static 'main/img/placeholder.png' %}" alt="Алексей Новиков"
-                                class="testimonial-avatar">
-                            <div>
-                                <h4 class="testimonial-name">Алексей Новиков</h4>
-                                <p class="testimonial-position">Маркетолог, BrandPro</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Выберите фрилансера</h3>
+                <p>Изучите предложения, портфолио и отзывы специалистов</p>
             </div>
-        </section>
-
-        <!-- CTA секция -->
-        <section class="cta section">
-            <div class="container">
-                <h2 class="cta-title">Готовы начать работу над проектом?</h2>
-                <p class="cta-description">Присоединяйтесь к тысячам клиентов и фрилансеров, которые уже используют
-                    FreelanceWay для реализации своих идей</p>
-                <div class="btn-group" style="justify-content: center;">
-                    <a href="{% url 'users:register' %}" class="btn btn-lg btn-primary">Зарегистрироваться</a>
-                    <a href="{% url 'vacancy:vacancies_list' %}" class="btn btn-lg btn-outline">Посмотреть проекты</a>
-                </div>
+            
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Получите результат</h3>
+                <p>Контролируйте процесс и оплачивайте только готовую работу</p>
             </div>
-        </section>
-        {% endblock %}
+        </div>
+    </div>
+</section>
+
+<!-- Проекты -->
+<section class="projects">
+    <div class="container">
+        <h2 class="section-title">Актуальные проекты</h2>
+        
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-tag">Разработка</div>
+                <h3>Разработка мобильного приложения для доставки еды</h3>
+                <div class="project-price">от 100 000 ₽</div>
+                <div class="project-meta">
+                    <span>2 месяца</span>
+                    <span>8 заявок</span>
+                </div>
+                <a href="#" class="link-with-arrow">Подробнее</a>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-tag">Дизайн</div>
+                <h3>Редизайн корпоративного сайта компании</h3>
+                <div class="project-price">от 50 000 ₽</div>
+                <div class="project-meta">
+                    <span>1 месяц</span>
+                    <span>12 заявок</span>
+                </div>
+                <a href="#" class="link-with-arrow">Подробнее</a>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-tag">Копирайтинг</div>
+                <h3>Написание текстов для интернет-магазина одежды</h3>
+                <div class="project-price">от 30 000 ₽</div>
+                <div class="project-meta">
+                    <span>2 недели</span>
+                    <span>5 заявок</span>
+                </div>
+                <a href="#" class="link-with-arrow">Подробнее</a>
+            </div>
+        </div>
+        
+        <div class="view-all">
+            <a href="{% url 'vacancy:vacancies_list' %}" class="link-with-arrow">Все проекты</a>
+        </div>
+    </div>
+</section>
+
+<!-- Статистика -->
+<section class="stats">
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value">10,000+</div>
+                <div class="stat-label">Фрилансеров</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-value">5,000+</div>
+                <div class="stat-label">Проектов</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-value">2,000+</div>
+                <div class="stat-label">Компаний</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-value">₽100M+</div>
+                <div class="stat-label">Выплачено</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA секция -->
+<section class="cta">
+    <div class="container">
+        <h2>Готовы начать работу над проектом?</h2>
+        <p>Присоединяйтесь к тысячам клиентов и фрилансеров, которые уже используют FreelanceWay</p>
+        <div class="cta-actions">
+            <a href="{% url 'users:register' %}" class="btn-primary">Зарегистрироваться</a>
+            <a href="{% url 'vacancy:vacancies_list' %}" class="btn-secondary">Посмотреть проекты</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -66,7 +66,7 @@
                     {% if profile_user.bio %}
                     <p>{{ profile_user.bio|linebreaks }}</p>
                     {% else %}
-                    <p class="text-muted">Пользователь не добавил информацию о себе</p>
+                    <p>Пользователь не добавил информацию о себе</p>
                     {% endif %}
                 </div>
                 
@@ -138,20 +138,20 @@
                     {% if freelancer_profile.experience %}
                     <p>{{ freelancer_profile.experience }}</p>
                     {% else %}
-                    <p class="text-muted">Пользователь не указал опыт работы</p>
+                    <p>Пользователь не указал опыт работы</p>
                     {% endif %}
                 </div>
                 
                 <!-- Портфолио -->
                 <div class="profile-card">
                     <h2>Портфолио</h2>
-                    <p class="text-muted">Портфолио пока не добавлено</p>
+                    <p>Портфолио пока не добавлено</p>
                 </div>
                 
                 <!-- Отзывы -->
                 <div class="profile-card">
                     <h2>Отзывы</h2>
-                    <p class="text-muted">У пользователя пока нет отзывов</p>
+                    <p>У пользователя пока нет отзывов</p>
                 </div>
                 {% endif %}
                 
@@ -159,13 +159,13 @@
                 <!-- Активные проекты -->
                 <div class="profile-card">
                     <h2>Активные проекты</h2>
-                    <p class="text-muted">У пользователя нет активных проектов</p>
+                    <p>У пользователя нет активных проектов</p>
                 </div>
                 
                 <!-- Завершенные проекты -->
                 <div class="profile-card">
                     <h2>Завершенные проекты</h2>
-                    <p class="text-muted">У пользователя нет завершенных проектов</p>
+                    <p>У пользователя нет завершенных проектов</p>
                 </div>
                 {% endif %}
             </div>

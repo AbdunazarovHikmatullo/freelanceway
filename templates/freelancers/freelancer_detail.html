@@ -2,106 +2,318 @@
 {% load static %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'freelancers/css/freelancer.css' %}">
+<link rel="stylesheet" href="{% static 'freelancers/css/freelancers.css' %}">
 {% endblock %}
 
 {% block content %}
-<section class="profile-header">
+<!-- Хлебные крошки -->
+<div class="breadcrumbs">
     <div class="container">
-        <div class="profile-main-info">
-            {% if freelancer.user.avatar %}
-            <img src="{{ freelancer.user.avatar.url }}" alt="{{ freelancer.user.username }}" class="profile-avatar">
-            {% else %}
-            <img src="{% static 'main/img/placeholder.png' %}" alt="{{ freelancer.user.username }}" class="profile-avatar">
-            {% endif %}
-            <div>
-                <h1>{{ freelancer.user.get_full_name|default:freelancer.user.username }}</h1>
-                <p class="profile-headline">{{ freelancer.headline }}</p>
-                <div class="profile-rating">
-                    {% for _ in "12345"|slice:":freelancer.rating"|default:"0" %}
-                    <span class="material-symbols-outlined">star</span>
-                    {% endfor %}
-                    <span>{{ freelancer.rating|default:"-" }}</span>
-                    <span class="text-muted">({{ freelancer.reviews_count|default:"0" }} отзывов)</span>
+        <a href="{% url 'freelancers_list' %}">Фрилансеры</a>
+        <span class="material-symbols-outlined">chevron_right</span>
+        <span>{{ freelancer.user.get_full_name }}</span>
+    </div>
+</div>
+
+<!-- Профиль фрилансера -->
+<section class="freelancer-profile">
+    <div class="container">
+        <div class="profile-header">
+            <div class="profile-header-content">
+                <div class="profile-avatar">
+                    <img src="{{ freelancer.user.get_avatar_url }}" alt="{{ freelancer.user.username }}">
+                    {% if freelancer.is_verified %}
+                    <span class="verified-badge" title="Проверенный фрилансер">
+                        <span class="material-symbols-outlined">verified</span>
+                    </span>
+                    {% endif %}
                 </div>
-                <div class="profile-meta">
-                    <span>Опыт: {{ freelancer.experience|default:"не указан" }}</span>
-                    <span>Ставка: ₽{{ freelancer.hourly_rate|default:"-" }}/ч</span>
-                    <span>Доступность: {{ freelancer.get_availability_display }}</span>
+                <div class="profile-info">
+                    <h1>{{ freelancer.user.get_full_name }}</h1>
+                    <p class="profile-headline">{{ freelancer.headline }}</p>
+                    <div class="profile-rating">
+                        <div class="stars">
+                            {% for i in "12345" %}
+                            {% if forloop.counter <= freelancer.rating|floatformat:"0" %}
+                            <span class="material-symbols-outlined filled">star</span>
+                            {% elif forloop.counter <= freelancer.rating|add:"0.5"|floatformat:"0" %}
+                            <span class="material-symbols-outlined half-filled">star_half</span>
+                            {% else %}
+                            <span class="material-symbols-outlined">star</span>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                        <span>{{ freelancer.rating|floatformat:1 }}</span>
+                        <span class="reviews-count">({{ freelancer.reviews_count }} отзывов)</span>
+                    </div>
+                    <div class="profile-meta">
+                        <div class="profile-meta-item">
+                            <span class="material-symbols-outlined">work</span>
+                            <span>{{ freelancer.get_experience_display }}</span>
+                        </div>
+                        <div class="profile-meta-item">
+                            <span class="material-symbols-outlined">schedule</span>
+                            <span>{{ freelancer.get_availability_display }}</span>
+                        </div>
+                        {% if freelancer.user.location %}
+                        <div class="profile-meta-item">
+                            <span class="material-symbols-outlined">location_on</span>
+                            <span>{{ freelancer.user.location }}</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="profile-actions">
+                    <div class="profile-price">
+                        <span class="price-value">{{ freelancer.hourly_rate|floatformat:"0" }} ₽</span>
+                        <span class="price-label">/ час</span>
+                    </div>
+                    <a href="#" class="btn btn-primary">
+                        <span class="material-symbols-outlined">mail</span>
+                        Связаться
+                    </a>
+                    <a href="#" class="btn btn-outline">
+                        <span class="material-symbols-outlined">work</span>
+                        Предложить проект
+                    </a>
                 </div>
             </div>
         </div>
-    </div>
-</section>
-
-<section class="profile-content">
-    <div class="container">
-        <div class="profile-columns">
-            <div class="profile-left">
+        
+        <div class="profile-grid">
+            <!-- Левая колонка - информация о фрилансере -->
+            <div class="profile-sidebar">
+                <!-- Биография -->
                 <div class="profile-card">
-                    <h2>О себе</h2>
-                    <p>{{ freelancer.about|default:"Пользователь не добавил описание." }}</p>
+                    <h2>О фрилансере</h2>
+                    {% if freelancer.bio %}
+                    <p>{{ freelancer.bio|linebreaks }}</p>
+                    {% else %}
+                    <p>Фрилансер не добавил информацию о себе</p>
+                    {% endif %}
                 </div>
+                
+                <!-- Навыки -->
+                <div class="profile-card">
+                    <h2>Навыки</h2>
+                    <div class="skills-list">
+                        {% for skill in freelancer.get_skills_list %}
+                        <span class="skill-tag">{{ skill }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                <!-- Контактная информация -->
+                <div class="profile-card">
+                    <h2>Контактная информация</h2>
+                    <div class="contact-info">
+                        {% if freelancer.user.email %}
+                        <div class="contact-item">
+                            <span class="material-symbols-outlined">email</span>
+                            <a href="mailto:{{ freelancer.user.email }}">{{ freelancer.user.email }}</a>
+                        </div>
+                        {% endif %}
+                        {% if freelancer.phone_number %}
+                        <div class="contact-item">
+                            <span class="material-symbols-outlined">phone</span>
+                            <span>{{ freelancer.phone_number }}</span>
+                        </div>
+                        {% endif %}
+                        {% if freelancer.telegram %}
+                        <div class="contact-item">
+                            <span class="material-symbols-outlined">send</span>
+                            <a href="https://t.me/{{ freelancer.telegram }}" target="_blank">{{ freelancer.telegram }}</a>
+                        </div>
+                        {% endif %}
+                        {% if freelancer.whatsapp %}
+                        <div class="contact-item">
+                            <span class="material-symbols-outlined">chat</span>
+                            <a href="https://wa.me/{{ freelancer.whatsapp }}" target="_blank">WhatsApp</a>
+                        </div>
+                        {% endif %}
+                        {% if freelancer.portfolio_url %}
+                        <div class="contact-item">
+                            <span class="material-symbols-outlined">language</span>
+                            <a href="{{ freelancer.portfolio_url }}" target="_blank">Внешнее портфолио</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <!-- Социальные сети -->
+                {% if freelancer.user.github or freelancer.user.twitter or freelancer.user.linkedin %}
+                <div class="profile-card">
+                    <h2>Социальные сети</h2>
+                    <div class="social-links">
+                        {% if freelancer.user.github %}
+                        <a href="{{ freelancer.user.github }}" target="_blank" class="social-link">
+                            <span class="material-symbols-outlined">code</span>
+                            <span>GitHub</span>
+                        </a>
+                        {% endif %}
+                        {% if freelancer.user.twitter %}
+                        <a href="{{ freelancer.user.twitter }}" target="_blank" class="social-link">
+                            <span class="material-symbols-outlined">alternate_email</span>
+                            <span>Twitter</span>
+                        </a>
+                        {% endif %}
+                        {% if freelancer.user.linkedin %}
+                        <a href="{{ freelancer.user.linkedin }}" target="_blank" class="social-link">
+                            <span class="material-symbols-outlined">work</span>
+                            <span>LinkedIn</span>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            
+            <!-- Правая колонка - портфолио и отзывы -->
+            <div class="profile-main">
+                <!-- Образование и сертификаты -->
+                {% if freelancer.education or freelancer.certifications %}
+                <div class="profile-card">
+                    <h2>Образование и сертификаты</h2>
+                    {% if freelancer.education %}
+                    <h3>Образование</h3>
+                    <p>{{ freelancer.education|linebreaks }}</p>
+                    {% endif %}
+                    {% if freelancer.certifications %}
+                    <h3>Сертификаты</h3>
+                    <p>{{ freelancer.certifications|linebreaks }}</p>
+                    {% endif %}
+                </div>
+                {% endif %}
+                
+                <!-- Портфолио -->
                 <div class="profile-card">
                     <h2>Портфолио</h2>
                     {% if portfolio_items %}
-                        <div class="portfolio-list">
-                            {% for item in portfolio_items %}
-                            <div class="portfolio-item">
-                                {% if item.image %}
+                    <div class="portfolio-grid">
+                        {% for item in portfolio_items %}
+                        <div class="portfolio-item">
+                            {% if item.image %}
+                            <div class="portfolio-image">
                                 <img src="{{ item.image.url }}" alt="{{ item.title }}">
+                            </div>
+                            {% else %}
+                            <div class="portfolio-image">
+                                <div class="placeholder-image">
+                                    <span class="material-symbols-outlined">image</span>
+                                    <span>Нет изображения</span>
+                                </div>
+                            </div>
+                            {% endif %}
+                            <div class="portfolio-content">
+                                <h3>{{ item.title }}</h3>
+                                <p>{{ item.description|truncatechars:100 }}</p>
+                                {% if item.project_url %}
+                                <a href="{{ item.project_url }}" target="_blank" class="btn btn-outline btn-sm">Посмотреть проект</a>
                                 {% endif %}
-                                <h4>{{ item.title }}</h4>
-                                <p>{{ item.description|truncatewords:20 }}</p>
-                                {% if item.link %}
-                                <a href="{{ item.link }}" target="_blank" class="btn btn-sm btn-outline">Смотреть</a>
+                                {% if request.user == freelancer.user %}
+                                <div class="portfolio-actions">
+                                    <a href="{% url 'edit_portfolio_item' item.id %}" class="btn btn-outline btn-sm">
+                                        <span class="material-symbols-outlined">edit</span>
+                                        Редактировать
+                                    </a>
+                                    <a href="{% url 'delete_portfolio_item' item.id %}" class="btn btn-danger btn-sm">
+                                        <span class="material-symbols-outlined">delete</span>
+                                        Удалить
+                                    </a>
+                                </div>
                                 {% endif %}
                             </div>
-                            {% endfor %}
                         </div>
+                        {% endfor %}
+                    </div>
                     {% else %}
-                        <p class="text-muted">Портфолио пока не добавлено.</p>
+                    <p>Портфолио пока не добавлено</p>
+                    {% if request.user == freelancer.user %}
+                    <div class="empty-state">
+                        <a href="{% url 'add_portfolio_item' %}" class="btn btn-outline">
+                            <span class="material-symbols-outlined">add</span>
+                            Добавить проект
+                        </a>
+                    </div>
+                    {% endif %}
                     {% endif %}
                 </div>
-            </div>
-            <div class="profile-right">
+                
+                <!-- Отзывы -->
                 <div class="profile-card">
                     <h2>Отзывы</h2>
-                    {% if reviews %}
-                        <div class="reviews-list">
-                            {% for review in reviews %}
-                            <div class="review-item">
-                                <div class="review-header">
-                                    <strong>{{ review.author.get_full_name|default:review.author.username }}</strong>
-                                    <span class="review-rating">
-                                        {% for _ in "12345"|slice:":review.rating"|default:"0" %}
-                                        <span class="material-symbols-outlined">star</span>
-                                        {% endfor %}
-                                        <span>{{ review.rating }}</span>
-                                    </span>
-                                </div>
-                                <p>{{ review.text }}</p>
-                                <span class="review-date">{{ review.created_at|date:"d.m.Y" }}</span>
-                            </div>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        <p class="text-muted">У пользователя пока нет отзывов.</p>
-                    {% endif %}
-
+                    
                     {% if can_review %}
-                    <div class="review-form">
+                    <div class="review-form-container">
                         <h3>Оставить отзыв</h3>
-                        <form method="post">
+                        <form method="post" action="{% url 'add_review' username=freelancer.user.username %}">
                             {% csrf_token %}
-                            {{ review_form.as_p }}
-                            <button type="submit" class="btn btn-primary btn-sm">Отправить</button>
+                            
+                            <div class="form-group">
+                                <label>Оценка</label>
+                                <div class="rating-input-container">
+                                    {% for i in "12345" %}
+                                    <div class="rating-option">
+                                        <input type="radio" name="rating" id="rating-{{ i }}" value="{{ i }}" {% if i == '5' %}checked{% endif %}>
+                                        <label for="rating-{{ i }}">
+                                            <span class="material-symbols-outlined">star</span>
+                                            <span class="rating-value">{{ i }}</span>
+                                        </label>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="comment">Комментарий</label>
+                                <textarea id="comment" name="comment" class="form-textarea" rows="4" required></textarea>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">Отправить отзыв</button>
+                            </div>
                         </form>
                     </div>
-                    {% elif user_review %}
-                    <div class="alert alert-info">
-                        Вы уже оставили отзыв этому фрилансеру.
+                    {% endif %}
+                    
+                    {% if reviews %}
+                    <div class="reviews-list">
+                        {% for review in reviews %}
+                        <div class="review-item">
+                            <div class="review-header">
+                                <div class="reviewer-info">
+                                    <img src="{{ review.client.get_avatar_url }}" alt="{{ review.client.username }}" class="reviewer-avatar">
+                                    <div>
+                                        <h4>{{ review.client.get_full_name }}</h4>
+                                        <span class="review-date">{{ review.created_at|date:"d.m.Y" }}</span>
+                                    </div>
+                                </div>
+                                <div class="review-rating">
+                                    {% for i in "12345" %}
+                                    {% if forloop.counter <= review.rating %}
+                                    <span class="material-symbols-outlined filled">star</span>
+                                    {% else %}
+                                    <span class="material-symbols-outlined">star</span>
+                                    {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="review-content">
+                                <p>{{ review.comment|linebreaks }}</p>
+                            </div>
+                            {% if request.user == review.client %}
+                            <div class="review-actions">
+                                <a href="{% url 'delete_review' review.id %}" class="btn btn-danger btn-sm">
+                                    <span class="material-symbols-outlined">delete</span>
+                                    Удалить
+                                </a>
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
                     </div>
+                    {% else %}
+                    <p>У фрилансера пока нет отзывов</p>
                     {% endif %}
                 </div>
             </div>

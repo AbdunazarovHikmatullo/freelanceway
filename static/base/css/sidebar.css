@@ -1,0 +1,144 @@
+/* Стили для боковой панели */
+.sidebar {
+  width: var(--sidebar-width);
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: var(--card-bg);
+  border-right: 1px solid var(--border-color);
+  z-index: 100;
+  transition: transform var(--transition-normal), width var(--transition-normal);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+/* Шапка боковой панели */
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4);
+  height: var(--header-height);
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Навигация в боковой панели */
+.sidebar-nav {
+  flex: 1;
+  padding: var(--space-4) 0;
+}
+
+.sidebar-nav ul {
+  list-style: none;
+}
+
+.sidebar-nav li a {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  color: var(--text-color);
+  font-weight: 500;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+  border-left: 3px solid transparent;
+}
+
+.sidebar-nav li a:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: var(--primary);
+}
+
+[data-theme="dark"] .sidebar-nav li a:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.sidebar-nav li a.active {
+  color: var(--primary);
+  border-left-color: var(--primary);
+  background-color: rgba(252, 0, 0, 0.05);
+}
+
+[data-theme="dark"] .sidebar-nav li a.active {
+  background-color: rgba(252, 0, 0, 0.1);
+}
+
+.sidebar-nav li a span.material-symbols-outlined {
+  font-size: 1.25rem;
+}
+
+/* Разделы в боковой панели */
+.nav-section {
+  margin-top: var(--space-6);
+  padding: 0 var(--space-4);
+}
+
+.nav-section-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: var(--space-2);
+}
+
+/* Подвал боковой панели */
+.sidebar-footer {
+  padding: var(--space-4);
+  border-top: 1px solid var(--border-color);
+  margin-top: auto;
+}
+
+/* Состояние скрытой боковой панели */
+.sidebar-hidden {
+  transform: translateX(-100%);
+}
+
+/* Состояние свернутой боковой панели */
+.sidebar-collapsed {
+  width: var(--sidebar-collapsed-width);
+}
+
+.sidebar-collapsed .logo-text,
+.sidebar-collapsed .nav-section-title,
+.sidebar-collapsed .sidebar-nav li a span:not(.material-symbols-outlined) {
+  display: none;
+}
+
+.sidebar-collapsed .sidebar-nav li a {
+  justify-content: center;
+  padding: var(--space-3) 0;
+}
+
+.sidebar-collapsed .sidebar-footer {
+  display: none;
+}
+
+/* Адаптивность боковой панели */
+@media (max-width: 1024px) {
+  .sidebar {
+    transform: translateX(-100%);
+  }
+
+  .sidebar-visible {
+    transform: translateX(0);
+  }
+
+  .main-content {
+    margin-left: 0 !important;
+  }
+}
+
+@media (min-width: 1025px) {
+  .main-content {
+    margin-left: var(--sidebar-width);
+  }
+
+  body.sidebar-collapsed .main-content {
+    margin-left: var(--sidebar-collapsed-width);
+  }
+
+  #close-sidebar {
+    display: none;
+  }
+}

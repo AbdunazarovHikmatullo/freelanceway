@@ -25,7 +25,7 @@
                             </span>
                         </span>
                     {% else %}
-                        <a href="{% url 'create_freelancer_profile' %}" class="btn">
+                        <a href="{% url 'create_freelancer_profile' %}" class="btn btn-primary">
                             Создать профиль фрилансера
                         </a>
                     {% endif %}
@@ -69,7 +69,7 @@
                     {% if user.bio %}
                     <p>{{ user.bio|linebreaks }}</p>
                     {% else %}
-                    <p class="text-muted">Расскажите о себе, добавив информацию в профиле</p>
+                    <p>Расскажите о себе, добавив информацию в профиле</p>
                     {% endif %}
                 </div>
 
@@ -195,8 +195,8 @@
                             <span>Мои заявки</span>
                         </a>
                         <a href="{% url 'add_portfolio_item' %}" class="quick-action-btn">
-                            <span class="material-symbols-outlined">description</span>
-                            <span>Разместить партфолио</span>
+                            <span class="material-symbols-outlined">image</span>
+                            <span>Добавить в портфолио</span>
                         </a>
                         {% endif %}
                         <a href="{% url 'users:change_password' %}" class="quick-action-btn">
@@ -235,11 +235,11 @@
                     </div>
                     {% if vacancies.count > 3 %}
                     <div class="view-all">
-                        <a href="{% url 'my_vacancies' %}" class="btn btn-outline btn-sm">Все проекты</a>
+                        <a href="{% url 'vacancy:my_vacancies' %}" class="btn btn-outline">Все проекты</a>
                     </div>
                     {% endif %}
                 </div>
-                {% elif user.s_freelancer and applications %}
+                {% elif user.is_freelancer and applications %}
                 <div class="profile-card">
                     <h2>Последние заявки</h2>
                     <div class="activity-list">
@@ -263,7 +263,7 @@
                     </div>
                     {% if applications.count > 3 %}
                     <div class="view-all">
-                        <a href="{% url 'my_applications' %}" class="btn btn-outline btn-sm">Все заявки</a>
+                        <a href="{% url 'vacancy:my_applications' %}" class="btn btn-outline">Все заявки</a>
                     </div>
                     {% endif %}
                 </div>

@@ -2,599 +2,611 @@
 
 /* Хлебные крошки */
 .breadcrumbs {
-    padding: var(--space-4) 0;
-    border-bottom: 1px solid var(--border-color);
-    background-color: var(--bg-color);
+  padding: 16px 0;
+  border-bottom: 1px solid var(--color-border);
+  background-color: var(--color-bg);
 }
 
 .breadcrumbs .container {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
 }
 
 .breadcrumbs a {
-    color: var(--text-muted);
-    transition: color var(--transition-fast);
+  color: var(--color-text-secondary);
+  transition: color 0.2s ease;
 }
 
 .breadcrumbs a:hover {
-    color: var(--primary);
+  color: var(--color-accent);
 }
 
 .breadcrumbs span:last-child {
-    color: var(--text-color);
+  color: var(--color-text-primary);
 }
 
 .breadcrumbs .material-symbols-outlined {
-    font-size: 1rem;
-    color: var(--text-muted);
+  font-size: 16px;
+  color: var(--color-text-secondary);
 }
 
 /* Заголовок профиля */
 .profile-header {
-    background-color: var(--card-bg);
-    padding: var(--space-8) 0;
-    border-bottom: 1px solid var(--border-color);
+  background-color: var(--color-bg);
+  padding: 40px 0;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .profile-header-content {
-    display: flex;
-    align-items: center;
-    gap: var(--space-6);
+  display: flex;
+  align-items: center;
+  gap: 24px;
 }
 
 .profile-avatar {
-    width: 120px;
-    height: 120px;
-    border-radius: var(--radius-full);
-    overflow: hidden;
-    border: 3px solid var(--primary);
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid var(--color-primary);
 }
 
 .profile-avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .profile-info {
-    flex: 1;
+  flex: 1;
 }
 
 .profile-info h1 {
-    font-size: 1.75rem;
-    margin-bottom: var(--space-1);
+  font-size: 28px;
+  margin-bottom: 4px;
 }
 
 .profile-username {
-    color: var(--text-muted);
-    margin-bottom: var(--space-2);
-    font-size: 1rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 8px;
+  font-size: 16px;
 }
 
 .profile-badge {
-    display: inline-block;
-    padding: var(--space-1) var(--space-2);
-    border-radius: var(--radius-full);
-    font-size: 0.75rem;
-    font-weight: 500;
-    margin-bottom: var(--space-3);
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  margin-bottom: 12px;
 }
 
 .profile-badge.freelancer {
-    background-color: rgba(139, 92, 246, 0.1);
-    color: #8B5CF6;
-    display: flex;
-    max-width: max-content;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 10px;
+  background-color: rgba(255, 204, 0, 0.1);
+  color: var(--color-primary);
+  display: flex;
+  max-width: max-content;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 6px 10px;
 }
-.profile-badge .freelancer .icon{
-    width: 20px;
-    height: 20px;
+
+.profile-badge .material-symbols-outlined {
+  font-size: 16px;
 }
 
 .profile-badge.client {
-    background-color: rgba(16, 185, 129, 0.1);
-    color: #10B981;
+  background-color: rgba(16, 185, 129, 0.1);
+  color: #10b981;
 }
 
 .profile-meta {
-    display: flex;
-    gap: var(--space-4);
-    color: var(--text-muted);
-    font-size: 0.875rem;
+  display: flex;
+  gap: 16px;
+  color: var(--color-text-secondary);
+  font-size: 14px;
 }
 
 .profile-meta-item {
-    display: flex;
-    align-items: center;
-    gap: var(--space-1);
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .profile-actions {
-    display: flex;
-    gap: var(--space-2);
+  display: flex;
+  gap: 8px;
 }
 
 /* Основное содержимое профиля */
 .profile-content {
-    padding: var(--space-8) 0;
+  padding: 40px 0;
 }
 
 .profile-grid {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: var(--space-6);
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 24px;
 }
 
 .profile-card {
-    background-color: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-lg);
-    padding: var(--space-6);
-    margin-bottom: var(--space-6);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
 }
 
 .profile-card:last-child {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 .profile-card h2 {
-    font-size: 1.25rem;
-    margin-bottom: var(--space-4);
-    padding-bottom: var(--space-3);
-    border-bottom: 1px solid var(--border-color);
+  font-size: 20px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--color-border);
 }
 
 /* Контактная информация */
 .contact-info {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .contact-item {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .contact-item .material-symbols-outlined {
-    color: var(--primary);
+  color: var(--color-primary);
 }
 
 /* Социальные сети */
 .social-links {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .social-link {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-2) var(--space-3);
-    border-radius: var(--radius-md);
-    transition: background-color var(--transition-fast);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+  text-decoration: none;
+  color: var(--color-text-primary);
 }
 
 .social-link:hover {
-    background-color: rgba(37, 99, 235, 0.05);
+  background-color: rgba(255, 204, 0, 0.05);
 }
 
 .social-link .material-symbols-outlined {
-    color: var(--primary);
+  color: var(--color-primary);
 }
 
 /* Навыки */
 .skills-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .skill-tag {
-    display: inline-flex;
-    align-items: center;
-    padding: var(--space-1) var(--space-2);
-    border-radius: var(--radius-full);
-    font-size: 0.75rem;
-    font-weight: 500;
-    background-color: rgba(37, 99, 235, 0.1);
-    color: var(--primary);
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  background-color: rgba(255, 204, 0, 0.1);
+  color: var(--color-primary);
 }
 
 /* Статистика */
 .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-4);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
 }
 
 .stat-card {
-    background-color: var(--bg-color);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
-    padding: var(--space-4);
-    text-align: center;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
 }
 
 .stat-value {
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--primary);
-    margin-bottom: var(--space-1);
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: 4px;
 }
 
 .stat-label {
-    font-size: 0.875rem;
-    color: var(--text-muted);
+  font-size: 14px;
+  color: var(--color-text-secondary);
 }
 
 /* Быстрые действия */
 .quick-actions {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-3);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
 }
 
 .quick-action-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-2);
-    padding: var(--space-3);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
-    color: var(--text-color);
-    transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  color: var(--color-text-primary);
+  transition: all 0.2s ease;
+  text-decoration: none;
 }
 
 .quick-action-btn:hover {
-    border-color: var(--primary);
-    background-color: rgba(37, 99, 235, 0.05);
-    color: var(--primary);
+  border-color: var(--color-primary);
+  background-color: rgba(255, 204, 0, 0.05);
+  color: var(--color-primary);
 }
 
 .quick-action-btn .material-symbols-outlined {
-    font-size: 1.25rem;
+  font-size: 20px;
 }
 
 /* Последняя активность */
 .activity-list {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .activity-item {
-    display: flex;
-    gap: var(--space-3);
-    padding-bottom: var(--space-4);
-    border-bottom: 1px solid var(--border-color);
+  display: flex;
+  gap: 12px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .activity-item:last-child {
-    padding-bottom: 0;
-    border-bottom: none;
+  padding-bottom: 0;
+  border-bottom: none;
 }
 
 .activity-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: var(--radius-full);
-    background-color: rgba(37, 99, 235, 0.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--primary);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(255, 204, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
 }
 
 .activity-content {
-    flex: 1;
+  flex: 1;
 }
 
 .activity-content h3 {
-    font-size: 1rem;
-    margin-bottom: var(--space-1);
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+.activity-content h3 a {
+  color: var(--color-text-primary);
+  text-decoration: none;
+}
+
+.activity-content h3 a:hover {
+  color: var(--color-primary);
 }
 
 .activity-meta {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-    margin-bottom: var(--space-2);
-    font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+  font-size: 14px;
 }
 
 .activity-date {
-    color: var(--text-muted);
+  color: var(--color-text-secondary);
 }
 
 .activity-status {
-    display: inline-block;
-    padding: var(--space-1) var(--space-2);
-    border-radius: var(--radius-full);
-    font-size: 0.75rem;
-    font-weight: 500;
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 .status-open {
-    background-color: rgba(16, 185, 129, 0.1);
-    color: #10B981;
+  background-color: rgba(16, 185, 129, 0.1);
+  color: #10b981;
 }
 
 .status-in_progress {
-    background-color: rgba(59, 130, 246, 0.1);
-    color: #3B82F6;
+  background-color: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
 }
 
 .status-completed {
-    background-color: rgba(139, 92, 246, 0.1);
-    color: #8B5CF6;
+  background-color: rgba(139, 92, 246, 0.1);
+  color: #8b5cf6;
 }
 
 .status-cancelled {
-    background-color: rgba(239, 68, 68, 0.1);
-    color: #EF4444;
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
 }
 
 .status-pending {
-    background-color: rgba(245, 158, 11, 0.1);
-    color: #F59E0B;
+  background-color: rgba(245, 158, 11, 0.1);
+  color: #f59e0b;
 }
 
 .status-accepted {
-    background-color: rgba(16, 185, 129, 0.1);
-    color: #10B981;
+  background-color: rgba(16, 185, 129, 0.1);
+  color: #10b981;
 }
 
 .status-rejected {
-    background-color: rgba(239, 68, 68, 0.1);
-    color: #EF4444;
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
 }
 
 .view-all {
-    text-align: center;
-    margin-top: var(--space-4);
+  text-align: center;
+  margin-top: 16px;
 }
 
 /* Формы профиля */
 .form-section {
-    padding: var(--space-8) 0;
+  padding: 40px 0;
 }
 
 .form-container {
-    max-width: 800px;
-    margin: 0 auto;
-    background-color: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  overflow: hidden;
 }
 
 .form-header {
-    padding: var(--space-6);
-    border-bottom: 1px solid var(--border-color);
-    text-align: center;
+  padding: 24px;
+  border-bottom: 1px solid var(--color-border);
+  text-align: center;
 }
 
 .form-header h1 {
-    font-size: 1.5rem;
-    margin-bottom: var(--space-2);
+  font-size: 24px;
+  margin-bottom: 8px;
 }
 
 .profile-form,
 .password-form {
-    padding: var(--space-6);
+  padding: 24px;
 }
 
 .form-section-title {
-    margin: var(--space-6) 0 var(--space-4);
-    padding-bottom: var(--space-2);
-    border-bottom: 1px solid var(--border-color);
+  margin: 24px 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .form-section-title h2 {
-    font-size: 1.25rem;
+  font-size: 20px;
 }
 
 .form-section-title:first-child {
-    margin-top: 0;
+  margin-top: 0;
 }
 
 .form-group {
-    margin-bottom: var(--space-4);
+  margin-bottom: 20px;
 }
 
 .form-group label {
-    display: block;
-    margin-bottom: var(--space-2);
-    font-weight: 500;
-    font-size: 0.9375rem;
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  font-size: 15px;
 }
 
-.form-input,
-.form-textarea {
-    width: 100%;
-    padding: var(--space-3);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    font-size: 0.9375rem;
-    transition: border-color var(--transition-fast);
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  font-size: 15px;
+  transition: border-color 0.2s ease;
 }
 
-.form-input:focus,
-.form-textarea:focus {
-    outline: none;
-    border-color: var(--primary);
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
 }
 
-.form-textarea {
-    resize: vertical;
-    min-height: 100px;
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
 }
 
 .form-help {
-    display: block;
-    margin-top: var(--space-1);
-    font-size: 0.8125rem;
-    color: var(--text-muted);
+  display: block;
+  margin-top: 4px;
+  font-size: 13px;
+  color: var(--color-text-secondary);
 }
 
 .form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-4);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
 }
 
 .form-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: var(--space-3);
-    margin-top: var(--space-6);
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
 }
 
 /* Загрузка аватара */
 .avatar-upload {
-    display: flex;
-    align-items: center;
-    gap: var(--space-6);
-    margin-bottom: var(--space-6);
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 24px;
 }
 
 .current-avatar {
-    width: 100px;
-    height: 100px;
-    border-radius: var(--radius-full);
-    overflow: hidden;
-    border: 2px solid var(--primary);
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--color-primary);
 }
 
 .current-avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .avatar-actions {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .form-file-input {
-    display: none;
+  display: none;
 }
 
 /* Подсказки для пароля */
 .password-help {
-    margin-top: var(--space-2);
-    font-size: 0.8125rem;
-    color: var(--text-muted);
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--color-text-secondary);
 }
 
 .password-help ul {
-    padding-left: var(--space-4);
+  padding-left: 16px;
 }
 
 .password-help li {
-    margin-bottom: var(--space-1);
+  margin-bottom: 4px;
 }
 
 /* Сообщения */
 .messages {
-    margin-bottom: var(--space-4);
+  margin-bottom: 16px;
 }
 
 .message {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--space-2);
-    padding: var(--space-3);
-    border-radius: var(--radius-md);
-    margin-bottom: var(--space-2);
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 8px;
 }
 
 .message.success {
-    background-color: rgba(16, 185, 129, 0.1);
-    color: #10B981;
+  background-color: rgba(16, 185, 129, 0.1);
+  color: #10b981;
 }
 
 .message.error {
-    background-color: rgba(239, 68, 68, 0.1);
-    color: #EF4444;
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
 }
 
 .message.info {
-    background-color: rgba(59, 130, 246, 0.1);
-    color: #3B82F6;
+  background-color: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
 }
 
 .message .material-symbols-outlined {
-    font-size: 1.25rem;
+  font-size: 20px;
 }
 
 .message p {
-    margin: 0;
+  margin: 0;
 }
 
 /* Адаптивность */
 @media (max-width: 1024px) {
-    .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 768px) {
-    .profile-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .profile-header-content {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    .profile-info {
-        text-align: center;
-    }
-    
-    .profile-meta {
-        justify-content: center;
-    }
-    
-    .form-row {
-        grid-template-columns: 1fr;
-    }
-    
-    .avatar-upload {
-        flex-direction: column;
-    }
-    
-    .quick-actions {
-        grid-template-columns: 1fr;
-    }
+  .profile-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-header-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .profile-info {
+    text-align: center;
+  }
+
+  .profile-meta {
+    justify-content: center;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .avatar-upload {
+    flex-direction: column;
+  }
+
+  .quick-actions {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 640px) {
-    .profile-actions {
-        width: 100%;
-    }
-    
-    .profile-actions .btn {
-        width: 100%;
-    }
-    
-    .stats-grid {
-        grid-template-columns: 1fr;
-    }
+  .profile-actions {
+    width: 100%;
+  }
+
+  .profile-actions .btn {
+    width: 100%;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
 }

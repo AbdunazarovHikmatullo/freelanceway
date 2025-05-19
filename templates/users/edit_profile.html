@@ -21,7 +21,7 @@
         <div class="form-container">
             <div class="form-header">
                 <h1>Редактирование профиля</h1>
-                <p class="text-muted">Обновите информацию о себе</p>
+                <p>Обновите информацию о себе</p>
             </div>
             
             {% if messages %}
@@ -49,7 +49,7 @@
                         <img src="{{ user.get_avatar_url }}" alt="{{ user.username }}" id="avatar-preview">
                     </div>
                     <div class="avatar-actions">
-                        <label for="{{ form.avatar.id_for_label }}" class="btn btn-outline btn-sm">
+                        <label for="{{ form.avatar.id_for_label }}" class="btn btn-outline">
                             <span class="material-symbols-outlined">upload</span>
                             Загрузить фото
                         </label>

@@ -135,9 +135,7 @@
                 </div>
                 
                 <div class="freelancer-footer">
-                    <div class="freelancer-footer">
-                        <a href="{% url 'users:public_profile' freelancer.user.username %}" class="btn btn-primary">Связаться</a>
-                    </div>
+                    <a href="{% url 'users:public_profile' freelancer.user.username %}" class="btn btn-primary">Связаться</a>
                 </div>
             </div>
             {% endfor %}

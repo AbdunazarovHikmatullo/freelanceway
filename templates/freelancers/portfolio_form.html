@@ -21,7 +21,7 @@
         <div class="form-container">
             <div class="form-header">
                 <h1>{% if is_edit %}Редактирование проекта{% else %}Добавление проекта в портфолио{% endif %}</h1>
-                <p class="text-muted">Расскажите о своем проекте, чтобы привлечь больше клиентов</p>
+                <p>Расскажите о своем проекте, чтобы привлечь больше клиентов</p>
             </div>
             
             {% if messages %}
@@ -93,7 +93,7 @@
                         </div>
                         {% endif %}
                         <div class="image-actions">
-                            <label for="{{ form.image.id_for_label }}" class="btn btn-outline btn-sm">
+                            <label for="{{ form.image.id_for_label }}" class="btn btn-outline">
                                 <span class="material-symbols-outlined">upload</span>
                                 Загрузить изображение
                             </label>

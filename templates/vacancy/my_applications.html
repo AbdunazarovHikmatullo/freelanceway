@@ -6,11 +6,10 @@
 {% endblock %}
 
 {% block content %}
-
 <section class="page-header">
     <div class="container">
         <h1>Мои заявки</h1>
-        <p class="text-muted">Отслеживайте статус ваших заявок на проекты</p>
+        <p>Отслеживайте статус ваших заявок на проекты</p>
     </div>
 </section>
 
@@ -29,7 +28,7 @@
     </div>
 </section>
 
-<!-- Список заявок -->
+&lt;!-- Список заявок -->
 <section class="applications-section">
     <div class="container">
         {% if page_obj %}
@@ -49,7 +48,7 @@
                 </div>
                 <div class="application-footer">
                     <a href="{% url 'vacancy:vacancy_detail' vacancy_id=application.vacancy.id %}"
-                        class="btn btn-outline btn-sm">Подробнее</a>
+                        class="btn btn-outline">Подробнее</a>
                 </div>
             </div>
             {% endfor %}
@@ -67,5 +66,4 @@
         {% endif %}
     </div>
 </section>
-
 {% endblock %}

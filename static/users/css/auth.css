@@ -1,242 +1,242 @@
 /* Стили для страниц аутентификации */
 
 .auth-section {
-    padding: var(--space-16) 0;
-    min-height: calc(100vh - 4rem - 1px);
-    display: flex;
-    align-items: center;
+  padding: 60px 0;
+  min-height: calc(100vh - 70px);
+  display: flex;
+  align-items: center;
 }
 
 .auth-container {
-    max-width: 480px;
-    margin: 0 auto;
+  max-width: 480px;
+  margin: 0 auto;
 }
 
 .auth-card {
-    background-color: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  overflow: hidden;
 }
 
 .auth-header {
-    padding: var(--space-6);
-    text-align: center;
-    border-bottom: 1px solid var(--border-color);
+  padding: 24px;
+  text-align: center;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .auth-header h1 {
-    font-size: 1.5rem;
-    margin-bottom: var(--space-2);
+  font-size: 24px;
+  margin-bottom: 8px;
 }
 
 .auth-form {
-    padding: var(--space-6);
+  padding: 24px;
 }
 
 .form-group {
-    margin-bottom: var(--space-4);
+  margin-bottom: 20px;
 }
 
 .form-group label {
-    display: block;
-    margin-bottom: var(--space-2);
-    font-weight: 500;
-    font-size: 0.9375rem;
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  font-size: 15px;
 }
 
-.form-input {
-    width: 100%;
-    padding: var(--space-3);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    font-size: 0.9375rem;
-    transition: border-color var(--transition-fast);
+.form-group input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  font-size: 15px;
+  transition: border-color 0.2s ease;
 }
 
-.form-input:focus {
-    outline: none;
-    border-color: var(--primary);
+.form-group input:focus {
+  outline: none;
+  border-color: var(--color-primary);
 }
 
 .form-options {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: var(--space-4);
-    font-size: 0.875rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  font-size: 14px;
 }
 
 .remember-me {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .forgot-password {
-    color: var(--primary);
+  color: var(--color-accent);
 }
 
 .btn-block {
-    width: 100%;
-    padding: var(--space-3) var(--space-4);
-    font-size: 1rem;
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 16px;
 }
 
 .auth-footer {
-    padding: var(--space-4) var(--space-6);
-    text-align: center;
-    border-top: 1px solid var(--border-color);
-    font-size: 0.9375rem;
+  padding: 16px 24px;
+  text-align: center;
+  border-top: 1px solid var(--color-border);
+  font-size: 15px;
 }
 
 .auth-footer a {
-    color: var(--primary);
-    font-weight: 500;
+  color: var(--color-accent);
+  font-weight: 500;
 }
 
 /* Сообщения */
 .messages {
-    margin-bottom: var(--space-4);
+  margin-bottom: 20px;
 }
 
 .message {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--space-2);
-    padding: var(--space-3);
-    border-radius: var(--radius-md);
-    margin-bottom: var(--space-2);
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 8px;
 }
 
 .message.success {
-    background-color: rgba(16, 185, 129, 0.1);
-    color: #10B981;
+  background-color: rgba(16, 185, 129, 0.1);
+  color: #10b981;
 }
 
 .message.error {
-    background-color: rgba(239, 68, 68, 0.1);
-    color: #EF4444;
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
 }
 
 .message.info {
-    background-color: rgba(59, 130, 246, 0.1);
-    color: #3B82F6;
+  background-color: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
 }
 
 .message .material-symbols-outlined {
-    font-size: 1.25rem;
+  font-size: 20px;
 }
 
 .message p {
-    margin: 0;
+  margin: 0;
 }
 
 /* Ошибки формы */
 .form-errors,
 .field-errors {
-    background-color: rgba(239, 68, 68, 0.1);
-    border-radius: var(--radius-md);
-    padding: var(--space-3);
-    margin-bottom: var(--space-4);
+  background-color: rgba(239, 68, 68, 0.1);
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 16px;
 }
 
 .error-message {
-    color: #EF4444;
-    font-size: 0.875rem;
-    margin: 0;
+  color: #ef4444;
+  font-size: 14px;
+  margin: 0;
 }
 
 .field-errors {
-    margin-top: var(--space-2);
-    margin-bottom: 0;
+  margin-top: 8px;
+  margin-bottom: 0;
 }
 
 /* Выбор типа пользователя */
 .user-type-group {
-    margin-bottom: var(--space-6);
+  margin-bottom: 24px;
 }
 
 .user-type-options {
-    display: flex;
-    gap: var(--space-4);
-    margin-top: var(--space-2);
+  display: flex;
+  gap: 16px;
+  margin-top: 8px;
 }
 
 .user-type-option {
-    flex: 1;
-    position: relative;
+  flex: 1;
+  position: relative;
 }
 
 .user-type-option input[type="radio"] {
-    position: absolute;
-    opacity: 0;
-    width: 0;
-    height: 0;
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
 }
 
 .user-type-option label {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: var(--space-4);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
-    cursor: pointer;
-    transition: all var(--transition-fast);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .user-type-option input[type="radio"]:checked + label {
-    border-color: var(--primary);
-    background-color: rgba(37, 99, 235, 0.05);
+  border-color: var(--color-primary);
+  background-color: rgba(255, 204, 0, 0.05);
 }
 
 .user-type-icon {
-    margin-bottom: var(--space-2);
+  margin-bottom: 8px;
 }
 
 .user-type-icon .material-symbols-outlined {
-    font-size: 2rem;
-    color: var(--primary);
+  font-size: 32px;
+  color: var(--color-primary);
 }
 
 .user-type-label {
-    font-weight: 600;
-    margin-bottom: var(--space-1);
+  font-weight: 600;
+  margin-bottom: 4px;
 }
 
 .user-type-desc {
-    font-size: 0.8125rem;
-    color: var(--text-muted);
-    text-align: center;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  text-align: center;
 }
 
 /* Соглашение с условиями */
 .terms-agreement {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--space-2);
-    margin-bottom: var(--space-4);
-    font-size: 0.875rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 20px;
+  font-size: 14px;
 }
 
 .terms-agreement input {
-    margin-top: 0.25rem;
+  margin-top: 4px;
 }
 
 .terms-agreement a {
-    color: var(--primary);
+  color: var(--color-accent);
 }
 
 /* Адаптивность */
 @media (max-width: 640px) {
-    .auth-section {
-        padding: var(--space-8) 0;
-    }
-    
-    .user-type-options {
-        flex-direction: column;
-    }
+  .auth-section {
+    padding: 40px 0;
+  }
+
+  .user-type-options {
+    flex-direction: column;
+  }
 }
