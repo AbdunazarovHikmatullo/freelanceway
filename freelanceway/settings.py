@@ -6,10 +6,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-ru_8a(b^ppzcnx%(6vssj7uu&6tr$j8is3r)@s)=03wg=pf$#6'
 
-DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
-
-ALLOWED_HOSTS = ['127.0.0.1','freelanceway.onrender.com','freelanceway.com','www.freelanceway.com','localhost']
-
+DEBUG = True  # на сервере
+ALLOWED_HOSTS = ['127.0.0.1', 'freelanceway.onrender.com', 'freelanceway.com', 'www.freelanceway.com', 'localhost']
 
 # Application definition
 
@@ -37,15 +35,16 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    
 ]
+
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 ROOT_URLCONF = 'freelanceway.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR, 'templates'],
+        # Исправлено: путь к шаблонам должен быть абсолютным
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -60,11 +59,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'freelanceway.wsgi.application'
 
-
 # Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
-
 if DEBUG:
     DATABASES = {
         'default': {
@@ -76,7 +71,6 @@ if DEBUG:
             'PORT': '5432',
         }
     }
-    
 else:
     DATABASES = {
         'default': {
@@ -88,8 +82,6 @@ else:
             'PORT': '5432',
         }
     }
-
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -106,28 +98,23 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
-# https://docs.djangoproject.com/en/5.2/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
 
-
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-LOGIN_URL = 'users/login/'
+# Исправлено: LOGIN_URL должен быть именем маршрута или абсолютным путем
+LOGIN_URL = '/users/login/'
 LOGIN_REDIRECT_URL = '/profile/'
 
 AUTH_USER_MODEL = 'users.User'
