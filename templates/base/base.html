@@ -29,13 +29,14 @@
                     <li><a href="{% url 'index' %}" class="{% if request.path == '/' %}active{% endif %}">Главная</a>
                     </li>
                     <li><a href="{% url 'vacancy:vacancies_list' %}"
-                            class="{% if '/vacancy' in request.path %}active{% endif %}">Проекты</a></li>
+                            class="{% if '/vacancy' in request.path %}active{% endif %}">Ваканций</a></li>
                     <li><a href="{% url 'freelancers_list' %}"
                             class="{% if '/freelancers' in request.path %}active{% endif %}">Фрилансеры</a></li>
                     <li><a href="{% url 'about' %}" class="{% if '/about' in request.path %}active{% endif %}">О нас</a>
                     </li>
                     <li><a href="{% url 'contacts' %}"
-                            class="{% if '/contacts' in request.path %}active{% endif %}">Контакты</a></li>
+                            class="{% if '/contacts' in request.path %}active{% endif %}">Контакты</a>
+                    </li>
                 </ul>
             </nav>
 

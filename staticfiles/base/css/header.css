@@ -27,14 +27,21 @@ header {
   display: flex;
   align-items: center;
   gap: var(--space-2);
+  gap: 1rem;
 }
-
+.logo a{
+  color: var(--text-color);
+}
 .logo:hover {
   color: var(--primary);
 }
 
 .logo-icon {
   color: var(--primary);
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  
 }
 
 /* Навигация */
@@ -74,6 +81,27 @@ nav ul li a.active::after {
   align-items: center;
   gap: var(--space-3);
 }
+
+
+.profile-badge-header{
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  padding: 10px;
+  border-radius: 1rem;
+  gap: 8px;
+}
+
+
+.profile-badge-header img{
+  width: 30px;
+  height: 30px;
+}
+
 
 /* Мобильное меню */
 .burger {
@@ -122,6 +150,8 @@ nav ul li a.active::after {
   color: var(--primary);
 }
 
+
+
 [data-theme="dark"] .mobile-menu ul li a:hover,
 [data-theme="dark"] .mobile-menu ul li a.active {
   background-color: rgba(255, 255, 255, 0.1);
@@ -143,6 +173,9 @@ nav ul li a.active::after {
   
   .header-actions {
     gap: var(--space-2);
+  }
+  .logo span{
+    display: none;
   }
   
   /* Скрываем кнопки входа и регистрации на маленьких экранах */
