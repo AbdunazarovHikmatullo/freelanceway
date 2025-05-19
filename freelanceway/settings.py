@@ -60,28 +60,16 @@ TEMPLATES = [
 WSGI_APPLICATION = 'freelanceway.wsgi.application'
 
 # Database
-if DEBUG:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'freelanceway',
-            'USER': 'freelanceuser',
-            'PASSWORD': 'Hikmatullo2008_8002',
-            'HOST': 'localhost',
-            'PORT': '5432',
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'freelanceway',
+        'USER': 'freelanceuser',
+        'PASSWORD': 'mGO3pgCs5gjlhJeWfB8QPOadZYykz09G',
+        'HOST': 'dpg-d0ldg87fte5s739dkhs0-a.oregon-postgres.render.com',
+        'PORT': '5432',
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'freelanceway',
-            'USER': 'freelanceuser',
-            'PASSWORD': 'mGO3pgCs5gjlhJeWfB8QPOadZYykz09G',
-            'HOST': 'dpg-d0ldg87fte5s739dkhs0-a.oregon-postgres.render.com',
-            'PORT': '5432',
-        }
-    }
+}
 
 AUTH_PASSWORD_VALIDATORS = [
     {
