@@ -1,0 +1,111 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'freelancers/css/freelancer.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="profile-header">
+    <div class="container">
+        <div class="profile-main-info">
+            {% if freelancer.user.avatar %}
+            <img src="{{ freelancer.user.avatar.url }}" alt="{{ freelancer.user.username }}" class="profile-avatar">
+            {% else %}
+            <img src="{% static 'main/img/placeholder.png' %}" alt="{{ freelancer.user.username }}" class="profile-avatar">
+            {% endif %}
+            <div>
+                <h1>{{ freelancer.user.get_full_name|default:freelancer.user.username }}</h1>
+                <p class="profile-headline">{{ freelancer.headline }}</p>
+                <div class="profile-rating">
+                    {% for _ in "12345"|slice:":freelancer.rating"|default:"0" %}
+                    <span class="material-symbols-outlined">star</span>
+                    {% endfor %}
+                    <span>{{ freelancer.rating|default:"-" }}</span>
+                    <span class="text-muted">({{ freelancer.reviews_count|default:"0" }} отзывов)</span>
+                </div>
+                <div class="profile-meta">
+                    <span>Опыт: {{ freelancer.experience|default:"не указан" }}</span>
+                    <span>Ставка: ₽{{ freelancer.hourly_rate|default:"-" }}/ч</span>
+                    <span>Доступность: {{ freelancer.get_availability_display }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="profile-content">
+    <div class="container">
+        <div class="profile-columns">
+            <div class="profile-left">
+                <div class="profile-card">
+                    <h2>О себе</h2>
+                    <p>{{ freelancer.about|default:"Пользователь не добавил описание." }}</p>
+                </div>
+                <div class="profile-card">
+                    <h2>Портфолио</h2>
+                    {% if portfolio_items %}
+                        <div class="portfolio-list">
+                            {% for item in portfolio_items %}
+                            <div class="portfolio-item">
+                                {% if item.image %}
+                                <img src="{{ item.image.url }}" alt="{{ item.title }}">
+                                {% endif %}
+                                <h4>{{ item.title }}</h4>
+                                <p>{{ item.description|truncatewords:20 }}</p>
+                                {% if item.link %}
+                                <a href="{{ item.link }}" target="_blank" class="btn btn-sm btn-outline">Смотреть</a>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p class="text-muted">Портфолио пока не добавлено.</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="profile-right">
+                <div class="profile-card">
+                    <h2>Отзывы</h2>
+                    {% if reviews %}
+                        <div class="reviews-list">
+                            {% for review in reviews %}
+                            <div class="review-item">
+                                <div class="review-header">
+                                    <strong>{{ review.author.get_full_name|default:review.author.username }}</strong>
+                                    <span class="review-rating">
+                                        {% for _ in "12345"|slice:":review.rating"|default:"0" %}
+                                        <span class="material-symbols-outlined">star</span>
+                                        {% endfor %}
+                                        <span>{{ review.rating }}</span>
+                                    </span>
+                                </div>
+                                <p>{{ review.text }}</p>
+                                <span class="review-date">{{ review.created_at|date:"d.m.Y" }}</span>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p class="text-muted">У пользователя пока нет отзывов.</p>
+                    {% endif %}
+
+                    {% if can_review %}
+                    <div class="review-form">
+                        <h3>Оставить отзыв</h3>
+                        <form method="post">
+                            {% csrf_token %}
+                            {{ review_form.as_p }}
+                            <button type="submit" class="btn btn-primary btn-sm">Отправить</button>
+                        </form>
+                    </div>
+                    {% elif user_review %}
+                    <div class="alert alert-info">
+                        Вы уже оставили отзыв этому фрилансеру.
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

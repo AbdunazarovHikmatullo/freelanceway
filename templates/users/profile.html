@@ -206,11 +206,15 @@
                                 <span class="material-symbols-outlined">work</span>
                             </div>
                             <div class="activity-content">
-                                <h3><a href="{% url 'vacancy:vacancy_detail' vacancy_id=vacancy.id %}">{{ vacancy.title
-                                        }}</a></h3>
+                                <h3>
+                                    <a href="{% url 'vacancy:vacancy_detail' vacancy_id=vacancy.id %}">
+                                    {{ vacancy.title}}
+                                </a>
+                                </h3>
                                 <div class="activity-meta">
-                                    <span class="activity-status status-{{ vacancy.status }}">{{
-                                        vacancy.get_status_display }}</span>
+                                    <span class="activity-status status-{{ vacancy.status }}">
+                                        {{ vacancy.get_status_display }}
+                                    </span>
                                     <span class="activity-date">{{ vacancy.created_at|date:"d.m.Y" }}</span>
                                 </div>
                                 <p>{{ vacancy.description|truncatechars:100 }}</p>

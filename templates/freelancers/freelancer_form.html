@@ -228,7 +228,7 @@
                 </div>
                 
                 <div class="form-actions">
-                    <a href="{% url 'profile' %}" class="btn btn-outline">Отмена</a>
+                    <a href="{% url 'users:profile' %}" class="btn btn-outline">Отмена</a>
                     <button type="submit" class="btn btn-primary">{% if is_edit %}Сохранить изменения{% else %}Создать профиль{% endif %}</button>
                 </div>
             </form>
