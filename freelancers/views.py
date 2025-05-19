@@ -99,7 +99,7 @@ def create_freelancer_profile(request):
             form.save_m2m()
             
             messages.success(request, 'Профиль фрилансера успешно создан!')
-            return redirect('users:profile', username=request.user.username)
+            return redirect('users:profile')
     else:
         form = FreelancerProfileForm()
     
@@ -124,7 +124,7 @@ def edit_freelancer_profile(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Профиль фрилансера успешно обновлен!')
-            return redirect('freelancer_detail', username=request.user.username)
+            return redirect('users:profile')
     else:
         form = FreelancerProfileForm(instance=freelancer)
     
