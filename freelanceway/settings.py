@@ -1,18 +1,12 @@
 from pathlib import Path
 import os
-
+import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-ru_8a(b^ppzcnx%(6vssj7uu&6tr$j8is3r)@s)=03wg=pf$#6'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = ['127.0.0.1','freelanceway.onrender.com','freelanceway.com','www.freelanceway.com','localhost']
 
@@ -70,16 +64,31 @@ WSGI_APPLICATION = 'freelanceway.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'freelanceway',
-        'USER': 'freelanceuser',
-        'PASSWORD': 'Hikmatullo2008_8002',
-        'HOST': 'localhost',
-        'PORT': '5432',
+
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'freelanceway',
+            'USER': 'freelanceuser',
+            'PASSWORD': 'Hikmatullo2008_8002',
+            'HOST': 'localhost',
+            'PORT': '5432',
+        }
     }
-}
+    
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'freelanceway',
+            'USER': 'freelanceuser',
+            'PASSWORD': 'mGO3pgCs5gjlhJeWfB8QPOadZYykz09G',
+            'HOST': 'dpg-d0ldg87fte5s739dkhs0-a.oregon-postgres.render.com',
+            'PORT': '5432',
+        }
+    }
+
 
 
 AUTH_PASSWORD_VALIDATORS = [

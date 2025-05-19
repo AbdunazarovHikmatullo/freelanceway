@@ -13,10 +13,12 @@
 │   ├── migrations
 │   │   ├── 0001_initial.py
 │   │   ├── 0002_initial.py
+│   │   ├── 0003_freelancer_phone_number.py
 │   │   ├── __init__.py
 │   │   └── __pycache__
 │   │       ├── 0001_initial.cpython-312.pyc
 │   │       ├── 0002_initial.cpython-312.pyc
+│   │       ├── 0003_freelancer_phone_number.cpython-312.pyc
 │   │       └── __init__.cpython-312.pyc
 │   ├── models.py
 │   ├── __pycache__
@@ -62,8 +64,12 @@
 │   └── views.py
 ├── manage.py
 ├── media
-│   └── avatars
-│       └── placeholder.png
+│   ├── avatars
+│   │   └── placeholder.png
+│   └── portfolio
+│       ├── Снимок_экрана_от_2025-05-13_22-39-42_FDN4g1q.png
+│       ├── Снимок_экрана_от_2025-05-13_22-39-42.png
+│       └── Снимок_экрана_от_2025-05-13_22-39-42_rExK9jt.png
 ├── notifications
 │   ├── admin.py
 │   ├── apps.py
@@ -412,4 +418,4 @@
     ├── urls.py
     └── views.py
 
-96 directories, 317 files
+97 directories, 322 files
