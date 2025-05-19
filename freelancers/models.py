@@ -54,7 +54,7 @@ class Freelancer(models.Model):
     rating = models.DecimalField(max_digits=3, decimal_places=2, default=0.00)
     reviews_count = models.PositiveIntegerField(default=0)
     completed_projects = models.PositiveIntegerField(default=0)
-    
+    phone_number = models.CharField(blank=True, null=True)
     # Дополнительные поля
     is_verified = models.BooleanField(default=False, help_text="Подтвержденный фрилансер")
     is_featured = models.BooleanField(default=False, help_text="Отображать в списке рекомендуемых")

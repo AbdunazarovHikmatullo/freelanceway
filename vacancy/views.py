@@ -261,7 +261,7 @@ def my_applications(request):
     except Freelancer.DoesNotExist:
         messages.error(request, 'У вас нет профиля фрилансера!')
         return redirect('vacancy:vacancies_list')
-    
+
     applications = Application.objects.filter(freelancer=freelancer).order_by('-created_at')
     
     # Фильтрация по статусу

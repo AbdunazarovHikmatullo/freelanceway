@@ -17,10 +17,14 @@
 <section class="filters-section">
     <div class="container">
         <div class="status-filters">
-            <a href="{% url 'vacancy:my_applications' %}" class="status-filter {% if not selected_status %}active{% endif %}">Все</a>
-            <a href="{% url 'vacancy:my_applications' %}?status=pending" class="status-filter {% if selected_status == 'pending' %}active{% endif %}">На рассмотрении</a>
-            <a href="{% url 'vacancy:my_applications' %}?status=accepted" class="status-filter {% if selected_status == 'accepted' %}active{% endif %}">Принятые</a>
-            <a href="{% url 'vacancy:my_applications' %}?status=rejected" class="status-filter {% if selected_status == 'rejected' %}active{% endif %}">Отклоненные</a>
+            <a href="{% url 'vacancy:my_applications' %}"
+                class="status-filter {% if not selected_status %}active{% endif %}">Все</a>
+            <a href="{% url 'vacancy:my_applications' %}?status=pending"
+                class="status-filter {% if selected_status == 'pending' %}active{% endif %}">На рассмотрении</a>
+            <a href="{% url 'vacancy:my_applications' %}?status=accepted"
+                class="status-filter {% if selected_status == 'accepted' %}active{% endif %}">Принятые</a>
+            <a href="{% url 'vacancy:my_applications' %}?status=rejected"
+                class="status-filter {% if selected_status == 'rejected' %}active{% endif %}">Отклоненные</a>
         </div>
     </div>
 </section>
@@ -28,9 +32,9 @@
 <!-- Список заявок -->
 <section class="applications-section">
     <div class="container">
-        {% if applications %}
+        {% if page_obj %}
         <div class="applications-list">
-            {% for application in applications %}
+            {% for application in page_obj %}
             <div class="application-card">
                 <div class="application-header">
                     <h3>{{ application.vacancy.title }}</h3>
@@ -40,10 +44,12 @@
                 </div>
                 <div class="application-body">
                     <p>{{ application.vacancy.description|truncatewords:20 }}</p>
-                    <p><strong>Бюджет:</strong> ₽{{ application.vacancy.budget_min }} - ₽{{ application.vacancy.budget_max }}</p>
+                    <p><strong>Бюджет:</strong> ₽
+                        {{ application.vacancy.budget_min }} - ₽{{application.vacancy.budget_max }}</p>
                 </div>
                 <div class="application-footer">
-                    <a href="{% url 'vacancy:vacancy_detail' vacancy_id=application.vacancy.id %}" class="btn btn-outline btn-sm">Подробнее</a>
+                    <a href="{% url 'vacancy:vacancy_detail' vacancy_id=application.vacancy.id %}"
+                        class="btn btn-outline btn-sm">Подробнее</a>
                 </div>
             </div>
             {% endfor %}

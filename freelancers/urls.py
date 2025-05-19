@@ -10,5 +10,4 @@ urlpatterns = [
     path('portfolio/<int:item_id>/delete/', views.delete_portfolio_item, name='delete_portfolio_item'),
     path('review/<int:review_id>/delete/', views.delete_review, name='delete_review'),
     path('api/featured/', views.featured_freelancers, name='featured_freelancers'),
-    path('<str:username>/', views.freelancer_detail, name='freelancer_detail'),
 ]

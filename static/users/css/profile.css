@@ -86,6 +86,16 @@
 .profile-badge.freelancer {
     background-color: rgba(139, 92, 246, 0.1);
     color: #8B5CF6;
+    display: flex;
+    max-width: max-content;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+}
+.profile-badge .freelancer .icon{
+    width: 20px;
+    height: 20px;
 }
 
 .profile-badge.client {

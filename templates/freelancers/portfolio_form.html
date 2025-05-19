@@ -9,7 +9,7 @@
 <!-- Хлебные крошки -->
 <div class="breadcrumbs">
     <div class="container">
-        <a href="{% url 'freelancer_detail' username=request.user.username %}">Мой профиль</a>
+        <a href="{% url 'users:profile' %}">Мой профиль</a>
         <span class="material-symbols-outlined">chevron_right</span>
         <span>{% if is_edit %}Редактирование проекта{% else %}Добавление проекта{% endif %}</span>
     </div>
@@ -111,7 +111,7 @@
                 </div>
                 
                 <div class="form-actions">
-                    <a href="{% url 'freelancer_detail' username=request.user.username %}" class="btn btn-outline">Отмена</a>
+                    <a href="{% url 'users:profile' %}" class="btn btn-outline">Отмена</a>
                     <button type="submit" class="btn btn-primary">{% if is_edit %}Сохранить изменения{% else %}Добавить проект{% endif %}</button>
                 </div>
             </form>

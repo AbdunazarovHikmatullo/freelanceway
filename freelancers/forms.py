@@ -15,7 +15,7 @@ class FreelancerProfileForm(forms.ModelForm):
         fields = [
             'headline', 'bio', 'skills', 'experience', 'hourly_rate', 
             'availability', 'telegram', 'whatsapp',
-            'portfolio_url', 'education', 'certifications', 'categories'
+            'portfolio_url', 'education', 'certifications', 'categories','phone_number'
         ]
         widgets = {
             'headline': forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Например: Опытный веб-разработчик'}),

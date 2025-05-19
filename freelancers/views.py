@@ -72,66 +72,6 @@ def freelancers_list(request):
     
     return render(request, 'freelancers/freelancers_list.html', context)
 
-
-def freelancer_detail(request, username):
-    """Отображение детальной информации о фрилансере"""
-    user = get_object_or_404(User, username=username, is_freelancer=True)
-    freelancer = get_object_or_404(Freelancer, user=user)
-    
-    # Получаем портфолио фрилансера
-    portfolio_items = Portfolio.objects.filter(freelancer=freelancer)
-    
-    # Получаем отзывы о фрилансере
-    reviews = Review.objects.filter(freelancer=freelancer).select_related('author')
-    
-    # Проверяем, может ли текущий пользователь оставить отзыв
-    can_review = False
-    user_review = None
-    
-    if request.user.is_authenticated and request.user != user:
-        # Проверяем, работал ли пользователь с этим фрилансером
-        # Здесь можно добавить логику проверки завершенных проектов
-        can_review = True
-        
-        # Проверяем, оставлял ли пользователь уже отзыв
-        try:
-            user_review = Review.objects.get(freelancer=freelancer, author=request.user)
-            can_review = False
-        except Review.DoesNotExist:
-            pass
-    
-    # Форма для отзыва
-    if request.method == 'POST' and can_review:
-        review_form = ReviewForm(request.POST)
-        if review_form.is_valid():
-            review = review_form.save(commit=False)
-            review.freelancer = freelancer
-            review.author = request.user
-            review.save()
-            
-            # Обновляем рейтинг фрилансера
-            avg_rating = Review.objects.filter(freelancer=freelancer).aggregate(Avg('rating'))['rating__avg']
-            freelancer.rating = avg_rating
-            freelancer.reviews_count = reviews.count() + 1
-            freelancer.save()
-            
-            messages.success(request, 'Ваш отзыв успешно добавлен!')
-            return redirect('freelancer_detail', username=username)
-    else:
-        review_form = ReviewForm()
-    
-    context = {
-        'freelancer': freelancer,
-        'portfolio_items': portfolio_items,
-        'reviews': reviews,
-        'can_review': can_review,
-        'user_review': user_review,
-        'review_form': review_form,
-    }
-    
-    return render(request, 'freelancers/freelancer_detail.html', context)
-
-
 @login_required
 def create_freelancer_profile(request):
     """Создание профиля фрилансера"""
@@ -159,7 +99,7 @@ def create_freelancer_profile(request):
             form.save_m2m()
             
             messages.success(request, 'Профиль фрилансера успешно создан!')
-            return redirect('freelancer_detail', username=request.user.username)
+            return redirect('users:profile', username=request.user.username)
     else:
         form = FreelancerProfileForm()
     
@@ -255,7 +195,7 @@ def add_portfolio_item(request):
             portfolio_item.freelancer = freelancer
             portfolio_item.save()
             messages.success(request, 'Проект успешно добавлен в портфолио!')
-            return redirect('freelancer_detail', username=request.user.username)
+            return redirect('users:profile')
     else:
         form = PortfolioForm()
     
@@ -274,7 +214,7 @@ def edit_portfolio_item(request, item_id):
         if form.is_valid():
             form.save()
             messages.success(request, 'Проект успешно обновлен!')
-            return redirect('freelancer_detail', username=request.user.username)
+            return redirect('users:profile', username=request.user.username)
     else:
         form = PortfolioForm(instance=portfolio_item)
     

@@ -1,52 +1,65 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="ru" data-theme="dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FreelanceWay - Найдите лучших фрилансеров</title>
-    <link rel="stylesheet" href="{% static 'base/css/base.css' %}">
-    <link rel="stylesheet" href="{% static 'base/css/header.css' %}">
+
     <link rel="icon" href="{% static 'base/img/logo.svg' %}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+        rel="stylesheet">
     {% block extra_css %}{% endblock %}
+    <link rel="stylesheet" href="{% static 'base/css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'base/css/base.css' %}">
 </head>
+
 <body>
     <header>
         <div class="header-container">
             <a href="{% url 'index' %}" class="logo">
-                <span class="material-symbols-outlined logo-icon">code</span>
+                <img src="{% static 'base/img/logo.svg' %}" alt="" class="logo-icon">
                 <span>FreelanceWay</span>
             </a>
-            
+
             <nav>
                 <ul>
-                    <li><a href="{% url 'index' %}" class="{% if request.path == '/' %}active{% endif %}">Главная</a></li>
-                    <li><a href="{% url 'vacancy:vacancies_list' %}" class="{% if '/vacancy' in request.path %}active{% endif %}">Проекты</a></li>
-                    <li><a href="{% url 'freelancers_list' %}" class="{% if '/freelancers' in request.path %}active{% endif %}">Фрилансеры</a></li>
-                    <li><a href="{% url 'about' %}" class="{% if '/about' in request.path %}active{% endif %}">О нас</a></li>
-                    <li><a href="{% url 'contacts' %}" class="{% if '/contacts' in request.path %}active{% endif %}">Контакты</a></li>
+                    <li><a href="{% url 'index' %}" class="{% if request.path == '/' %}active{% endif %}">Главная</a>
+                    </li>
+                    <li><a href="{% url 'vacancy:vacancies_list' %}"
+                            class="{% if '/vacancy' in request.path %}active{% endif %}">Проекты</a></li>
+                    <li><a href="{% url 'freelancers_list' %}"
+                            class="{% if '/freelancers' in request.path %}active{% endif %}">Фрилансеры</a></li>
+                    <li><a href="{% url 'about' %}" class="{% if '/about' in request.path %}active{% endif %}">О нас</a>
+                    </li>
+                    <li><a href="{% url 'contacts' %}"
+                            class="{% if '/contacts' in request.path %}active{% endif %}">Контакты</a></li>
                 </ul>
             </nav>
-            
+
             <div class="header-actions">
                 {% if user.is_authenticated %}
-                    <a href="{% url 'users:profile' %}" class="btn btn-outline btn-sm auth-btn">
-                        <span class="btn-text">Профиль</span>
+                <button class="profile-badge-header">
+                    {% if user.avatar %}
+                    <img src="{{ user.avatar.url }}" alt="" class="profile-pic">
+                    {% else %}
+                    <img src="{% static 'users/img/default-avatar.png' %}" alt="" class="profile-pic">
+                    {% endif %}
+                    <a href="{% url 'users:profile' %}">
+                        {{ request.user.username }}
                     </a>
-                    <a href="{% url 'users:logout' %}" class="btn btn-primary btn-sm auth-btn">
-                        <span class="btn-text">Выйти</span>
-                    </a>
+                </button>
                 {% else %}
-                    <a href="{% url 'users:login' %}" class="btn btn-outline btn-sm auth-btn">
-                        <span class="btn-text">Войти</span>
-                    </a>
-                    <a href="{% url 'users:register' %}" class="btn btn-primary btn-sm auth-btn">
-                        <span class="btn-text">Регистрация</span>
-                    </a>
+                <a href="{% url 'users:login' %}" class="btn btn-outline btn-sm auth-btn">
+                    <span class="btn-text">Войти</span>
+                </a>
+                <a href="{% url 'users:register' %}" class="btn btn-primary btn-sm auth-btn">
+                    <span class="btn-text">Регистрация</span>
+                </a>
                 {% endif %}
-                
+
                 <button id="toggle-theme" class="btn btn-icon btn-ghost" aria-label="Переключить тему">
                     <span id="theme-icon" class="material-symbols-outlined">light_mode</span>
                 </button>
@@ -56,20 +69,23 @@
             </div>
         </div>
     </header>
-    
+
     <div id="mobile-menu" class="mobile-menu">
         <ul>
             <li><a href="{% url 'index' %}" class="{% if request.path == '/' %}active{% endif %}">Главная</a></li>
-            <li><a href="{% url 'vacancy:vacancies_list' %}" class="{% if '/vacancy' in request.path %}active{% endif %}">Проекты</a></li>
-            <li><a href="{% url 'freelancers_list' %}" class="{% if '/freelancers' in request.path %}active{% endif %}">Фрилансеры</a></li>
+            <li><a href="{% url 'vacancy:vacancies_list' %}"
+                    class="{% if '/vacancy' in request.path %}active{% endif %}">Проекты</a></li>
+            <li><a href="{% url 'freelancers_list' %}"
+                    class="{% if '/freelancers' in request.path %}active{% endif %}">Фрилансеры</a></li>
             <li><a href="{% url 'about' %}" class="{% if '/about' in request.path %}active{% endif %}">О нас</a></li>
-            <li><a href="{% url 'contacts' %}" class="{% if '/contacts' in request.path %}active{% endif %}">Контакты</a></li>
+            <li><a href="{% url 'contacts' %}"
+                    class="{% if '/contacts' in request.path %}active{% endif %}">Контакты</a></li>
             {% if user.is_authenticated %}
-                <li><a href="{% url 'users:profile' %}">Профиль</a></li>
-                <li><a href="{% url 'users:logout' %}">Выйти</a></li>
+            <li><a href="{% url 'users:profile' %}">Профиль</a></li>
+            <li><a href="{% url 'users:logout' %}">Выйти</a></li>
             {% else %}
-                <li><a href="{% url 'users:login' %}">Войти</a></li>
-                <li><a href="{% url 'users:register' %}">Регистрация</a></li>
+            <li><a href="{% url 'users:login' %}">Войти</a></li>
+            <li><a href="{% url 'users:register' %}">Регистрация</a></li>
             {% endif %}
         </ul>
     </div>
@@ -83,7 +99,8 @@
             <div class="grid grid-4">
                 <div>
                     <h3 class="footer-title">FreelanceWay</h3>
-                    <p class="text-muted">Платформа, соединяющая талантливых фрилансеров и заказчиков для успешной реализации проектов.</p>
+                    <p class="text-muted">Платформа, соединяющая талантливых фрилансеров и заказчиков для успешной
+                        реализации проектов.</p>
                     <div class="btn-group">
                         <a href="#" class="btn btn-icon btn-ghost" aria-label="Facebook">
                             <span class="material-symbols-outlined">public</span>
@@ -96,7 +113,7 @@
                         </a>
                     </div>
                 </div>
-                
+
                 <div>
                     <h3 class="footer-title">Для фрилансеров</h3>
                     <ul class="footer-links">
@@ -106,7 +123,7 @@
                         <li><a href="#">Безопасная оплата</a></li>
                     </ul>
                 </div>
-                
+
                 <div>
                     <h3 class="footer-title">Для заказчиков</h3>
                     <ul class="footer-links">
@@ -116,7 +133,7 @@
                         <li><a href="#">Отзывы клиентов</a></li>
                     </ul>
                 </div>
-                
+
                 <div>
                     <h3 class="footer-title">Поддержка</h3>
                     <ul class="footer-links">
@@ -127,7 +144,7 @@
                     </ul>
                 </div>
             </div>
-            
+
             <div class="footer-bottom">
                 <p>&copy; {% now "Y" %} FreelanceWay. Все права защищены.</p>
             </div>
@@ -138,4 +155,5 @@
     <script src="{% static 'base/js/theme.js' %}"></script>
     {% block extra_js %}{% endblock %}
 </body>
+
 </html>

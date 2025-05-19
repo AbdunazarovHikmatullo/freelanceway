@@ -17,11 +17,18 @@
                 <h1>{{ user.get_full_name }}</h1>
                 <p class="profile-username">@{{ user.username }}</p>
                 {% if user.is_freelancer %}
-                <span class="profile-badge freelancer">Фрилансер</span>
-
-                <a href="{% url 'create_freelancer_profile' %}" class="btn">
-                    Создать профиль фрилансера
-                </a>
+                    {% if freelancer_profile %}
+                        <span class="profile-badge freelancer">
+                            Фрилансер
+                            <span class="material-symbols-outlined">
+                                verified
+                            </span>
+                        </span>
+                    {% else %}
+                        <a href="{% url 'create_freelancer_profile' %}" class="btn">
+                            Создать профиль фрилансера
+                        </a>
+                    {% endif %}
                 {% endif %}
                 {% if user.is_client %}
                 <span class="profile-badge client">Заказчик</span>
@@ -187,6 +194,10 @@
                             <span class="material-symbols-outlined">description</span>
                             <span>Мои заявки</span>
                         </a>
+                        <a href="{% url 'add_portfolio_item' %}" class="quick-action-btn">
+                            <span class="material-symbols-outlined">description</span>
+                            <span>Разместить партфолио</span>
+                        </a>
                         {% endif %}
                         <a href="{% url 'users:change_password' %}" class="quick-action-btn">
                             <span class="material-symbols-outlined">lock</span>
@@ -208,8 +219,8 @@
                             <div class="activity-content">
                                 <h3>
                                     <a href="{% url 'vacancy:vacancy_detail' vacancy_id=vacancy.id %}">
-                                    {{ vacancy.title}}
-                                </a>
+                                        {{ vacancy.title}}
+                                    </a>
                                 </h3>
                                 <div class="activity-meta">
                                     <span class="activity-status status-{{ vacancy.status }}">
@@ -228,7 +239,7 @@
                     </div>
                     {% endif %}
                 </div>
-                {% elif user.is_freelancer and applications %}
+                {% elif user.s_freelancer and applications %}
                 <div class="profile-card">
                     <h2>Последние заявки</h2>
                     <div class="activity-list">
@@ -238,11 +249,11 @@
                                 <span class="material-symbols-outlined">description</span>
                             </div>
                             <div class="activity-content">
-                                <h3><a href="{% url 'vacancy_detail' vacancy_id=application.vacancy.id %}">{{
-                                        application.vacancy.title }}</a></h3>
+                                <h3><a href="{% url 'vacancy:vacancy_detail' vacancy_id=application.vacancy.id %}">
+                                        {{ application.vacancy.title }}</a></h3>
                                 <div class="activity-meta">
-                                    <span class="activity-status status-{{ application.status }}">{{
-                                        application.get_status_display }}</span>
+                                    <span class="activity-status status-{{ application.status }}">
+                                        {{ application.get_status_display }}</span>
                                     <span class="activity-date">{{ application.created_at|date:"d.m.Y" }}</span>
                                 </div>
                                 <p>{{ application.cover_letter|truncatechars:100 }}</p>

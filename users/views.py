@@ -22,17 +22,13 @@ def register_view(request):
             
             # Если пользователь выбрал тип "фрилансер", создаем профиль фрилансера
             if user.is_freelancer:
-                Freelancer.objects.create(
-                    user=user,
-                    skills='',  # Пустое значение, пользователь заполнит позже
-                    experience='',  # Пустое значение, пользователь заполнит позже
-                )
-            
+                login(request, user)
+                return redirect('create_freelancer_profile')
             # Автоматически входим пользователя после регистрации
             login(request, user)
             messages.success(request, 'Регистрация успешно завершена!')
             
-            # Перенаправляем на страницу профиля для заполнения дополнительной информации
+            
             return redirect('users:profile')
     else:
         form = CustomUserCreationForm()
@@ -82,7 +78,7 @@ def logout_view(request):
     return redirect('index')
 
 
-@login_required
+@login_required(login_url='users:login')
 def profile_view(request):
     """Просмотр профиля пользователя"""
     user = request.user
@@ -134,7 +130,7 @@ def profile_view(request):
     return render(request, 'users/profile.html', context)
 
 
-@login_required
+@login_required(login_url='users:login')
 def edit_profile_view(request):
     """Редактирование профиля пользователя"""
     user = request.user
@@ -150,8 +146,7 @@ def edit_profile_view(request):
     
     return render(request, 'users/edit_profile.html', {'form': form})
 
-
-@login_required
+@login_required(login_url='users:login')
 def change_password_view(request):
     """Изменение пароля пользователя"""
     if request.method == 'POST':
