@@ -22,7 +22,7 @@
                 {% if profile_user.is_client %}
                 <span class="profile-badge client">Заказчик</span>
                 {% endif %}
-                
+
                 <div class="profile-meta">
                     {% if profile_user.location %}
                     <div class="profile-meta-item">
@@ -37,22 +37,84 @@
                 </div>
             </div>
             <div class="profile-actions">
-                {% if profile_user.is_freelancer %}
-                <a href="#" class="btn btn-primary">
-                    <span class="material-symbols-outlined">work</span>
-                    Предложить проект
-                </a>
-                {% endif %}
-                {% if profile_user.is_client %}
-                <a href="#" class="btn btn-primary">
-                    <span class="material-symbols-outlined">mail</span>
-                    Связаться
-                </a>
-                {% endif %}
+                <button id="showContactBtn" class="btn btn-primary">
+                    <span class="material-symbols-outlined">info</span>
+                    Показать контакты
+                </button>
             </div>
         </div>
     </div>
 </section>
+
+<style>
+    .info-card {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .info-content {
+        width: 100%;
+        max-width: 500px;
+        border: 1px solid white;
+        border-radius: 1rem;
+        background-color: #212121;
+    }
+
+    .info-group {
+        padding: 20px;
+    }
+
+    .info-group h4 {
+        color: var(--text-muted);
+        font-size: 15px;
+    }
+</style>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const infoCard = document.getElementById('infoCard');
+    const infoContent = infoCard.querySelector('.info-content');
+
+    function openInfoCard() {
+        infoCard.style.display = 'flex';
+    }
+
+    function closeInfoCard() {
+        infoCard.style.display = 'none';
+    }
+
+    infoCard.addEventListener('click', function(event) {
+        if (!infoContent.contains(event.target)) {
+            closeInfoCard();
+        }
+    });
+
+    const showContactBtn = document.getElementById('showContactBtn');
+    if (showContactBtn) {
+        showContactBtn.addEventListener('click', openInfoCard);
+    }
+});
+</script>
+
+
+
+<div class="info-card" id="infoCard">
+    <div class="info-content">
+        <div class="info-group">
+            <h4>Номер телефона</h4>
+            <h2> {{ profile_user.email }} </h2>
+        </div>
+    </div>
+</div>
 
 <!-- Основное содержимое профиля -->
 <section class="profile-content">
@@ -69,7 +131,7 @@
                     <p>Пользователь не добавил информацию о себе</p>
                     {% endif %}
                 </div>
-                
+
                 <!-- Контактная информация -->
                 <div class="profile-card">
                     <h2>Контактная информация</h2>
@@ -88,7 +150,7 @@
                         {% endif %}
                     </div>
                 </div>
-                
+
                 <!-- Социальные сети -->
                 {% if profile_user.github or profile_user.twitter or profile_user.linkedin %}
                 <div class="profile-card">
@@ -115,7 +177,7 @@
                     </div>
                 </div>
                 {% endif %}
-                
+
                 <!-- Навыки (только для фрилансеров) -->
                 {% if freelancer_profile and freelancer_profile.skills %}
                 <div class="profile-card">
@@ -128,7 +190,7 @@
                 </div>
                 {% endif %}
             </div>
-            
+
             <!-- Правая колонка - портфолио и отзывы -->
             <div class="profile-main">
                 {% if profile_user.is_freelancer and freelancer_profile %}
@@ -141,27 +203,27 @@
                     <p>Пользователь не указал опыт работы</p>
                     {% endif %}
                 </div>
-                
+
                 <!-- Портфолио -->
                 <div class="profile-card">
                     <h2>Портфолио</h2>
                     <p>Портфолио пока не добавлено</p>
                 </div>
-                
+
                 <!-- Отзывы -->
                 <div class="profile-card">
                     <h2>Отзывы</h2>
                     <p>У пользователя пока нет отзывов</p>
                 </div>
                 {% endif %}
-                
+
                 {% if profile_user.is_client %}
                 <!-- Активные проекты -->
                 <div class="profile-card">
                     <h2>Активные проекты</h2>
                     <p>У пользователя нет активных проектов</p>
                 </div>
-                
+
                 <!-- Завершенные проекты -->
                 <div class="profile-card">
                     <h2>Завершенные проекты</h2>
