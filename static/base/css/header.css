@@ -196,6 +196,12 @@ body.menu-open {
   overflow: hidden;
 }
 
+.header-left{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* Адаптивность шапки */
 @media (max-width: 1024px) {
   .username {

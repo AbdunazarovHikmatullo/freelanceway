@@ -20,18 +20,21 @@
     <header class="header">
         <div class="container">
             <div class="header-wrapper">
-                <!-- Логотип -->
                 <a href="{% url 'index' %}" class="logo">
+                    <button id="mobile-menu-toggle" class="mobile-menu-toggle" aria-label="Меню">
+                        <span class="material-symbols-outlined">menu</span>
+                    </button>
                     <img src="{% static 'base/img/logo.svg' %}" alt="FreelanceWay" class="logo-icon">
                     <span class="logo-text">FWay</span>
                 </a>
-
-                <!-- Основная навигация (десктоп) -->
                 <nav class="main-nav">
                     <ul>
-                        <li><a href="{% url 'index' %}" class="{% if request.path == '/' %}active{% endif %}">Главная</a></li>
-                        <li><a href="{% url 'vacancy:vacancies_list' %}" class="{% if '/vacancy' in request.path %}active{% endif %}">Проекты</a></li>
-                        <li><a href="{% url 'freelancers_list' %}" class="{% if '/freelancers' in request.path %}active{% endif %}">Фрилансеры</a></li>
+                        <li><a href="{% url 'index' %}"
+                                class="{% if request.path == '/' %}active{% endif %}">Главная</a></li>
+                        <li><a href="{% url 'vacancy:vacancies_list' %}"
+                                class="{% if '/vacancy' in request.path %}active{% endif %}">Проекты</a></li>
+                        <li><a href="{% url 'freelancers_list' %}"
+                                class="{% if '/freelancers' in request.path %}active{% endif %}">Фрилансеры</a></li>
                     </ul>
                 </nav>
 
@@ -43,7 +46,8 @@
                             {% if user.avatar %}
                             <img src="{{ user.avatar.url }}" alt="{{ user.username }}" class="user-avatar">
                             {% else %}
-                            <img src="{% static 'users/img/default-avatar.png' %}" alt="{{ user.username }}" class="user-avatar">
+                            <img src="{% static 'users/img/default-avatar.png' %}" alt="{{ user.username }}"
+                                class="user-avatar">
                             {% endif %}
                             <span class="user-name">{{ request.user.username }}</span>
                             <span class="material-symbols-outlined">expand_more</span>
@@ -75,10 +79,7 @@
                         <span class="material-symbols-outlined">dark_mode</span>
                     </button>
 
-                    <!-- Кнопка мобильного меню -->
-                    <button id="mobile-menu-toggle" class="mobile-menu-toggle" aria-label="Меню">
-                        <span class="material-symbols-outlined">menu</span>
-                    </button>
+
                 </div>
             </div>
         </div>
@@ -89,9 +90,12 @@
         <div class="container">
             <nav>
                 <ul>
-                    <li><a href="{% url 'index' %}" class="{% if request.path == '/' %}active{% endif %}">Главная</a></li>
-                    <li><a href="{% url 'vacancy:vacancies_list' %}" class="{% if '/vacancy' in request.path %}active{% endif %}">Проекты</a></li>
-                    <li><a href="{% url 'freelancers_list' %}" class="{% if '/freelancers' in request.path %}active{% endif %}">Фрилансеры</a></li>
+                    <li><a href="{% url 'index' %}" class="{% if request.path == '/' %}active{% endif %}">Главная</a>
+                    </li>
+                    <li><a href="{% url 'vacancy:vacancies_list' %}"
+                            class="{% if '/vacancy' in request.path %}active{% endif %}">Проекты</a></li>
+                    <li><a href="{% url 'freelancers_list' %}"
+                            class="{% if '/freelancers' in request.path %}active{% endif %}">Фрилансеры</a></li>
                     {% if user.is_authenticated %}
                     <li class="divider"></li>
                     <li><a href="{% url 'users:profile' %}">Мой профиль</a></li>
@@ -167,5 +171,4 @@
     <script src="{% static 'base/js/dropdown.js' %}"></script>
     {% block extra_js %}{% endblock %}
 </body>
-
 </html>
